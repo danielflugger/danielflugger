@@ -8,14 +8,14 @@ I build production AI systems for industries where the data lives in the physica
 
 Specialized in geospatial intelligence, LLM orchestration, and automated document workflows — specifically in domains where ground truth matters: property, infrastructure, asset verification, and supply chain.
 
-Spent 15 years running a design-build manufacturing firm before moving fully into AI/ML engineering. That means I architect systems with an operator's understanding of where the friction actually is.
+Spent 12 years running a design-build manufacturing firm before moving fully into AI/ML engineering. That means I architect systems with an operator's understanding of where the friction actually is.
 
 ---
 
 ### Current work
 
-- **[NYCID / Trusound LLC](https://github.com/danielflugger)** — GCP-native asset intelligence platform for physical property verification
-- **Google for Developers** — ML pipelines, GIS platforms, and LLM curriculum for 3,000+ developers
+- **[Trusound® Projects](https://github.com/danielflugger)** — GCP-native asset intelligence platform for physical property verification
+- **[Google for Developers](https://g.dev/danielflugger)** — ML pipelines, GIS platforms, and LLM curriculum for 3,000+ developers
 
 ---
 
