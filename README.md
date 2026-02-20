@@ -6,7 +6,7 @@
 
 I build production AI systems for industries where the data lives in the physical world.
 
-Specialized in geospatial intelligence, LLM orchestration, and automated document workflows — specifically in domains where ground truth matters: property, infrastructure, asset verification, and supply chain.
+Specialize in geospatial intelligence, LLM orchestration, and automated document workflows — specifically in domains where ground truth matters: property, infrastructure, asset verification, and supply chain.
 
 Spent 12 years running a design-build manufacturing firm before moving fully into AI/ML engineering. That means I architect systems with an operator's understanding of where the friction actually is.
 
