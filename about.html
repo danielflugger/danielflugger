@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Daniel Flügger</title>
+  <meta name="description" content="Applied AI engineer and founder. 20 years across music, design, and machine learning. Google Startups Accelerator. Building NYCID and VERA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero {
+      padding: 10rem 2.5rem 5rem;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .page-hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .page-hero-label::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero-body {
+      font-size: 1.1rem;
+      max-width: 640px;
+      color: #3a3630;
+      line-height: 1.8;
+    }
+
+    /* two-col layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    .trait-list {
+      list-style: none;
+      margin-top: 2rem;
+    }
+    .trait-list li {
+      padding: 1rem 0;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      gap: 1rem;
+      font-size: 0.95rem;
+      color: #3a3630;
+      line-height: 1.65;
+    }
+    .trait-list li::before {
+      content: '—';
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .trait-list li:last-child { border-bottom: 1px solid var(--rule); }
+
+    .context-block {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 2.5rem;
+      margin-top: 3rem;
+    }
+    .context-block-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e8693a;
+      margin-bottom: 1rem;
+    }
+    .context-block p {
+      font-size: 0.95rem;
+      color: rgba(245,240,232,0.75);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .context-block p:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand">Daniel <span>Flügger</span></a>
+    <ul class="nav-links">
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="https://github.com/danielflugger" target="_blank">GitHub</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="vera.html">VERA</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-label fade-1">About</div>
+    <h1 class="fade-2">Builder by nature.<br><em>Engineer by practice.</em></h1>
+    <p class="page-hero-body fade-3">
+      I'm Daniel Flügger — an applied AI engineer with 20 years of building across music, design, and machine learning. I'm based in New York, currently in the Google Startups Accelerator, and looking for the right full-time engineering role where I can contribute inside a strong team while continuing to build independently.
+    </p>
+  </div>
+
+  <div class="rule"></div>
+
+  <section class="section">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <div class="section-label">The Work</div>
+          <h2 class="section-title">What I actually do.</h2>
+          <p class="section-body prose">
+            <p>My current technical focus is GCP-native AI systems: geospatial intelligence pipelines using PostGIS and BigQuery, retrieval-augmented generation architectures with Vertex AI and the Gemini API, and multi-agent orchestration systems built on FastAPI and Cloud Run.</p>
+            <p>I don't just build prototypes — I build systems designed to operate in production, handle edge cases, and be maintained by someone other than me. Verification, observability, and data sovereignty are built in from day one, not bolted on after.</p>
+            <p>The VERA framework and the Proof Economy essay came out of this practice — my attempt to codify what I've learned about building trustworthy AI systems and what that means for knowledge workers and enterprises navigating this transition.</p>
+          </p>
+        </div>
+        <div>
+          <div class="section-label">What I Bring</div>
+          <h2 class="section-title">The operator's advantage.</h2>
+          <p class="section-body" style="margin-bottom:0;">Most engineers understand the technology. Fewer understand the domain problems the technology is supposed to solve. I bring both.</p>
+          <ul class="trait-list">
+            <li>20 years of cross-domain building — I've operated in music, design, real estate, and AI. I understand enterprise buyers from the inside.</li>
+            <li>GCP-native depth — not just API calls. Proper architecture with IAM, Cloud Run, BigQuery, and Vertex AI working together.</li>
+            <li>Spatial intelligence specialization — property, infrastructure, logistics, and insurance domains where location is the core data layer.</li>
+            <li>Founder's judgment — I've shipped products and learned from what didn't work. I bring that cost-awareness into every engineering decision.</li>
+            <li>Verification-first methodology — I don't trust outputs I can't trace. VERA is the formal expression of how I work.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="context-block">
+        <div class="context-block-label">On Building in Parallel</div>
+        <p>I'm in the Google Startups Accelerator with NYCID, a geospatial intelligence platform for NYC property and infrastructure data. This isn't a side project I'm hiding — it's proof that I can architect and ship real systems independently.</p>
+        <p>The right employer isn't threatened by that. They're interested in someone who builds with the urgency of a founder and the rigor of an engineer. I'm looking for a team where I can contribute fully while continuing to learn from working alongside strong engineers and product thinkers. Those two things compound each other.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section-label">The Longer Arc</div>
+      <h2 class="section-title">Twenty years of pattern recognition.</h2>
+      <div class="two-col">
+        <p class="section-body prose">
+          <p>I started in music production and design — industries where you learn very quickly that the tools don't matter as much as the taste, judgment, and problem framing you bring to them. That carried forward into software.</p>
+          <p>The common thread across everything I've built is a preoccupation with the gap between what systems promise and what they actually deliver — and a determination to close that gap through verification, observability, and honest engineering.</p>
+        </p>
+        <p class="section-body prose">
+          <p>The Proof Economy essay is my thesis on where this leads economically: in a world of abundant AI capability, the scarce resource is verified, provable quality. VERA is the engineering methodology for building it.</p>
+          <p>I'm sharing both publicly not to position myself as a thought leader, but because I think the ideas are genuinely useful and I'd rather they be in the world than locked on my hard drive.</p>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container" style="text-align:center;max-width:640px;">
+      <div class="section-label" style="justify-content:center;">
+        <span style="display:block;width:1.5rem;height:1px;background:#e8693a;"></span>
+        Let's Talk
+      </div>
+      <h2 class="section-title">The best conversations start with a question.</h2>
+      <p class="section-body" style="margin:0 auto 2.5rem;text-align:center;">If something here resonates — or if you want to push back on something — I'd genuinely like to hear from you.</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a href="contact.html" class="btn-primary">Get in touch →</a>
+        <a href="experience.html" class="btn-outline">View experience</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Daniel Flügger</span>
+    <span>Applied AI Engineer</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="https://linkedin.com/in/danielflugger" target="_blank">LinkedIn</a>
+      <a href="https://github.com/danielflugger" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+</body>
+</html>

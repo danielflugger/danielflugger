@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experience — Daniel Flügger</title>
+  <meta name="description" content="Applied AI Engineer with 20 years building across music, design, real estate, and machine learning. GCP-native, Vertex AI, RAG systems, spatial intelligence.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero {
+      padding: 10rem 2.5rem 5rem;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .page-hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .page-hero-label::before { content:''; display:block; width:2rem; height:1px; background:var(--accent); }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+
+    /* ROLE TIMELINE */
+    .timeline { margin-top: 2rem; }
+    .role {
+      display: grid;
+      grid-template-columns: 11rem 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--rule);
+    }
+    .role:last-child { border-bottom: 1px solid var(--rule); }
+    .role-meta { padding-top: 0.2rem; }
+    .role-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .role-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(200,65,10,0.08);
+      padding: 0.2rem 0.5rem;
+      display: inline-block;
+    }
+    .role-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .role-company {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .role-desc {
+      font-size: 0.95rem;
+      color: #3a3630;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .role-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .role-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.07em;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+    }
+
+    /* STACK SECTION */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5px;
+      background: var(--rule);
+      margin-top: 3rem;
+    }
+    .stack-cell {
+      background: var(--card-bg);
+      padding: 1.75rem;
+    }
+    .stack-cell-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .stack-cell-items {
+      font-size: 0.88rem;
+      color: #3a3630;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 640px) {
+      .role { grid-template-columns: 1fr; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand">Daniel <span>Flügger</span></a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="experience.html" class="active">Experience</a></li>
+      <li><a href="https://github.com/danielflugger" target="_blank">GitHub</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="vera.html">VERA</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-label fade-1">Experience</div>
+    <h1 class="fade-2">Two decades of<br><em>building things.</em></h1>
+  </div>
+
+  <div class="rule"></div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Roles</div>
+
+      <div class="timeline">
+
+        <div class="role">
+          <div class="role-meta">
+            <span class="role-date">2024 — Present</span>
+            <span class="role-type">Founder</span>
+          </div>
+          <div>
+            <div class="role-title">Founder & Applied AI Engineer</div>
+            <div class="role-company">NYCID · Google Startups Accelerator</div>
+            <p class="role-desc">Building a geospatial intelligence platform for NYC property and infrastructure data. GCP-native architecture using PostGIS, BigQuery, Vertex AI, and Cloud Run. Accepted into the Google Startups Accelerator program. The platform applies RAG and spatial reasoning to make complex municipal datasets actionable for real estate, insurance, and infrastructure operators.</p>
+            <div class="role-tags">
+              <span class="role-tag">GCP</span>
+              <span class="role-tag">Vertex AI</span>
+              <span class="role-tag">PostGIS</span>
+              <span class="role-tag">BigQuery</span>
+              <span class="role-tag">Cloud Run</span>
+              <span class="role-tag">Gemini API</span>
+              <span class="role-tag">FastAPI</span>
+              <span class="role-tag">Python</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="role">
+          <div class="role-meta">
+            <span class="role-date">2023 — Present</span>
+            <span class="role-type">Research</span>
+          </div>
+          <div>
+            <div class="role-title">Author & Framework Architect</div>
+            <div class="role-company">The Proof Economy · VERA Framework</div>
+            <p class="role-desc">Published the Proof Economy essay — a thesis on value capture in the intelligence age — and developed VERA (Verified Evidence & Reasoning Architecture), a comprehensive open framework for building trustworthy, auditable AI systems. 65,000-word documentation covering verification protocols, sovereignty patterns, maturity models, and governance.</p>
+            <div class="role-tags">
+              <span class="role-tag">AI Governance</span>
+              <span class="role-tag">Verification Systems</span>
+              <span class="role-tag">Knowledge Architecture</span>
+              <span class="role-tag">mdBook</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="role">
+          <div class="role-meta">
+            <span class="role-date">2020 — 2024</span>
+            <span class="role-type">Engineering</span>
+          </div>
+          <div>
+            <div class="role-title">AI Engineer & ML Systems Builder</div>
+            <div class="role-company">Independent Practice</div>
+            <p class="role-desc">Designed and built AI pipelines, document intelligence systems, and data architectures for clients in property, logistics, and infrastructure. Specialized in taking ML proof-of-concepts through to production-ready systems with proper observability, error handling, and maintainability. Deep focus on RAG architectures and retrieval systems.</p>
+            <div class="role-tags">
+              <span class="role-tag">RAG</span>
+              <span class="role-tag">LangChain</span>
+              <span class="role-tag">Pydantic</span>
+              <span class="role-tag">TypeScript</span>
+              <span class="role-tag">Vector DBs</span>
+              <span class="role-tag">Document AI</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="role">
+          <div class="role-meta">
+            <span class="role-date">2010 — 2020</span>
+            <span class="role-type">Design / Product</span>
+          </div>
+          <div>
+            <div class="role-title">Creative Director & Product Designer</div>
+            <div class="role-company">Various Studios & Clients</div>
+            <p class="role-desc">Led design and product direction across digital platforms, brand identities, and interactive experiences. Worked with clients in real estate, financial services, and media. This decade built the domain expertise and enterprise operator perspective I now apply to AI systems — understanding what buyers actually need, what they distrust, and what they will pay for.</p>
+            <div class="role-tags">
+              <span class="role-tag">Product Design</span>
+              <span class="role-tag">Design Systems</span>
+              <span class="role-tag">Enterprise UX</span>
+              <span class="role-tag">Real Estate Tech</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="role">
+          <div class="role-meta">
+            <span class="role-date">2000 — 2010</span>
+            <span class="role-type">Creative</span>
+          </div>
+          <div>
+            <div class="role-title">Music Producer & Sound Designer</div>
+            <div class="role-company">Independent</div>
+            <p class="role-desc">Produced music, sound design, and audio systems across commercial, film, and independent contexts. The discipline of production — pattern recognition, taste as a technical skill, the gap between what you intend and what you deliver — runs through everything I've built since.</p>
+            <div class="role-tags">
+              <span class="role-tag">Music Production</span>
+              <span class="role-tag">Sound Design</span>
+              <span class="role-tag">Audio Systems</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section-label">Technical Stack</div>
+      <h2 class="section-title">What I build with.</h2>
+      <div class="stack-grid">
+        <div class="stack-cell">
+          <div class="stack-cell-label">Cloud Infrastructure</div>
+          <div class="stack-cell-items">GCP Native, Cloud Run, BigQuery, Cloud SQL, IAM, Secret Manager</div>
+        </div>
+        <div class="stack-cell">
+          <div class="stack-cell-label">AI / ML</div>
+          <div class="stack-cell-items">Vertex AI, Gemini API, RAG Systems, Vector Databases, Document AI, LangChain</div>
+        </div>
+        <div class="stack-cell">
+          <div class="stack-cell-label">Spatial / Data</div>
+          <div class="stack-cell-items">PostGIS, BigQuery GIS, geospatial pipelines, property & infrastructure data</div>
+        </div>
+        <div class="stack-cell">
+          <div class="stack-cell-label">Backend</div>
+          <div class="stack-cell-items">Python, FastAPI, Pydantic, PostgreSQL, REST APIs, async architecture</div>
+        </div>
+        <div class="stack-cell">
+          <div class="stack-cell-label">Frontend</div>
+          <div class="stack-cell-items">TypeScript, React, HTML/CSS, data visualization, map rendering</div>
+        </div>
+        <div class="stack-cell">
+          <div class="stack-cell-label">Methodology</div>
+          <div class="stack-cell-items">VERA verification protocol, observability-first, sovereignty by design, exit-criteria planning</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="text-align:center;max-width:640px;margin:0 auto;">
+      <div class="section-label" style="justify-content:center;">
+        <span style="display:block;width:1.5rem;height:1px;background:var(--accent);"></span>
+        Next
+      </div>
+      <h2 class="section-title">See what I've shipped.</h2>
+      <p class="section-body" style="margin:0 auto 2.5rem;">Three open-source AI systems — geospatial intelligence, RAG pipelines, and vendor dependency mapping.</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a href="portfolio.html" class="btn-primary">View portfolio →</a>
+        <a href="contact.html" class="btn-secondary">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Daniel Flügger</span>
+    <span>Applied AI Engineer</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="https://linkedin.com/in/danielflugger" target="_blank">LinkedIn</a>
+      <a href="https://github.com/danielflugger" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VERA — Verified Evidence & Reasoning Architecture | Daniel Flügger</title>
+  <meta name="description" content="VERA is a practical framework for building your knowledge moat. Whether you're a solo entrepreneur, quiet expert, or small enterprise — it puts you in the driver's seat of your own intelligence architecture.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #0e0d0b;
+      --paper: #f5f0e8;
+      --cream: #ede8dc;
+      --accent: #c8410a;
+      --accent-light: #e8693a;
+      --gold: #b8892a;
+      --muted: #6b6560;
+      --rule: #d4cfc5;
+      --card-bg: #faf7f2;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.6;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-brand {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 8rem 2.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: 'VERA';
+      position: absolute;
+      bottom: -0.1em;
+      right: -0.05em;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18vw, 26vw, 34vw);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(200,65,10,0.08);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-subhead {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 680px;
+      line-height: 1.55;
+    }
+
+    .hero-body {
+      font-size: 1.05rem;
+      max-width: 640px;
+      color: #3a3630;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.875rem 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--ink);
+      padding: 0.875rem 0;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── SECTION WRAPPERS ── */
+    .section { padding: 6rem 2.5rem; }
+    .section--dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .section--cream { background: var(--cream); }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 680px;
+      color: #3a3630;
+    }
+
+    .section--dark .section-body { color: rgba(245,240,232,0.75); }
+
+    /* ── DIVIDER ── */
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: var(--rule);
+      margin: 0;
+    }
+
+    /* ── REFRAME BLOCK ── */
+    .reframe {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--rule);
+      margin: 3rem 0;
+    }
+
+    .reframe-cell {
+      background: var(--card-bg);
+      padding: 2rem 2.5rem;
+    }
+
+    .reframe-cell--dark { background: var(--ink); color: var(--paper); }
+
+    .reframe-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .reframe-cell--dark .reframe-label { color: rgba(245,240,232,0.45); }
+
+    .reframe-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* ── WHO IT'S FOR GRID ── */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5px;
+      background: var(--rule);
+      margin-top: 3rem;
+    }
+
+    .audience-card {
+      background: var(--card-bg);
+      padding: 2.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+
+    .audience-card:hover { background: #fff; }
+
+    .audience-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.3s;
+    }
+
+    .audience-card:hover::before { transform: scaleY(1); }
+
+    .audience-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .audience-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .audience-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .audience-uses {
+      margin-top: 1.25rem;
+      list-style: none;
+    }
+
+    .audience-uses li {
+      font-size: 0.85rem;
+      padding: 0.35rem 0;
+      border-top: 1px solid var(--rule);
+      color: #4a4540;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .audience-uses li::before {
+      content: '→';
+      color: var(--accent);
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* ── PULLQUOTE ── */
+    .pullquote {
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem 2rem;
+      margin: 3rem 0;
+      background: var(--cream);
+    }
+
+    .pullquote p {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+
+    /* ── METHODOLOGY STEPS ── */
+    .steps {
+      counter-reset: steps;
+      margin-top: 3rem;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--rule);
+      counter-increment: steps;
+    }
+
+    .step:last-child { border-bottom: 1px solid var(--rule); }
+
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      opacity: 0.35;
+      line-height: 1;
+      padding-top: 0.2rem;
+    }
+
+    .step-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── MOAT SECTION ── */
+    .moat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    /* ── DARK SECTION SPECIFICS ── */
+    .section--dark .section-title { color: var(--paper); }
+    .section--dark .section-label { color: #e8693a; }
+    .section--dark .section-label::before { background: #e8693a; }
+    .section--dark .step { border-top-color: rgba(255,255,255,0.12); }
+    .section--dark .step:last-child { border-bottom-color: rgba(255,255,255,0.12); }
+    .section--dark .step-content p { color: rgba(245,240,232,0.6); }
+    .section--dark .step-content h3 { color: var(--paper); }
+
+    /* ── VERA FRAMEWORK SUMMARY ── */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5px;
+      background: rgba(255,255,255,0.08);
+      margin-top: 3rem;
+    }
+
+    .framework-cell {
+      background: rgba(255,255,255,0.04);
+      padding: 1.75rem;
+      border-top: 1px solid rgba(200,65,10,0.4);
+    }
+
+    .framework-cell-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 0.6rem;
+    }
+
+    .framework-cell-desc {
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.65);
+      line-height: 1.65;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 6rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(200,65,10,0.15) 0%, transparent 65%);
+    }
+
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-body {
+      font-size: 1rem;
+      color: rgba(245,240,232,0.7);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(245,240,232,0.4);
+      color: var(--paper);
+      padding: 0.875rem 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline:hover { border-color: var(--paper); background: rgba(255,255,255,0.05); }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(245,240,232,0.4);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.78rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    footer a {
+      color: rgba(245,240,232,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--paper); }
+
+    /* ── PROSE PARAGRAPHS ── */
+    .prose p { margin-bottom: 1.25rem; }
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+    .hero-headline { animation: fadeUp 0.6s 0.1s ease both; }
+    .hero-subhead { animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-body { animation: fadeUp 0.6s 0.3s ease both; }
+    .hero-cta-row { animation: fadeUp 0.6s 0.4s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .section { padding: 4rem 1.5rem; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      .reframe { grid-template-columns: 1fr; }
+      .moat-row { grid-template-columns: 1fr; gap: 2rem; }
+      .step { grid-template-columns: 2rem 1fr; gap: 1rem; }
+      footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+      .cta-section { padding: 4rem 1.5rem; }
+    }
+
+    @media (max-width: 520px) {
+      .hero::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="https://danielflugger.com" class="nav-brand">Daniel <span>Flügger</span></a>
+    <ul class="nav-links">
+      <li><a href="https://danielflugger.com">Essay</a></li>
+      <li><a href="#what-is-vera">What is VERA</a></li>
+      <li><a href="#for-who">Who It's For</a></li>
+      <li><a href="#method">The Method</a></li>
+      <li><a href="https://danielflugger.github.io/VERA/" target="_blank">Open Framework →</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Verified Evidence &amp; Reasoning Architecture</div>
+      <h1 class="hero-headline">
+        Human creates<br>
+        and validates<br>
+        <em>the loop.</em>
+      </h1>
+      <p class="hero-subhead">
+        Not "human in the loop" — you are the architect of the loop itself.
+      </p>
+      <div class="hero-body prose">
+        <p>VERA is the practical methodology for building what the Proof Economy describes: a private, sovereign knowledge infrastructure that compounds over time — protecting your methods, preserving your highest-value thinking, and letting you decide when and how to monetize it.</p>
+        <p>Whether you're building from scratch or sitting on years of hard-won expertise, VERA gives you a structured way to codify, verify, and own it before anyone else can extract or replicate it.</p>
+      </div>
+      <div class="hero-cta-row">
+        <a href="https://danielflugger.github.io/VERA/" target="_blank" class="btn-primary">
+          Read the Full Framework →
+        </a>
+        <a href="#what-is-vera" class="btn-secondary">
+          Why this exists
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- REFRAME SECTION -->
+  <section class="section" id="what-is-vera">
+    <div class="container">
+      <div class="section-label">The Reframe</div>
+      <h2 class="section-title">The loop belongs to you.</h2>
+      <p class="section-body">
+        Enterprise AI adoption has been sold with a seductive phrase: "human in the loop." It's a governance posture — a checkbox that lets organizations automate everything else while maintaining legal cover. In practice, it means the human is a speed bump, not the driver.
+      </p>
+
+      <div class="reframe">
+        <div class="reframe-cell reframe-cell--dark">
+          <div class="reframe-label">Human in the Loop (Old Frame)</div>
+          <p class="reframe-text">"We kept a human involved while we restructured everything around the system."</p>
+        </div>
+        <div class="reframe-cell">
+          <div class="reframe-label">Human Creates and Validates the Loop (VERA)</div>
+          <p class="reframe-text">"I designed the architecture. I set the verification standards. I own the knowledge layer."</p>
+        </div>
+      </div>
+
+      <p class="section-body">
+        VERA puts you — the individual, the expert, the builder — in the position of designing how your knowledge gets structured, verified, and preserved. Not as an afterthought. As the starting point. This isn't about safety theater. It's about economic sovereignty.
+      </p>
+
+      <div class="pullquote">
+        <p>The Proof Economy described why verification infrastructure matters. VERA is the how — a documented, replicable method for building your own proof layer, privately, before you need it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section section--cream" id="for-who">
+    <div class="container">
+      <div class="section-label">Who It's For</div>
+      <h2 class="section-title">Immediately useful, wherever you are.</h2>
+      <p class="section-body">
+        VERA is not an enterprise procurement decision. It's a mindset and a methodology that scales from one person with a laptop to a 500-person organization protecting its core IP. Here's what it looks like in practice for each:
+      </p>
+
+      <div class="audience-grid">
+
+        <div class="audience-card">
+          <span class="audience-icon">⚡</span>
+          <div class="audience-title">The Entrepreneur / Solo Builder</div>
+          <p class="audience-desc">You're building with AI daily. Your real risk isn't that the tools are bad — it's that your methods, prompts, workflows, and hard-won insights live in no structured form and belong to no one in particular.</p>
+          <ul class="audience-uses">
+            <li>Build a data moat as you go — even from zero</li>
+            <li>Document what works before competitors replicate it</li>
+            <li>Establish provenance for your frameworks and approaches</li>
+            <li>Create a sovereign knowledge base that compounds in value</li>
+          </ul>
+        </div>
+
+        <div class="audience-card">
+          <span class="audience-icon">🎯</span>
+          <div class="audience-title">The Quiet Expert</div>
+          <p class="audience-desc">You have depth that no credential captures. Your value lives in your judgment, your pattern recognition, your accumulated failures and breakthroughs. Right now, that's trapped in your head and invisible to any market that could pay for it.</p>
+          <ul class="audience-uses">
+            <li>Codify tacit knowledge into verifiable, transferable form</li>
+            <li>Build a proof record that speaks louder than a CV</li>
+            <li>Create licensing, consulting, and training assets from what you already know</li>
+            <li>Protect methods before you share them publicly</li>
+          </ul>
+        </div>
+
+        <div class="audience-card">
+          <span class="audience-icon">🏗️</span>
+          <div class="audience-title">The AI Engineer / Platform Builder</div>
+          <p class="audience-desc">You're building systems that generate knowledge and decisions at scale. Without a verification architecture embedded from day one, you're accumulating trust debt — and the audit, the liability, or the competitive gap will find you eventually.</p>
+          <ul class="audience-uses">
+            <li>Embed verification into architecture, not retrofitted on top</li>
+            <li>Establish attestation chains for every automated decision</li>
+            <li>Build for regulatory readiness before you need it</li>
+            <li>Design exit criteria so you're never locked to a single vendor</li>
+          </ul>
+        </div>
+
+        <div class="audience-card">
+          <span class="audience-icon">🛡️</span>
+          <div class="audience-title">The Small or Mid-Size Enterprise</div>
+          <p class="audience-desc">The big players have legal, compliance, AI teams, and procurement power. You have speed, deep domain knowledge, and relationships. VERA gives you the infrastructure to compete on the only dimensions that matter: verifiable quality and sovereign methods.</p>
+          <ul class="audience-uses">
+            <li>Protect proprietary methods from replication by larger competitors</li>
+            <li>Build a verifiable track record that substitutes for brand recognition</li>
+            <li>Document institutional knowledge before it walks out the door</li>
+            <li>Govern AI adoption without a dedicated AI team</li>
+          </ul>
+        </div>
+
+        <div class="audience-card">
+          <span class="audience-icon">📐</span>
+          <div class="audience-title">The Creator with a Real Body of Work</div>
+          <p class="audience-desc">You've been creating content, research, or craft and watching the extraction cycle play out in real time — your ideas replicated, your formats copied, your audience intermediated by platforms with no interest in your survival.</p>
+          <ul class="audience-uses">
+            <li>Establish provenance before your ideas go public</li>
+            <li>Move from attention economy to proof economy revenue models</li>
+            <li>Build a direct channel that doesn't require platform permission</li>
+            <li>Verify depth and impact rather than performing for algorithms</li>
+          </ul>
+        </div>
+
+        <div class="audience-card">
+          <span class="audience-icon">🔬</span>
+          <div class="audience-title">The Researcher / Knowledge Worker</div>
+          <p class="audience-desc">Your work's value is in its rigor. But in a world of AI-generated output that mimics rigor without possessing it, the gap between real and synthetic is invisible to buyers — unless you make it verifiable.</p>
+          <ul class="audience-uses">
+            <li>Distinguish your work from AI-generated approximations</li>
+            <li>Build reproducibility and attestation into your workflow</li>
+            <li>Create a direct compensation path that bypasses journal extraction</li>
+            <li>Document your methodology in licensing-ready form</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA MOAT -->
+  <section class="section section--dark" id="moat">
+    <div class="container">
+      <div class="section-label">The Core Insight</div>
+      <h2 class="section-title">Build the moat as you go.</h2>
+
+      <div class="moat-row">
+        <div>
+          <p class="section-body" style="margin-bottom:1.5rem;">
+            You don't need a proprietary dataset or decades of IP to start. The data moat is built through consistent, structured documentation of what you do and why it works — before it leaks into the public domain.
+          </p>
+          <p class="section-body" style="margin-bottom:1.5rem;">
+            Most knowledge workers are unintentionally donating their most valuable insights to the commons every time they use a public tool, post their process, or describe their methods in a public forum. VERA gives you a private-first methodology: structure first, share on your terms.
+          </p>
+          <p class="section-body">
+            The people doing this instinctively — pulling research off public servers, running models locally, building private knowledge graphs — already understand this at a gut level. VERA gives it structure, vocabulary, and a maturity model so you can measure and improve your position over time.
+          </p>
+        </div>
+
+        <div>
+          <div class="framework-grid">
+            <div class="framework-cell">
+              <div class="framework-cell-title">Start Here</div>
+              <div class="framework-cell-desc">Foundations: define your verification protocol and sovereignty principles before you build anything else.</div>
+            </div>
+            <div class="framework-cell">
+              <div class="framework-cell-title">Know Your Level</div>
+              <div class="framework-cell-desc">Five maturity levels across six domains. Aware → Exploring → Practicing → Governing → Sovereign.</div>
+            </div>
+            <div class="framework-cell">
+              <div class="framework-cell-title">Use the Patterns</div>
+              <div class="framework-cell-desc">13 reusable patterns for evidence management, reasoning chains, and verification workflows.</div>
+            </div>
+            <div class="framework-cell">
+              <div class="framework-cell-title">Govern It</div>
+              <div class="framework-cell-desc">Policy as code. Risk classification. Audit trails. Compliance readiness that scales with you.</div>
+            </div>
+            <div class="framework-cell">
+              <div class="framework-cell-title">Stay Sovereign</div>
+              <div class="framework-cell-desc">Vendor dependency mapping. Exit criteria. Data portability. You own the layer that matters.</div>
+            </div>
+            <div class="framework-cell">
+              <div class="framework-cell-title">Scale It</div>
+              <div class="framework-cell-desc">From solo practitioner to regulated enterprise — one framework, four context tracks.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="section" id="method">
+    <div class="container">
+      <div class="section-label">How I Use It</div>
+      <h2 class="section-title">A methodological approach to knowledge preservation first.</h2>
+      <p class="section-body">
+        This is how I approach building platforms and products as an AI engineer and entrepreneur. Not as a theoretical framework — as an operational practice that runs alongside everything I build.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h3>Capture before you ship</h3>
+            <p>Every decision, method, and breakthrough gets documented with evidence before it becomes a feature. Not a changelog — a verified reasoning record. Why this choice over alternatives. What was tested. What failed. This is the raw material of the moat.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h3>Classify before you share</h3>
+            <p>Not everything is meant to be public. VERA's data classification framework for AI systems forces the question early: what's sovereign (never shares), what's licensable, what's freely shareable for trust-building. Most people never make this distinction deliberately.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h3>Verify before you trust</h3>
+            <p>Every claim that goes into a client deliverable, a product decision, or a public statement runs through VERA's verification protocol. Not academic rigor — practical rigor. The five-phase process that moves an assertion from raw input to documented, evidenced output.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h3>Govern before you scale</h3>
+            <p>The human-in-the-loop problem gets worse at scale, not better. Setting up trust gates, attestation chains, and review structures before you need them is the difference between growing an auditable system and inheriting a liability.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">05</div>
+          <div class="step-content">
+            <h3>Map your dependencies now</h3>
+            <p>VERA's vendor dependency mapping isn't about paranoia — it's about leverage. Knowing exactly what it would cost to leave a platform, model, or infrastructure provider means you negotiate from knowledge, not dependency. Exit criteria should be designed on day one.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pullquote" style="margin-top:3rem;">
+        <p>"The people who create real value should be the people who capture it. VERA is how you build the infrastructure to make that true — privately, methodically, and on your own terms."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div class="section-label" style="justify-content:center; color:#e8693a;">
+        <span style="display:block;width:1.5rem;height:1px;background:#e8693a;"></span>
+        Open Framework
+      </div>
+      <h2 class="cta-title">Start where you are.<br>Build what you own.</h2>
+      <p class="cta-body">
+        VERA is free, open, and designed to be used immediately — whether you're a single practitioner starting to document your methods or an organization building governance infrastructure for AI at scale.
+      </p>
+      <div class="cta-row">
+        <a href="https://danielflugger.github.io/VERA/" target="_blank" class="btn-primary">
+          Read VERA →
+        </a>
+        <a href="https://danielflugger.com" class="btn-outline">
+          Read The Proof Economy
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Daniel Flügger</span>
+    <span>VERA v1.0.0 · CC BY 4.0</span>
+    <a href="https://github.com/danielflugger/VERA" target="_blank">github.com/danielflugger/VERA</a>
+  </footer>
+
+</body>
+</html>
+
