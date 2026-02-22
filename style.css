@@ -3,13 +3,13 @@
 :root {
   --ink: #111827;
   --paper: #ffffff;
-  --cream: #f2f0ec;
-  --accent: #1d4ed8;
-  --accent-light: #2563eb;
+  --cream: #f8f7f4;
+  --accent: #131823;
+  --accent-light: #2a3142;
   --gold: #b8892a;
   --muted: #6b7280;
   --rule: #e5e7eb;
-  --card-bg: #f2f0ec;
+  --card-bg: #f8f7f4;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
