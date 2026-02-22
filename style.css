@@ -2,14 +2,14 @@
 
 :root {
   --ink: #0e0d0b;
-  --paper: #f5f0e8;
-  --cream: #ede8dc;
+  --paper: #ffffff;
+  --cream: #f2f0eb;
   --accent: #c8410a;
   --accent-light: #e8693a;
   --gold: #b8892a;
   --muted: #6b6560;
   --rule: #d4cfc5;
-  --card-bg: #faf7f2;
+  --card-bg: #f9f9f7;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
