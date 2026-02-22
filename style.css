@@ -3,13 +3,13 @@
 :root {
   --ink: #111827;
   --paper: #ffffff;
-  --cream: #fdf8f3;
-  --accent: #b03a0a;
-  --accent-light: #d45a2a;
+  --cream: #f2f0ec;
+  --accent: #1d4ed8;
+  --accent-light: #2563eb;
   --gold: #b8892a;
   --muted: #6b7280;
   --rule: #e5e7eb;
-  --card-bg: #fdf8f3;
+  --card-bg: #f2f0ec;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -104,8 +104,8 @@ nav {
   height: 1px;
   background: var(--accent);
 }
-.section--dark .section-label { color: #e8693a; }
-.section--dark .section-label::before { background: #e8693a; }
+.section--dark .section-label { color: var(--accent-light); }
+.section--dark .section-label::before { background: var(--accent-light); }
 
 .section-title {
   font-family: 'Playfair Display', serif;

@@ -100,10 +100,9 @@
     /* STACK SECTION */
     .stack-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(6, 1fr);
       gap: 1.5px;
       background: var(--rule);
-      margin-top: 3rem;
     }
     .stack-cell {
       background: var(--card-bg);
@@ -232,10 +231,9 @@
     </div>
   </section>
 
-  <section class="section section--cream">
-    <div class="container">
+  <section class="section section--cream" style="padding: 3rem 2.5rem;">
+    <div class="container" style="max-width:none;">
       <div class="section-label">Technical Stack</div>
-      <h2 class="section-title">What I build with.</h2>
       <div class="stack-grid">
         <div class="stack-cell">
           <div class="stack-cell-label">Cloud Infrastructure</div>
