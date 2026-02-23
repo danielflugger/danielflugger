@@ -11,7 +11,6 @@
   <style>
     /* ── HERO ── */
     .hero {
-      min-height: 100vh;
       display: grid;
       place-items: center;
       padding: 8rem 2.5rem 5rem;
@@ -35,12 +34,76 @@
     }
 
     .hero-inner {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 4rem;
+      align-items: center;
       max-width: 1080px;
       width: 100%;
       margin: 0 auto;
       position: relative;
       z-index: 2;
     }
+
+    /* ── HERO PHOTO CARD ── */
+    .hero-photo-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+    }
+
+    .hero-photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem 2rem 2.5rem;
+      background: linear-gradient(to top, rgba(10,10,15,0.92) 60%, transparent);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .hero-contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-contact-link {
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.72);
+      text-decoration: none;
+      display: block;
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .hero-contact-link:hover { color: var(--accent); }
+
+    .hero-contact-cta {
+      display: inline-block;
+      margin-top: 0.75rem;
+      padding: 0.7rem 1.4rem;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      align-self: flex-start;
+      transition: opacity 0.2s;
+    }
+    .hero-contact-cta:hover { opacity: 0.85; }
 
     .hero-eyebrow {
       font-family: 'DM Mono', monospace;
@@ -63,7 +126,7 @@
 
     .hero-headline {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
       font-weight: 900;
       line-height: 1.06;
       letter-spacing: -0.025em;
@@ -103,7 +166,7 @@
     /* ── LINK GRID ── */
     .link-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5px;
       background: var(--rule);
       margin-top: 3rem;
@@ -155,6 +218,10 @@
       line-height: 1.6;
     }
 
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .link-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 520px) {
       .hero::after { display: none; }
     }
@@ -177,29 +244,45 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <div class="hero-eyebrow fade-1">Applied AI Engineer · New York City</div>
-      <h1 class="hero-headline fade-2">
-        Building AI<br>systems that<br><em>actually work.</em>
-      </h1>
-      <p class="hero-bio fade-3">
-        I'm Daniel Flügger — an applied AI engineer and founder based in New York. I design and build GCP-native AI systems: geospatial intelligence pipelines, RAG architectures, and multi-agent workflows that solve real problems in property, infrastructure, and logistics. Currently in the Google Startups Accelerator and open to the right full-time role.
-      </p>
-      <div class="stack-strip fade-4">
-        <span class="stack-tag">GCP Native</span>
-        <span class="stack-tag">Vertex AI</span>
-        <span class="stack-tag">Gemini API</span>
-        <span class="stack-tag">BigQuery</span>
-        <span class="stack-tag">PostGIS</span>
-        <span class="stack-tag">RAG Systems</span>
-        <span class="stack-tag">FastAPI</span>
-        <span class="stack-tag">Pydantic</span>
-        <span class="stack-tag">Cloud Run</span>
-        <span class="stack-tag">Python</span>
-        <span class="stack-tag">TypeScript</span>
+      <!-- Left column -->
+      <div class="hero-left">
+        <div class="hero-eyebrow fade-1">Applied AI Engineer · New York City</div>
+        <h1 class="hero-headline fade-2">
+          Building AI<br>systems that<br><em>actually work.</em>
+        </h1>
+        <p class="hero-bio fade-3">
+          I'm Daniel Flügger — an applied AI engineer and founder based in New York. I design and build GCP-native AI systems: geospatial intelligence pipelines, RAG architectures, and multi-agent workflows that solve real problems in property, infrastructure, and logistics. Currently in the Google Startups Accelerator and open to the right full-time role.
+        </p>
+        <div class="stack-strip fade-4">
+          <span class="stack-tag">GCP Native</span>
+          <span class="stack-tag">Vertex AI</span>
+          <span class="stack-tag">Gemini API</span>
+          <span class="stack-tag">BigQuery</span>
+          <span class="stack-tag">PostGIS</span>
+          <span class="stack-tag">RAG Systems</span>
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">Pydantic</span>
+          <span class="stack-tag">Cloud Run</span>
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">TypeScript</span>
+        </div>
+        <div class="cta-row fade-5">
+          <a href="contact.html" class="btn-primary">Get in touch →</a>
+          <a href="experience.html" class="btn-secondary">View experience</a>
+        </div>
       </div>
-      <div class="cta-row fade-5">
-        <a href="contact.html" class="btn-primary">Get in touch →</a>
-        <a href="experience.html" class="btn-secondary">View experience</a>
+      <!-- Right column: photo card -->
+      <div class="hero-right fade-5">
+        <div class="hero-photo-card">
+          <img src="images/central-park.png" alt="Central Park, New York City">
+          <div class="hero-photo-overlay">
+            <div class="hero-contact-label">Get in Touch</div>
+            <a href="https://linkedin.com/in/danielflugger" target="_blank" class="hero-contact-link">linkedin.com/in/danielflugger</a>
+            <a href="https://github.com/danielflugger" target="_blank" class="hero-contact-link">github.com/danielflugger</a>
+            <a href="mailto:dflugger@gmail.com" class="hero-contact-link">dflugger [at] gmail [dot] com</a>
+            <a href="contact.html" class="hero-contact-cta">Send a message →</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
