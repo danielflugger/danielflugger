@@ -3,12 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iDist — Asset Management Infrastructure · Daniel Flügger</title>
-  <meta name="description" content="iDist: a GCP-native global design and procurement platform for physical asset management across 4 countries. Case study by Daniel Flügger.">
+  <title>IDist ® — Asset Management Infrastructure · Daniel Flügger</title>
+  <meta name="description" content="IDist ®: a GCP-native global design and procurement platform for physical asset management across 4 countries. Case study by Daniel Flügger.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="case-study.css">
+  <style>
+    /* YouTube feature — IDist-specific */
+    .cs-yt-feature {
+      background: var(--cream);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 2.5rem 2.5rem;
+    }
+    .cs-yt-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .cs-yt-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    .cs-yt-label::before, .cs-yt-label::after {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--teal);
+    }
+    .cs-yt-player {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      border: none;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .cs-yt-feature { padding: 2rem 1.5rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -32,7 +74,7 @@
   </div>
 
   <div class="cs-hero-img-wrap">
-    <img class="cs-hero-img" src="../images/idist.jpg" alt="iDist — Asset Management Infrastructure">
+    <img class="cs-hero-img" src="../images/idist.jpg" alt="IDist ® — Asset Management Infrastructure">
   </div>
 
   <div class="cs-hero">
@@ -41,9 +83,9 @@
       <span class="cs-meta-badge">Enterprise Infrastructure · Asset Management</span>
       <span class="cs-meta-badge">2024–2025</span>
     </div>
-    <h1 class="cs-h1">iDist</h1>
+    <h1 class="cs-h1">IDist ®</h1>
     <div class="cs-overview">
-      <p>iDist is a global design and procurement platform for physical asset management infrastructure — the system that tracks, validates, and coordinates the lifecycle of distributed physical assets across international operations. Built to replace fragmented spreadsheet-and-email workflows with a unified, auditable pipeline from asset specification through procurement, deployment, and verification.</p>
+      <p>IDist ® is a global design and procurement platform for physical asset management infrastructure — the system that tracks, validates, and coordinates the lifecycle of distributed physical assets across international operations. Built to replace fragmented spreadsheet-and-email workflows with a unified, auditable pipeline from asset specification through procurement, deployment, and verification.</p>
       <p>The platform serves organizations managing large physical asset portfolios across multiple countries and regulatory environments, where procurement errors cascade into six-figure cost overruns and compliance failures compound across jurisdictions.</p>
     </div>
     <div class="cs-impact-row">
@@ -63,6 +105,20 @@
         <span class="cs-impact-val">100%</span>
         <span class="cs-impact-label">Real-Time Asset Visibility</span>
       </div>
+    </div>
+  </div>
+
+  <!-- YouTube Feature -->
+  <div class="cs-yt-feature">
+    <div class="cs-yt-inner">
+      <div class="cs-yt-label">Featured in Google Startups Accelerator</div>
+      <iframe
+        class="cs-yt-player"
+        src="https://www.youtube.com/embed/4mj-5jUTbLs"
+        title="IDist ® — Google Startups Accelerator Feature"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
 

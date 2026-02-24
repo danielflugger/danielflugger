@@ -4,39 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Experience — Daniel Flügger</title>
-  <meta name="description" content="Applied AI Engineer with extensive experience building across music, design, real estate, and machine learning. GCP-native, Vertex AI, RAG systems, spatial intelligence.">
+  <meta name="description" content="Applied AI Engineer with production systems in geospatial intelligence, document AI, property data, and voice biometrics. GCP-native, Vertex AI, RAG, PostGIS.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
   <style>
-    .page-hero {
-      padding: 10rem 2.5rem 5rem;
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-    .page-hero-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .page-hero-label::before { content:''; display:block; width:2rem; height:1px; background:var(--accent); }
-    .page-hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
-      font-weight: 900;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      margin-bottom: 2rem;
-    }
-    .page-hero h1 em { font-style: italic; color: var(--accent); }
-
-    /* ROLE TIMELINE */
+    /* ── ROLES TIMELINE ── */
     .timeline { margin-top: 2rem; }
     .role {
       display: grid;
@@ -73,20 +46,34 @@
       margin-bottom: 0.3rem;
     }
     .role-company {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--muted);
       margin-bottom: 1rem;
     }
-    .role-desc {
-      font-size: 0.95rem;
+    .role-bullets {
+      list-style: none;
+      margin-bottom: 1.25rem;
+    }
+    .role-bullets li {
+      font-size: 0.92rem;
       color: #3a3630;
-      line-height: 1.75;
-      margin-bottom: 1rem;
+      padding: 0.3rem 0;
+      display: flex;
+      gap: 0.6rem;
+      align-items: baseline;
+      line-height: 1.7;
+    }
+    .role-bullets li::before {
+      content: '→';
+      color: var(--accent);
+      font-size: 0.72rem;
+      flex-shrink: 0;
     }
     .role-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
+      margin-bottom: 1rem;
     }
     .role-tag {
       font-family: 'DM Mono', monospace;
@@ -96,8 +83,102 @@
       border: 1px solid var(--rule);
       color: var(--muted);
     }
+    .role-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+    }
+    .role-cs-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.67rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(19,24,35,0.25);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .role-cs-link:hover { border-color: var(--accent); }
 
-    /* STACK SECTION */
+    /* ── GDG SECTION ── */
+    .gdg-section { margin-top: 1.75rem; }
+    .gdg-card {
+      display: grid;
+      grid-template-columns: 11rem 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .gdg-meta { padding-top: 0.2rem; }
+    .gdg-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .gdg-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #4285f4;
+      background: rgba(66,133,244,0.09);
+      padding: 0.2rem 0.5rem;
+      display: inline-block;
+    }
+    .gdg-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .gdg-sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .gdg-bullets {
+      list-style: none;
+      margin-bottom: 1.25rem;
+    }
+    .gdg-bullets li {
+      font-size: 0.92rem;
+      color: #3a3630;
+      padding: 0.3rem 0;
+      display: flex;
+      gap: 0.6rem;
+      align-items: baseline;
+      line-height: 1.7;
+    }
+    .gdg-bullets li::before {
+      content: '→';
+      color: #4285f4;
+      font-size: 0.72rem;
+      flex-shrink: 0;
+    }
+    .gdg-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4285f4;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(66,133,244,0.3);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .gdg-link:hover { border-color: #4285f4; }
+
+    /* ── STACK SECTION ── */
     .stack-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -122,8 +203,13 @@
       line-height: 1.8;
     }
 
+    @media (max-width: 768px) {
+      .stack-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 640px) {
       .role { grid-template-columns: 1fr; gap: 0.75rem; }
+      .gdg-card { grid-template-columns: 1fr; gap: 0.75rem; }
+      .stack-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -142,21 +228,28 @@
     </ul>
   </nav>
 
+  <!-- ── ROLES ── -->
   <section class="section" style="padding-top:8rem;">
     <div class="container">
       <div class="section-label">Roles</div>
 
       <div class="timeline">
 
+        <!-- Role 1: Founder & Applied AI Engineer -->
         <div class="role">
           <div class="role-meta">
             <span class="role-date">2024 — Present</span>
             <span class="role-type">Founder</span>
           </div>
           <div>
-            <div class="role-title">Founder & Applied AI Engineer</div>
-            <div class="role-company">Google Startups Accelerator</div>
-            <p class="role-desc">Building a geospatial intelligence platform for NYC property and infrastructure data. GCP-native architecture using PostGIS, BigQuery, Vertex AI, and Cloud Run. Accepted into the Google Startups Accelerator program. The platform applies RAG and spatial reasoning to make complex municipal datasets actionable for real estate, insurance, and infrastructure operators.</p>
+            <div class="role-title">Founder &amp; Applied AI Engineer</div>
+            <div class="role-company">Google Startups Accelerator · IDist ®</div>
+            <ul class="role-bullets">
+              <li>Building IDist ®, a geospatial intelligence and asset management platform accepted into the Google Startups Accelerator program — tracking, validating, and coordinating physical asset lifecycles across international operations</li>
+              <li>GCP-native architecture designed from scratch: Cloud Run, BigQuery, Vertex AI, PostGIS, Firestore, Cloud Functions — all services chosen for auditability and maintainability at enterprise scale</li>
+              <li>Designed and deployed production ML pipelines for document extraction (Gemini API), spatial reasoning (PostGIS), and asset specification matching — with structured output validation and full audit trail on every state change</li>
+              <li>Sole architect across the full stack: Next.js frontend, FastAPI backend, ML processing pipeline, and cloud infrastructure — zero-to-one in a production environment with real enterprise clients</li>
+            </ul>
             <div class="role-tags">
               <span class="role-tag">GCP</span>
               <span class="role-tag">Vertex AI</span>
@@ -164,115 +257,174 @@
               <span class="role-tag">BigQuery</span>
               <span class="role-tag">Cloud Run</span>
               <span class="role-tag">Gemini API</span>
+              <span class="role-tag">Next.js</span>
               <span class="role-tag">FastAPI</span>
+              <span class="role-tag">Firestore</span>
               <span class="role-tag">Python</span>
+            </div>
+            <div class="role-links">
+              <a href="case-studies/idist.html" class="role-cs-link">View IDist ® Case Study →</a>
             </div>
           </div>
         </div>
 
+        <!-- Role 2: AI Engineer & ML Systems Builder -->
+        <div class="role">
+          <div class="role-meta">
+            <span class="role-date">2023 — Present</span>
+            <span class="role-type">Engineering</span>
+          </div>
+          <div>
+            <div class="role-title">AI Engineer &amp; ML Systems Builder</div>
+            <div class="role-company">Independent Practice · Client Projects</div>
+            <ul class="role-bullets">
+              <li>Designed and built production AI systems for clients in insurance (LH-PVI: 70% reduction in claims processing time through unstructured-to-structured document intelligence pipeline), property intelligence (NYCID: unified 12+ NYC municipal data sources into per-property dossiers across 8.1M properties), and voice biometrics (Vera VB: longitudinal voice identity infrastructure, private beta)</li>
+              <li>Specialized in taking ML proof-of-concepts to production-ready systems: RAG architectures, document intelligence pipelines, geospatial data systems, and multi-layer verification infrastructure</li>
+              <li>Deep focus on observability-first design, structured output validation (Pydantic), and audit-trail architecture — every production system built with the assumption that it will need to be debugged, explained, and trusted under adversarial conditions</li>
+              <li>Stack: Python, FastAPI, Vertex AI, Gemini API, LangChain, PostGIS, BigQuery, Cloud Functions, Pydantic, Resemblyzer, Wav2Vec2</li>
+            </ul>
+            <div class="role-tags">
+              <span class="role-tag">RAG</span>
+              <span class="role-tag">Document AI</span>
+              <span class="role-tag">Pydantic</span>
+              <span class="role-tag">LangChain</span>
+              <span class="role-tag">Vector DBs</span>
+              <span class="role-tag">PostGIS</span>
+              <span class="role-tag">BigQuery</span>
+              <span class="role-tag">TypeScript</span>
+            </div>
+            <div class="role-links">
+              <a href="case-studies/lh-pvi.html" class="role-cs-link">View LH-PVI Case Study →</a>
+              <a href="case-studies/nycid.html" class="role-cs-link">View NYCID Case Study →</a>
+              <a href="case-studies/vera-vb.html" class="role-cs-link">View Vera VB Case Study →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role 3: Author & Framework Architect -->
         <div class="role">
           <div class="role-meta">
             <span class="role-date">2023 — Present</span>
             <span class="role-type">Research</span>
           </div>
           <div>
-            <div class="role-title">Author & Framework Architect</div>
+            <div class="role-title">Author &amp; Framework Architect</div>
             <div class="role-company">The Proof Economy · VERA Framework</div>
-            <p class="role-desc">Published the Proof Economy essay — a thesis on value capture in the intelligence age — and developed VERA (Verified Evidence & Reasoning Architecture), a comprehensive open framework for building trustworthy, auditable AI systems. 65,000-word documentation covering verification protocols, sovereignty patterns, maturity models, and governance.</p>
+            <ul class="role-bullets">
+              <li>Published "The Proof Economy" — a thesis on value capture dynamics in the intelligence age, examining who captures margin when intelligence becomes infrastructure and verification becomes the scarce resource</li>
+              <li>Developed VERA (Verified Evidence &amp; Reasoning Architecture): an open framework for building trustworthy, auditable AI systems with defined sovereignty patterns, maturity models, and governance architecture</li>
+              <li>65,000-word technical documentation covering verification protocols, sovereignty patterns, exit-criteria planning, and multi-layer trust architecture</li>
+              <li>Framework adopted as architectural reference for multiple production systems including IDist ® and Vera VB — the theoretical and the applied in direct conversation</li>
+            </ul>
             <div class="role-tags">
               <span class="role-tag">AI Governance</span>
               <span class="role-tag">Verification Systems</span>
               <span class="role-tag">Knowledge Architecture</span>
-              <span class="role-tag">mdBook</span>
+              <span class="role-tag">Technical Writing</span>
+            </div>
+            <div class="role-links">
+              <a href="research.html" class="role-cs-link">Read The Proof Economy →</a>
+              <a href="vera.html" class="role-cs-link">Explore VERA →</a>
             </div>
           </div>
         </div>
 
+        <!-- Role 4: Founder, design & furniture -->
         <div class="role">
           <div class="role-meta">
-            <span class="role-date">2024 — Present</span>
-            <span class="role-type">Engineering</span>
-          </div>
-          <div>
-            <div class="role-title">AI Engineer & ML Systems Builder</div>
-            <div class="role-company">Independent Practice</div>
-            <p class="role-desc">Designed and built AI pipelines, document intelligence systems, and data architectures for clients in property, logistics, and infrastructure. Specialized in taking ML proof-of-concepts through to production-ready systems with proper observability, error handling, and maintainability. Deep focus on RAG architectures and retrieval systems.</p>
-            <div class="role-tags">
-              <span class="role-tag">RAG</span>
-              <span class="role-tag">LangChain</span>
-              <span class="role-tag">Pydantic</span>
-              <span class="role-tag">TypeScript</span>
-              <span class="role-tag">Vector DBs</span>
-              <span class="role-tag">Document AI</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="role">
-          <div class="role-meta">
-            <span class="role-date">2012 — 2025</span>
+            <span class="role-date">2012 — 2023</span>
             <span class="role-type">Founder</span>
           </div>
           <div>
             <div class="role-title">Founder</div>
-            <div class="role-company">NYC Interior Design · Residential Design Build & Brooklyn Furniture</div>
-            <p class="role-desc">Founded and operated a residential design build firm in New York City and a full service Brooklyn furniture company specializing in upholstery, millwork, and custom woodwork. Deep experience building client relationships, partnerships, managing complex projects, and developing the domain expertise in property and infrastructure that now informs my AI engineering work.</p>
+            <div class="role-company">NYC Interior Design · Residential Design Build &amp; Brooklyn Furniture</div>
+            <ul class="role-bullets">
+              <li>Founded and operated a residential design-build firm in New York City and a custom furniture company in Brooklyn, specializing in upholstery, millwork, and bespoke woodwork</li>
+              <li>Managed complex multi-stakeholder projects across design, procurement, fabrication, and installation — the same lifecycle coordination that now underlies IDist ®'s procurement intelligence architecture</li>
+              <li>Deep expertise in NYC property, permitting, and construction workflows across 11 years of active residential work — domain knowledge that became the direct foundation for NYCID's data model and IDist ®'s asset lifecycle design</li>
+            </ul>
             <div class="role-tags">
               <span class="role-tag">Residential Design Build</span>
               <span class="role-tag">Custom Furniture</span>
-              <span class="role-tag">Client Relationships</span>
-              <span class="role-tag">Project Management</span>
+              <span class="role-tag">Procurement Management</span>
+              <span class="role-tag">NYC Property</span>
             </div>
           </div>
         </div>
-
 
       </div>
     </div>
   </section>
 
+  <!-- ── GDG / THOUGHT LEADERSHIP ── -->
+  <section class="section" style="padding-top: 1.5rem; padding-bottom: 3rem;">
+    <div class="container">
+      <div class="section-label">Community &amp; Thought Leadership</div>
+      <div class="gdg-section">
+        <div class="gdg-card">
+          <div class="gdg-meta">
+            <span class="gdg-date">2024 — Present</span>
+            <span class="gdg-badge">GDG Network</span>
+          </div>
+          <div>
+            <div class="gdg-title">Google Developer Groups — Providence</div>
+            <div class="gdg-sub">Co-Founder &amp; Community Organizer</div>
+            <ul class="gdg-bullets">
+              <li>Co-founded and built the Providence chapter of Google Developer Groups from zero to 500+ members — part of the global GDG network spanning 150+ countries</li>
+              <li>Organize regular sessions on AI/ML, cloud architecture, and developer tooling — covering production patterns with GCP, Vertex AI, and Gemini API</li>
+              <li>Demonstrates technical communication and the ability to make complex AI engineering concepts accessible to practitioners at different stages — a skill that shows up in documentation, architecture reviews, and client work</li>
+            </ul>
+            <a href="https://gdg.community.dev/gdg-providence/" target="_blank" class="gdg-link">GDG Providence →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TECHNICAL STACK ── -->
   <section class="section section--cream" style="padding: 3rem 2.5rem;">
     <div class="container" style="max-width:none;">
       <div class="section-label">Technical Stack</div>
       <div class="stack-grid">
         <div class="stack-cell">
           <div class="stack-cell-label">Cloud Infrastructure</div>
-          <div class="stack-cell-items">GCP Native, Cloud Run, BigQuery, Cloud SQL, IAM, Secret Manager</div>
+          <div class="stack-cell-items">GCP Native, Cloud Run, BigQuery, Firestore, Cloud Functions, Cloud Storage, IAM, Secret Manager</div>
         </div>
         <div class="stack-cell">
           <div class="stack-cell-label">AI / ML</div>
-          <div class="stack-cell-items">Vertex AI, Gemini API, RAG Systems, Vector Databases, Document AI, LangChain</div>
+          <div class="stack-cell-items">Vertex AI, Gemini API, Document AI, RAG Systems, Vector Databases, LangChain, Resemblyzer, Wav2Vec2, ECAPA-TDNN, Parselmouth</div>
         </div>
         <div class="stack-cell">
           <div class="stack-cell-label">Spatial / Data</div>
-          <div class="stack-cell-items">PostGIS, BigQuery GIS, geospatial pipelines, property & infrastructure data</div>
+          <div class="stack-cell-items">PostGIS, BigQuery GIS, NYC Open Data, ACRIS, Socrata APIs, geospatial pipelines, property &amp; infrastructure data</div>
         </div>
         <div class="stack-cell">
           <div class="stack-cell-label">Backend</div>
-          <div class="stack-cell-items">Python, FastAPI, Pydantic, PostgreSQL, REST APIs, async architecture</div>
+          <div class="stack-cell-items">Python, FastAPI, Pydantic, PostgreSQL, REST APIs, async architecture, Web Crypto API</div>
         </div>
         <div class="stack-cell">
           <div class="stack-cell-label">Frontend</div>
-          <div class="stack-cell-items">TypeScript, React, HTML/CSS, data visualization, map rendering</div>
+          <div class="stack-cell-items">Next.js, TypeScript, React, HTML/CSS, data visualization, map rendering</div>
         </div>
         <div class="stack-cell">
           <div class="stack-cell-label">Methodology</div>
-          <div class="stack-cell-items">VERA verification protocol, observability-first, sovereignty by design, exit-criteria planning</div>
+          <div class="stack-cell-items">VERA verification protocol, observability-first, zero-knowledge architecture, longitudinal data design, sovereignty by design, exit-criteria planning</div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ── CTA ── -->
   <section class="section">
-    <div class="container" style="text-align:center;max-width:640px;margin:0 auto;">
+    <div class="container" style="text-align:center;max-width:680px;margin:0 auto;">
       <div class="section-label" style="justify-content:center;">
         <span style="display:block;width:1.5rem;height:1px;background:var(--accent);"></span>
-        Next
+        Portfolio
       </div>
-      <h2 class="section-title">See what I've shipped.</h2>
-      <p class="section-body" style="margin:0 auto 2.5rem;">Three open-source AI systems — geospatial intelligence, RAG pipelines, and vendor dependency mapping.</p>
+      <h2 class="section-title">Four production AI systems — from geospatial intelligence to voice biometrics.</h2>
+      <p class="section-body" style="margin:0 auto 2.5rem;">Asset management infrastructure, insurance document intelligence, NYC property dossiers, and voice biometric identity — each a case study in taking ML from proof-of-concept to production.</p>
       <div class="cta-row" style="justify-content:center;">
-        <a href="portfolio.html" class="btn-primary">View portfolio →</a>
+        <a href="portfolio.html" class="btn-primary">View Portfolio →</a>
         <a href="contact.html" class="btn-secondary">Get in touch</a>
       </div>
     </div>
