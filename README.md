@@ -14,7 +14,7 @@ Spent 12 years running a design-build manufacturing firm before moving fully int
 
 ### Current work
 
-- **[Projects](https://danielflugger.com/portfolio)** — GCP-native platforms across various projects
+- **[Projects](https://danielflugger.com/portfolio.html)** — GCP-native platforms across various projects
 - **[Google for Developers](https://g.dev/danielflugger)** — ML pipelines, GIS platforms, and LLM curriculum for 3,000+ developers
 
 ---
