@@ -1,0 +1,425 @@
+/* ── CASE STUDY PAGE STYLES ── */
+/* Supplements ../style.css (nav, footer, base reset) */
+
+:root {
+  --teal: #0d9488;
+  --teal-bg: rgba(13,148,136,0.09);
+  --teal-border: rgba(13,148,136,0.25);
+}
+
+/* Fixed nav clearance */
+body { padding-top: 72px; }
+
+/* ── TOPBAR / BACK LINK ── */
+.cs-topbar {
+  background: var(--cream);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.7rem 2.5rem;
+}
+.cs-topbar-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.cs-back {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.67rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+}
+.cs-back:hover { color: var(--ink); }
+
+/* ── HERO IMAGE ── */
+.cs-hero-img-wrap {
+  width: 100%;
+  height: 460px;
+  overflow: hidden;
+  background: var(--cream);
+}
+.cs-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── HERO CONTENT ── */
+.cs-hero {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 2.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.cs-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+  align-items: center;
+}
+.cs-meta-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+  border-radius: 2px;
+}
+.cs-meta-badge--teal {
+  background: var(--teal-bg);
+  color: var(--teal);
+  border-color: var(--teal-border);
+}
+.cs-meta-badge--status {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+}
+.cs-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+.cs-overview {
+  font-size: 1rem;
+  line-height: 1.82;
+  color: #3a3630;
+  max-width: 760px;
+  margin-bottom: 2.5rem;
+}
+.cs-overview p + p { margin-top: 1rem; }
+
+/* Impact metrics strip */
+.cs-impact-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--rule);
+  background: var(--cream);
+}
+.cs-impact-stat {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border-right: 1px solid var(--rule);
+}
+.cs-impact-stat:last-child { border-right: none; }
+.cs-impact-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.cs-impact-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── TAB NAV ── */
+.cs-tab-nav {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 2.5rem;
+  position: sticky;
+  top: 72px;
+  z-index: 40;
+  overflow-x: auto;
+}
+.cs-tab-nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+}
+.cs-tab {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 1rem 1.25rem;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s, border-color 0.2s;
+  display: inline-block;
+}
+.cs-tab:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── CONTENT WRAPPER ── */
+.cs-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2.5rem 6rem;
+}
+
+/* ── SECTIONS ── */
+.cs-section {
+  padding-top: 4rem;
+  border-top: 1px solid var(--rule);
+  margin-top: 4rem;
+}
+.cs-section:first-child {
+  margin-top: 0;
+  border-top: none;
+}
+.cs-section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.cs-section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--teal);
+}
+.cs-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+.cs-body {
+  font-size: 1rem;
+  line-height: 1.82;
+  color: #3a3630;
+}
+.cs-body p + p { margin-top: 1rem; }
+.cs-body ul {
+  margin-top: 1rem;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.cs-body ul li {
+  padding: 0.35rem 0 0.35rem 1.5rem;
+  position: relative;
+  color: #3a3630;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.cs-body ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+  font-size: 0.85rem;
+}
+
+/* ── CALLOUT BOXES (pain point stats) ── */
+.cs-callouts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.cs-callout {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--teal);
+  padding: 1.5rem 1.25rem;
+}
+.cs-callout-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+  line-height: 1.2;
+}
+.cs-callout-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── TECH TAGS ── */
+.cs-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+}
+.cs-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  background: var(--teal-bg);
+  color: var(--teal);
+  border-radius: 2px;
+}
+
+/* ── ARCHITECTURE LAYERS ── */
+.cs-arch-layers {
+  margin-top: 1.5rem;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.cs-arch-layer {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.cs-arch-layer:last-child { border-bottom: none; }
+.cs-arch-layer:nth-child(odd) { background: var(--cream); }
+.cs-arch-layer-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  flex-shrink: 0;
+  min-width: 100px;
+  padding-top: 0.15rem;
+}
+.cs-arch-layer-desc {
+  font-size: 0.9rem;
+  color: #3a3630;
+  line-height: 1.65;
+}
+
+/* ── IMPACT METRICS GRID ── */
+.cs-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+.cs-metric-box {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--teal);
+  padding: 1.75rem 1.5rem;
+}
+.cs-metric-box-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.cs-metric-box-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.cs-metric-box-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── TAKEAWAY CARDS ── */
+.cs-takeaways {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.cs-takeaway {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--teal);
+  padding: 1.5rem 1.75rem;
+}
+.cs-takeaway-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+.cs-takeaway-body {
+  font-size: 0.9rem;
+  color: #3a3630;
+  line-height: 1.75;
+}
+
+/* ── CTA SECTION ── */
+.cs-cta-section {
+  margin-top: 4rem;
+  padding: 2.5rem;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.cs-cta-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.cs-cta-text p {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.cs-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  body { padding-top: 72px; }
+  .cs-topbar { padding: 0.7rem 1.5rem; }
+  .cs-hero-img-wrap { height: 280px; }
+  .cs-hero { padding: 2rem 1.5rem; }
+  .cs-impact-row { grid-template-columns: repeat(2, 1fr); }
+  .cs-impact-stat:nth-child(2n) { border-right: none; }
+  .cs-impact-stat:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .cs-tab-nav { padding: 0 1rem; }
+  .cs-content { padding: 0 1.5rem 4rem; }
+  .cs-callouts { grid-template-columns: 1fr; }
+  .cs-metrics-grid { grid-template-columns: 1fr; }
+  .cs-cta-section { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 480px) {
+  .cs-impact-row { grid-template-columns: 1fr 1fr; }
+  .cs-h1 { font-size: 2.2rem; }
+}

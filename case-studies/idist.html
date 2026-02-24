@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iDist — Asset Management Infrastructure · Daniel Flügger</title>
+  <meta name="description" content="iDist: a GCP-native global design and procurement platform for physical asset management across 4 countries. Case study by Daniel Flügger.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="case-study.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-brand">Daniel <span>Flügger</span></a>
+    <ul class="nav-links">
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="../experience.html">Experience</a></li>
+      <li><a href="https://github.com/danielflugger" target="_blank">GitHub</a></li>
+      <li><a href="../portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="../research.html">Research</a></li>
+      <li><a href="../vera.html">VERA</a></li>
+    </ul>
+  </nav>
+
+  <div class="cs-topbar">
+    <div class="cs-topbar-inner">
+      <a href="../portfolio.html" class="cs-back">← Back to Portfolio</a>
+    </div>
+  </div>
+
+  <div class="cs-hero-img-wrap">
+    <img class="cs-hero-img" src="../images/idist.jpg" alt="iDist — Asset Management Infrastructure">
+  </div>
+
+  <div class="cs-hero">
+    <div class="cs-meta">
+      <span class="cs-meta-badge cs-meta-badge--teal">Lead Engineer &amp; Architect</span>
+      <span class="cs-meta-badge">Enterprise Infrastructure · Asset Management</span>
+      <span class="cs-meta-badge">2024–2025</span>
+    </div>
+    <h1 class="cs-h1">iDist</h1>
+    <div class="cs-overview">
+      <p>iDist is a global design and procurement platform for physical asset management infrastructure — the system that tracks, validates, and coordinates the lifecycle of distributed physical assets across international operations. Built to replace fragmented spreadsheet-and-email workflows with a unified, auditable pipeline from asset specification through procurement, deployment, and verification.</p>
+      <p>The platform serves organizations managing large physical asset portfolios across multiple countries and regulatory environments, where procurement errors cascade into six-figure cost overruns and compliance failures compound across jurisdictions.</p>
+    </div>
+    <div class="cs-impact-row">
+      <div class="cs-impact-stat">
+        <span class="cs-impact-val">4</span>
+        <span class="cs-impact-label">Countries Unified</span>
+      </div>
+      <div class="cs-impact-stat">
+        <span class="cs-impact-val">30%</span>
+        <span class="cs-impact-label">Procurement Cycle Reduction</span>
+      </div>
+      <div class="cs-impact-stat">
+        <span class="cs-impact-val">89%</span>
+        <span class="cs-impact-label">Fewer Specification Errors</span>
+      </div>
+      <div class="cs-impact-stat">
+        <span class="cs-impact-val">100%</span>
+        <span class="cs-impact-label">Real-Time Asset Visibility</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-tab-nav">
+    <div class="cs-tab-nav-inner">
+      <a href="#challenge" class="cs-tab">Challenge</a>
+      <a href="#approach" class="cs-tab">Approach</a>
+      <a href="#architecture" class="cs-tab">Architecture</a>
+      <a href="#impact" class="cs-tab">Impact</a>
+      <a href="#takeaways" class="cs-tab">Takeaways</a>
+    </div>
+  </div>
+
+  <div class="cs-content">
+
+    <div class="cs-section" id="challenge">
+      <div class="cs-section-eyebrow">01 — The Challenge</div>
+      <h2 class="cs-section-title">Asset management across borders, without a single system of record.</h2>
+      <div class="cs-body">
+        <p>Managing physical asset portfolios across four countries means four regulatory frameworks, four procurement standards, four ways of tracking what exists and what doesn't — and no shared infrastructure connecting any of them. The client was running their global asset operations on a patchwork of spreadsheets, email chains, and disconnected legacy platforms that had accreted over years of regional expansion.</p>
+        <p>The consequences were predictable: procurement errors that weren't caught until assets arrived on-site, compliance documents that referenced specifications no longer in service, and no way to answer a basic question — "what is the current deployment status of this asset class across all our markets" — without a multi-day data gathering exercise.</p>
+      </div>
+      <div class="cs-callouts">
+        <div class="cs-callout">
+          <div class="cs-callout-val">4 Countries, 4 Systems</div>
+          <div class="cs-callout-desc">No shared data model, no unified identifier, no cross-market visibility. Every region managed assets independently.</div>
+        </div>
+        <div class="cs-callout">
+          <div class="cs-callout-val">$2.3M</div>
+          <div class="cs-callout-desc">Average annual procurement waste from specification mismatches — assets ordered, shipped, and rejected due to non-compliant specifications.</div>
+        </div>
+        <div class="cs-callout">
+          <div class="cs-callout-val">0%</div>
+          <div class="cs-callout-desc">Real-time visibility into asset deployment status. Leadership had no live view of what was deployed, in transit, or pending compliance review.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-section" id="approach">
+      <div class="cs-section-eyebrow">02 — Research &amp; Approach</div>
+      <h2 class="cs-section-title">Normalize before you build. Then automate the hard parts.</h2>
+      <div class="cs-body">
+        <p>The first and most important decision was to spend significant architecture time on the data model before writing application code. International asset management requires a canonical data model that normalizes specifications across different national standards — without that foundation, every automation layer built on top creates new inconsistencies.</p>
+        <p>The canonical model aligned asset specifications to ISO 55000 (the international asset management standard), with jurisdiction-specific extension fields for each market's regulatory requirements. This meant that a single asset specification could be used to generate the correct procurement documents for any market the client operated in.</p>
+        <ul>
+          <li>Designed a unified asset data model aligned to ISO 55000, with per-jurisdiction extension schemas for regulatory fields</li>
+          <li>Built a vendor compliance scoring engine that validates suppliers against the specific requirements of each jurisdiction before allowing them into a procurement workflow</li>
+          <li>Implemented real-time procurement tracking with automated milestone verification — each stage of the procurement process has defined completion criteria that must be met before the workflow advances</li>
+          <li>Created a specification matching engine using structured comparison against validated asset catalogs, flagging mismatches before orders are placed rather than after assets arrive</li>
+          <li>Designed an automated document processing pipeline that ingests vendor submissions (invoices, certifications, spec sheets) and validates them against the expected format and content for each procurement stage</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cs-section" id="architecture">
+      <div class="cs-section-eyebrow">03 — Technical Architecture</div>
+      <h2 class="cs-section-title">GCP-native, event-driven, auditable by design.</h2>
+      <div class="cs-body">
+        <p>The stack was chosen for auditability and maintainability at enterprise scale. Every state change, every approval, and every specification match is logged with full provenance — not as a compliance afterthought, but as a core architectural requirement that shaped the data model from the start.</p>
+      </div>
+      <div class="cs-arch-layers">
+        <div class="cs-arch-layer">
+          <div class="cs-arch-layer-label">Frontend</div>
+          <div class="cs-arch-layer-desc">Next.js on Cloud Run with role-based access control — separate views for procurement teams, engineering teams, and compliance officers. Each role sees only the workflows and data relevant to their function.</div>
+        </div>
+        <div class="cs-arch-layer">
+          <div class="cs-arch-layer-label">API Layer</div>
+          <div class="cs-arch-layer-desc">FastAPI on Cloud Run. All procurement state transitions go through the API, which enforces business rules and writes audit events before committing state changes.</div>
+        </div>
+        <div class="cs-arch-layer">
+          <div class="cs-arch-layer-label">Processing</div>
+          <div class="cs-arch-layer-desc">Cloud Functions for event-driven validation — triggered on document upload, specification changes, and procurement state transitions. Document AI + Gemini API for vendor document extraction and normalization.</div>
+        </div>
+        <div class="cs-arch-layer">
+          <div class="cs-arch-layer-label">Data</div>
+          <div class="cs-arch-layer-desc">BigQuery for the asset registry and analytics (immutable append-only audit log). Firestore for real-time procurement state (mutable, watched by frontend). Cloud Storage for document archive.</div>
+        </div>
+        <div class="cs-arch-layer">
+          <div class="cs-arch-layer-label">Integration</div>
+          <div class="cs-arch-layer-desc">Connector layer for ERP systems, vendor portals, and compliance databases. Each integration is stateless and writes only to the canonical data model — no direct coupling between external systems.</div>
+        </div>
+      </div>
+      <div class="cs-tags">
+        <span class="cs-tag">GCP</span>
+        <span class="cs-tag">Cloud Run</span>
+        <span class="cs-tag">BigQuery</span>
+        <span class="cs-tag">Next.js</span>
+        <span class="cs-tag">Python</span>
+        <span class="cs-tag">FastAPI</span>
+        <span class="cs-tag">Document AI</span>
+        <span class="cs-tag">Gemini API</span>
+        <span class="cs-tag">Firestore</span>
+        <span class="cs-tag">Cloud Functions</span>
+      </div>
+    </div>
+
+    <div class="cs-section" id="impact">
+      <div class="cs-section-eyebrow">04 — Measured Impact</div>
+      <h2 class="cs-section-title">Fewer errors, faster cycles, and a view of the whole operation.</h2>
+      <div class="cs-metrics-grid">
+        <div class="cs-metric-box">
+          <div class="cs-metric-box-val">30%</div>
+          <div class="cs-metric-box-label">Procurement Cycle Reduction</div>
+          <div class="cs-metric-box-desc">End-to-end procurement time dropped from an average of 12+ weeks to under 9, driven by automated validation and milestone tracking eliminating manual back-and-forth at each stage.</div>
+        </div>
+        <div class="cs-metric-box">
+          <div class="cs-metric-box-val">4</div>
+          <div class="cs-metric-box-label">Countries on One Platform</div>
+          <div class="cs-metric-box-desc">All markets migrated to the unified platform, with jurisdiction-specific compliance fields handled automatically. No regional workarounds or parallel systems.</div>
+        </div>
+        <div class="cs-metric-box">
+          <div class="cs-metric-box-val">89%</div>
+          <div class="cs-metric-box-label">Reduction in Specification Errors</div>
+          <div class="cs-metric-box-desc">The specification matching engine catches mismatches before orders are placed. Prior to the platform, 23% of procurement orders contained specification errors that required rework.</div>
+        </div>
+        <div class="cs-metric-box">
+          <div class="cs-metric-box-val">Live</div>
+          <div class="cs-metric-box-label">Real-Time Asset Visibility</div>
+          <div class="cs-metric-box-desc">Leadership now has a live view of every asset's status across all markets — deployed, in transit, in procurement, or pending compliance review — updated in real time as procurement events occur.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-section" id="takeaways">
+      <div class="cs-section-eyebrow">05 — Key Takeaways</div>
+      <h2 class="cs-section-title">What this project taught about building for enterprise operations.</h2>
+      <div class="cs-takeaways">
+        <div class="cs-takeaway">
+          <div class="cs-takeaway-title">"Normalize Before You Optimize"</div>
+          <div class="cs-takeaway-body">International asset management requires a canonical data model before any automation adds value. We spent approximately 40% of architecture time on the data model — defining the canonical asset schema, the jurisdiction extension pattern, and the identifier strategy — before writing a single line of application code. That investment paid back at least 10x in reduced edge cases, reduced integration complexity, and reduced bug surface during implementation.</div>
+        </div>
+        <div class="cs-takeaway">
+          <div class="cs-takeaway-title">"Compliance Is a Feature, Not a Constraint"</div>
+          <div class="cs-takeaway-body">Building jurisdiction-aware validation into the core pipeline — not as an afterthought layer added after the core system was built — eliminated the most expensive failure mode: non-compliant procurement that requires physical rework after assets are already in the field. When compliance is structural, it's impossible to skip. When it's a wrapper, it gets bypassed under pressure.</div>
+        </div>
+        <div class="cs-takeaway">
+          <div class="cs-takeaway-title">"Enterprise Trust Requires Audit Trails"</div>
+          <div class="cs-takeaway-body">Every state change, every approval, and every specification match is logged with full provenance — who did what, when, and why. This wasn't a compliance checkbox. It was the specific feature that got procurement directors to actually migrate off spreadsheets. The first question every enterprise stakeholder asks is: "if something goes wrong, can I see exactly what happened and who was responsible?" The answer had to be yes before anyone was willing to rely on the system for decisions that affected real money.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-cta-section">
+      <div class="cs-cta-text">
+        <h3>View More Work</h3>
+        <p>See the full portfolio — production AI systems across insurance, property intelligence, and voice biometrics.</p>
+      </div>
+      <div class="cs-cta-buttons">
+        <a href="../portfolio.html" class="btn-primary">Back to Portfolio →</a>
+        <a href="../contact.html" class="btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2026 Daniel Flügger</span>
+    <span>Applied AI Engineer</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="https://linkedin.com/in/danielflugger" target="_blank">LinkedIn</a>
+      <a href="https://github.com/danielflugger" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+</body>
+</html>

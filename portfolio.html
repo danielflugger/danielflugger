@@ -4,45 +4,227 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio — Daniel Flügger</title>
-  <meta name="description" content="Three open-source AI systems: geoasset-verify-pipeline, rag-doc-processor, and vendor-mesh-intelligence.">
+  <meta name="description" content="Applied AI engineering portfolio — production systems for asset management, insurance intelligence, property data, and voice identity infrastructure.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
   <style>
-    .page-hero {
-      padding: 10rem 2.5rem 5rem;
-      max-width: 1080px;
-      margin: 0 auto;
+    /* ── PORTFOLIO GRID (new light section) ── */
+    .pf-section {
+      background: var(--paper);
+      padding: 7rem 2.5rem 5rem;
     }
-    .page-hero-label {
+    .pf-header {
+      max-width: 1080px;
+      margin: 0 auto 3rem;
+    }
+    .pf-label {
       font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
     }
-    .page-hero-label::before { content:''; display:block; width:2rem; height:1px; background:var(--accent); }
-    .page-hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
-      font-weight: 900;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
+    .pf-label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--accent);
     }
-    .page-hero h1 em { font-style: italic; color: var(--accent); }
-    .page-hero p {
-      font-size: 1.05rem;
-      max-width: 600px;
-      color: #3a3630;
-      line-height: 1.8;
+    .pf-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .pf-title em { font-style: italic; color: var(--accent); }
+    .pf-sub-text {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+    .pf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .pf-card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .pf-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+    }
+    .pf-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+    }
+    .pf-body {
+      padding: 1.75rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .pf-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+    .pf-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+    }
+    .pf-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1.25rem;
+    }
+    .pf-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      background: rgba(13,148,136,0.09);
+      color: #0d9488;
+      border-radius: 2px;
+    }
+    .pf-metrics {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.5rem;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .pf-metric {
+      flex: 1;
+      padding: 0.75rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .pf-metric + .pf-metric {
+      border-left: 1px solid var(--rule);
+      padding-left: 0.9rem;
+    }
+    .pf-metric-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .pf-metric-key {
+      font-size: 0.67rem;
+      color: var(--muted);
+    }
+    .pf-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(19,24,35,0.25);
+      padding-bottom: 2px;
+      align-self: flex-start;
+      margin-top: auto;
+      transition: border-color 0.2s;
+    }
+    .pf-cta:hover { border-color: var(--accent); }
+
+    /* ── SECTION BRIDGE ── */
+    .section-bridge {
+      background: var(--ink);
+      padding: 1.75rem 2.5rem;
+    }
+    .section-bridge-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .section-bridge-line { flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+    .section-bridge-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.25);
+      white-space: nowrap;
     }
 
-    /* PROJECT CARDS */
+    /* ── OSS SECTION (secondary, dark) ── */
+    .oss-section { background: var(--ink); padding: 4rem 2.5rem; }
+    .oss-header {
+      max-width: 1080px;
+      margin: 0 auto 2rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .oss-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.35);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .oss-label::before { content: ''; width: 1.5rem; height: 1px; background: rgba(245,240,232,0.2); display: block; }
+    .oss-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--paper);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    .oss-subtitle { font-size: 0.88rem; color: rgba(245,240,232,0.45); line-height: 1.65; max-width: 600px; }
+    .oss-inner { max-width: 1080px; margin: 0 auto; }
+
+    /* Dark overrides for existing project cards in OSS section */
+    .oss-section .project-list { margin-top: 0; }
+    .oss-section .project { border-top-color: rgba(255,255,255,0.07); padding: 2rem 0; }
+    .oss-section .project:last-child { border-bottom-color: rgba(255,255,255,0.07); }
+    .oss-section .project-meta-num { font-size: 2.2rem; -webkit-text-stroke-color: rgba(245,240,232,0.1); }
+    .oss-section .project-meta-type { color: rgba(245,240,232,0.35); }
+    .oss-section .project-title { color: var(--paper); font-size: 1.35rem; }
+    .oss-section .project-subtitle { color: rgba(245,240,232,0.4); }
+    .oss-section .project-desc { color: rgba(245,240,232,0.6); font-size: 0.9rem; }
+    .oss-section .project-what-label { color: rgba(245,240,232,0.3); }
+    .oss-section .project-what-list li { color: rgba(245,240,232,0.6); font-size: 0.85rem; }
+    .oss-section .project-what-list li::before { color: rgba(245,240,232,0.35); }
+    .oss-section .project-tag { border-color: rgba(255,255,255,0.1); color: rgba(245,240,232,0.45); }
+    .oss-section .project-link { color: rgba(245,240,232,0.6); border-bottom-color: rgba(245,240,232,0.2); }
+    .oss-section .project-link:hover { color: var(--paper); border-color: rgba(245,240,232,0.5); }
+
+    /* ── EXISTING CARD STYLES (kept for OSS section) ── */
     .project-list { margin-top: 2rem; }
     .project {
       display: grid;
@@ -53,7 +235,6 @@
       align-items: start;
     }
     .project:last-child { border-bottom: 1px solid var(--rule); }
-
     .project-meta-num {
       font-family: 'Playfair Display', serif;
       font-size: 3.5rem;
@@ -90,9 +271,7 @@
       line-height: 1.8;
       margin-bottom: 1.5rem;
     }
-    .project-what {
-      margin-bottom: 1.5rem;
-    }
+    .project-what { margin-bottom: 1.5rem; }
     .project-what-label {
       font-family: 'DM Mono', monospace;
       font-size: 0.62rem;
@@ -101,9 +280,7 @@
       color: var(--muted);
       margin-bottom: 0.5rem;
     }
-    .project-what-list {
-      list-style: none;
-    }
+    .project-what-list { list-style: none; }
     .project-what-list li {
       font-size: 0.88rem;
       color: #3a3630;
@@ -149,8 +326,15 @@
     .project-link:hover { border-color: var(--accent); }
 
     @media (max-width: 768px) {
+      .pf-grid { grid-template-columns: 1fr; }
+      .pf-section { padding: 6rem 1.5rem 3rem; }
+      .oss-section { padding: 3rem 1.5rem; }
+      .section-bridge { padding: 1.5rem; }
       .project { grid-template-columns: 1fr; gap: 1.25rem; }
       .project-meta-num { font-size: 2rem; }
+    }
+    @media (max-width: 480px) {
+      .pf-img { height: 200px; }
     }
   </style>
 </head>
@@ -169,8 +353,156 @@
     </ul>
   </nav>
 
-  <section class="section" style="padding-top:6rem;">
-    <div class="container">
+  <!-- ── NEW PORTFOLIO GRID ── -->
+  <section class="pf-section">
+    <div class="pf-header">
+      <div class="pf-label">Selected Work</div>
+      <h1 class="pf-title">Projects &amp; <em>Case Studies.</em></h1>
+      <p class="pf-sub-text">GCP-native systems built for real operations — asset management, insurance intelligence, property data, and voice identity infrastructure.</p>
+    </div>
+
+    <div class="pf-grid">
+
+      <!-- Card 1: iDist -->
+      <div class="pf-card">
+        <img class="pf-img" src="images/idist.jpg" alt="iDist — Asset Management Infrastructure">
+        <div class="pf-body">
+          <div class="pf-name">iDist</div>
+          <div class="pf-desc">Asset Management Infrastructure — Global Design &amp; Procurement Platform</div>
+          <div class="pf-tags">
+            <span class="pf-tag">GCP</span>
+            <span class="pf-tag">Geospatial AI</span>
+            <span class="pf-tag">Asset Management</span>
+            <span class="pf-tag">Enterprise</span>
+          </div>
+          <div class="pf-metrics">
+            <div class="pf-metric">
+              <span class="pf-metric-val">4 Countries</span>
+              <span class="pf-metric-key">Unified Platform</span>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-val">30% Reduction</span>
+              <span class="pf-metric-key">Procurement Cycle</span>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-val">Enterprise</span>
+              <span class="pf-metric-key">Scale</span>
+            </div>
+          </div>
+          <a href="case-studies/idist.html" class="pf-cta">View Case Study →</a>
+        </div>
+      </div>
+
+      <!-- Card 2: LH-PVI -->
+      <div class="pf-card">
+        <img class="pf-img" src="images/lh-pvi.jpg" alt="LH-PVI — Insurance Geospatial Intelligence">
+        <div class="pf-body">
+          <div class="pf-name">LH-PVI</div>
+          <div class="pf-desc">Private Insurance — Mapping Unstructured Data to Geospatial Intelligence</div>
+          <div class="pf-tags">
+            <span class="pf-tag">Document AI</span>
+            <span class="pf-tag">Geospatial</span>
+            <span class="pf-tag">Insurance</span>
+            <span class="pf-tag">Data Pipeline</span>
+          </div>
+          <div class="pf-metrics">
+            <div class="pf-metric">
+              <span class="pf-metric-val">70% Faster</span>
+              <span class="pf-metric-key">Processing</span>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-val">Unstructured</span>
+              <span class="pf-metric-key">→ Structured</span>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-val">Production</span>
+              <span class="pf-metric-key">ML</span>
+            </div>
+          </div>
+          <a href="case-studies/lh-pvi.html" class="pf-cta">View Case Study →</a>
+        </div>
+      </div>
+
+      <!-- Card 3: NYCID -->
+      <div class="pf-card">
+        <img class="pf-img" src="images/nycid.jpg" alt="NYCID — NYC Private Property Dossier">
+        <div class="pf-body">
+          <div class="pf-name">NYCID</div>
+          <div class="pf-desc">Private Property Dossier for NYC Residential</div>
+          <div class="pf-tags">
+            <span class="pf-tag">Real Estate AI</span>
+            <span class="pf-tag">Property Intelligence</span>
+            <span class="pf-tag">NYC</span>
+            <span class="pf-tag">GCP</span>
+          </div>
+          <div class="pf-metrics">
+            <div class="pf-metric">
+              <span class="pf-metric-val">8.1M</span>
+              <span class="pf-metric-key">Properties</span>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-val">Multi-Source</span>
+              <span class="pf-metric-key">Fusion</span>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-val">Verified</span>
+              <span class="pf-metric-key">Records</span>
+            </div>
+          </div>
+          <a href="case-studies/nycid.html" class="pf-cta">View Case Study →</a>
+        </div>
+      </div>
+
+      <!-- Card 4: Vera VB -->
+      <div class="pf-card">
+        <img class="pf-img" src="images/vera-vb.jpg" alt="Vera VB — Voice Biometric Identity Platform">
+        <div class="pf-body">
+          <div class="pf-name">Vera VB</div>
+          <div class="pf-desc">Voice Biometric Identity Infrastructure</div>
+          <div class="pf-tags">
+            <span class="pf-tag">Voice AI</span>
+            <span class="pf-tag">Biometrics</span>
+            <span class="pf-tag">Privacy</span>
+            <span class="pf-tag">ML Pipeline</span>
+          </div>
+          <div class="pf-metrics">
+            <div class="pf-metric">
+              <span class="pf-metric-val">5 Layers</span>
+              <span class="pf-metric-key">Proof Stack</span>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-val">$0 Audio</span>
+              <span class="pf-metric-key">Stored on Platform</span>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-val">Private</span>
+              <span class="pf-metric-key">Beta</span>
+            </div>
+          </div>
+          <a href="case-studies/vera-vb.html" class="pf-cta">View Case Study →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── BRIDGE TO OSS ── -->
+  <div class="section-bridge">
+    <div class="section-bridge-inner">
+      <div class="section-bridge-line"></div>
+      <span class="section-bridge-text">Open Source &amp; Technical Projects</span>
+      <div class="section-bridge-line"></div>
+    </div>
+  </div>
+
+  <!-- ── OSS SECTION (secondary, dark) ── -->
+  <section class="oss-section">
+    <div class="oss-header">
+      <div class="oss-label">Open Source</div>
+      <h2 class="oss-title">Technical Projects &amp; OSS.</h2>
+      <p class="oss-subtitle">Publicly available implementations demonstrating production patterns for geospatial AI, RAG systems, and vendor intelligence.</p>
+    </div>
+    <div class="oss-inner">
       <div class="project-list">
 
         <div class="project">
