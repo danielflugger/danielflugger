@@ -49,14 +49,15 @@
     .hero-photo-card {
       position: relative;
       overflow: hidden;
-      aspect-ratio: 3 / 4;
+      border-radius: 8px;
+      max-width: 400px;
     }
 
     .hero-photo-card img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
+      image-rendering: auto;
     }
 
     .hero-photo-overlay {
@@ -76,7 +77,7 @@
       font-size: 0.65rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #e8722a;
       margin-bottom: 0.25rem;
     }
 
@@ -94,7 +95,7 @@
       display: inline-block;
       margin-top: 0.75rem;
       padding: 0.7rem 1.4rem;
-      background: var(--accent);
+      background: #e8722a;
       color: #fff;
       font-family: 'DM Mono', monospace;
       font-size: 0.75rem;
@@ -276,7 +277,7 @@
       <!-- Right column: photo card -->
       <div class="hero-right fade-5">
         <div class="hero-photo-card">
-          <img src="images/central-park.png" alt="Central Park, New York City">
+          <img src="images/central-park.jpg" alt="Central Park, New York City" loading="lazy">
           <div class="hero-photo-overlay">
             <div class="hero-contact-label">Get in Touch</div>
             <a href="https://linkedin.com/in/danielflugger" target="_blank" class="hero-contact-link">linkedin.com/in/danielflugger</a>
