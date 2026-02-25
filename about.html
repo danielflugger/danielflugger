@@ -48,6 +48,15 @@
       line-height: 1.8;
       text-align: left;
     }
+    .page-hero-tldr {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+      margin-top: -0.5rem;
+    }
 
     /* two-col layout */
     .two-col {
@@ -197,13 +206,13 @@
       <li><a href="vera.html">VERA</a></li>
       <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
     </ul>
-    <button class="theme-toggle" aria-label="Toggle theme"></button>
   </nav>
 
   <div class="page-hero">
     <div class="page-hero-label fade-1">About</div>
     <h1 class="fade-2" style="width:100%;max-width:100%;">Builder by nature.<br><em>Engineer by practice.</em></h1>
-    <p class="page-hero-body fade-3">
+    <p class="page-hero-tldr fade-3">Production AI systems &nbsp;·&nbsp; Geospatial intelligence &nbsp;·&nbsp; Enterprise data architecture &nbsp;·&nbsp; Google Startups Accelerator</p>
+    <p class="page-hero-body fade-4">
       I'm Daniel Flügger — an applied AI engineer with extensive experience building across music, design, and machine learning. I'm based in New York, currently in the Google Startups Accelerator, and looking for the right full-time engineering role where I can contribute inside a strong team while continuing to build independently.
     </p>
   </div>
@@ -244,8 +253,8 @@
       <div class="context-block-label">Why I Build</div>
       <p>This is the most transformative technology of my lifetime — and I genuinely love building with it. That's why I'm always in conversation about new projects, new architectures, new ways to apply AI to real problems. The energy comes from the work itself.</p>
       <p>I'm grateful to be part of the Google Startups Accelerator as a solo founder — their support while building IDist ® has meant a great deal. But building independently isn't new for me. I've started businesses from zero across music, interior design, architecture, and manufacturing in New York City. Each one taught me something about operating under real constraints, managing complex projects, and creating opportunity for talented people.</p>
-      <p>That experience is what I bring to AI engineering that a purely technical background might not. I understand business models, margin structures, procurement, and the gap between a prototype and something that actually runs in production. I want to help companies operate at 60–70% margins while expanding opportunity to talented people across the planet — that's the most meaningful part of building for me.</p>
-      <p>I'm looking for a team where I can contribute my full range of experience — founder's judgment, engineering rigor, and genuine excitement for what this technology makes possible — while learning from strong engineers and product thinkers. Those things compound each other.</p>
+      <p>That cross-domain experience shapes how I approach engineering problems. I understand what it takes to move from prototype to production — not just technically, but operationally. I've navigated procurement, compliance, multi-stakeholder coordination, and real budget constraints. I build systems that are designed to be maintained, audited, and trusted by people who aren't engineers.</p>
+      <p>I'm looking for a team working on complex, high-stakes problems where I can contribute real depth in production AI systems while learning from strong engineers and product thinkers around me. I do my best work when the problems are hard, the standards are high, and the people are good.</p>
     </div>
   </section>
 
@@ -319,14 +328,6 @@
 
   <script>
     (function() {
-      if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode');
-      var themeBtn = document.querySelector('.theme-toggle');
-      if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-          var isLight = document.body.classList.toggle('light-mode');
-          localStorage.setItem('theme', isLight ? 'light' : 'default');
-        });
-      }
       var btn = document.querySelector('.nav-toggle');
       var nav = document.querySelector('nav');
       if (btn && nav) {

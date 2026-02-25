@@ -145,15 +145,18 @@
       font-size: 0.68rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #ffffff;
+      background: #e8722a;
       text-decoration: none;
-      border-bottom: 1px solid rgba(19,24,35,0.25);
-      padding-bottom: 2px;
+      padding: 0.6rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 500;
       align-self: flex-start;
       margin-top: auto;
-      transition: border-color 0.2s;
+      display: inline-block;
+      transition: background 0.2s;
     }
-    .pf-cta:hover { border-color: var(--accent); }
+    .pf-cta:hover { background: #c85a22; color: #ffffff; }
 
     /* ── SECTION BRIDGE ── */
     .section-bridge {
@@ -190,13 +193,13 @@
       font-size: 0.65rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(245,240,232,0.35);
+      color: rgba(255,255,255,0.65);
       margin-bottom: 0.6rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
     }
-    .oss-label::before { content: ''; width: 1.5rem; height: 1px; background: rgba(245,240,232,0.2); display: block; }
+    .oss-label::before { content: ''; width: 1.5rem; height: 1px; background: rgba(255,255,255,0.3); display: block; }
     .oss-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.55rem;
@@ -205,7 +208,7 @@
       letter-spacing: -0.02em;
       margin-bottom: 0.4rem;
     }
-    .oss-subtitle { font-size: 0.88rem; color: rgba(245,240,232,0.45); line-height: 1.65; max-width: 600px; }
+    .oss-subtitle { font-size: 0.88rem; color: #ffffff; line-height: 1.65; max-width: 600px; }
     .oss-inner { max-width: 1080px; margin: 0 auto; }
 
     /* Dark overrides for existing project cards in OSS section */
@@ -213,16 +216,16 @@
     .oss-section .project { border-top-color: rgba(255,255,255,0.07); padding: 2rem 0; }
     .oss-section .project:last-child { border-bottom-color: rgba(255,255,255,0.07); }
     .oss-section .project-meta-num { font-size: 2.2rem; -webkit-text-stroke-color: rgba(245,240,232,0.1); }
-    .oss-section .project-meta-type { color: rgba(245,240,232,0.35); }
+    .oss-section .project-meta-type { color: rgba(255,255,255,0.65); }
     .oss-section .project-title { color: var(--paper); font-size: 1.35rem; }
-    .oss-section .project-subtitle { color: rgba(245,240,232,0.4); }
-    .oss-section .project-desc { color: rgba(245,240,232,0.6); font-size: 0.9rem; }
-    .oss-section .project-what-label { color: rgba(245,240,232,0.3); }
-    .oss-section .project-what-list li { color: rgba(245,240,232,0.6); font-size: 0.85rem; }
-    .oss-section .project-what-list li::before { color: rgba(245,240,232,0.35); }
-    .oss-section .project-tag { border-color: rgba(255,255,255,0.1); color: rgba(245,240,232,0.45); }
-    .oss-section .project-link { color: rgba(245,240,232,0.6); border-bottom-color: rgba(245,240,232,0.2); }
-    .oss-section .project-link:hover { color: var(--paper); border-color: rgba(245,240,232,0.5); }
+    .oss-section .project-subtitle { color: rgba(255,255,255,0.65); }
+    .oss-section .project-desc { color: #ffffff; font-size: 0.9rem; }
+    .oss-section .project-what-label { color: rgba(255,255,255,0.7); }
+    .oss-section .project-what-list li { color: #ffffff; font-size: 0.85rem; }
+    .oss-section .project-what-list li::before { color: #e8722a; }
+    .oss-section .project-tag { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); }
+    .oss-section .project-link { color: #ffffff; border-bottom-color: rgba(255,255,255,0.35); }
+    .oss-section .project-link:hover { color: #ffffff; border-color: rgba(255,255,255,0.7); }
 
     /* ── EXISTING CARD STYLES (kept for OSS section) ── */
     .project-list { margin-top: 2rem; }
@@ -353,7 +356,6 @@
       <li><a href="vera.html">VERA</a></li>
       <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
     </ul>
-    <button class="theme-toggle" aria-label="Toggle theme"></button>
   </nav>
 
   <!-- ── NEW PORTFOLIO GRID ── -->
@@ -649,14 +651,6 @@
 
   <script>
     (function() {
-      if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode');
-      var themeBtn = document.querySelector('.theme-toggle');
-      if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-          var isLight = document.body.classList.toggle('light-mode');
-          localStorage.setItem('theme', isLight ? 'light' : 'default');
-        });
-      }
       var btn = document.querySelector('.nav-toggle');
       var nav = document.querySelector('nav');
       if (btn && nav) {

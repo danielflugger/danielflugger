@@ -424,3 +424,25 @@ body { padding-top: 72px; }
   .cs-impact-row { grid-template-columns: 1fr 1fr; }
   .cs-h1 { font-size: 2.2rem; }
 }
+
+/* ── CTA BUTTON OVERRIDES ── */
+.cs-cta-buttons .btn-secondary {
+  background: #e8722a;
+  color: #ffffff;
+  padding: 0.875rem 2rem;
+  border-bottom: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+}
+.cs-cta-buttons .btn-secondary:hover {
+  background: #c85a22;
+  color: #ffffff;
+  border-color: transparent;
+}
