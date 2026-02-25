@@ -748,14 +748,11 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
       .section { padding: 4rem 1.5rem; }
       .hero { padding: 7rem 1.5rem 4rem; }
       .reframe { grid-template-columns: 1fr; }
       .moat-row { grid-template-columns: 1fr; gap: 2rem; }
       .step { grid-template-columns: 2rem 1fr; gap: 1rem; }
-      .footer-inner { grid-template-columns: 1fr 1fr; padding: 2rem 1.5rem 1.5rem; gap: 1.5rem; }
-      .footer-col--brand { grid-column: 1 / -1; }
       .cta-section { padding: 4rem 1.5rem; }
     }
 
@@ -769,6 +766,7 @@
   <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-brand">Daniel <span>Flügger</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     <ul class="nav-links">
       <li><a href="the-proof-economy.html">Essay</a></li>
       <li><a href="#what-is-vera">What is VERA</a></li>
@@ -1086,6 +1084,18 @@
     </div>
   </footer>
 
+  <script>
+    (function() {
+      var btn = document.querySelector('.nav-toggle');
+      var nav = document.querySelector('nav');
+      if (btn && nav) {
+        btn.addEventListener('click', function() { nav.classList.toggle('nav-open'); });
+        document.querySelectorAll('.nav-links a').forEach(function(a) {
+          a.addEventListener('click', function() { nav.classList.remove('nav-open'); });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
 

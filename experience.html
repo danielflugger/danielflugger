@@ -217,6 +217,7 @@
 
   <nav>
     <a href="index.html" class="nav-brand">Daniel <span>Flügger</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     <ul class="nav-links">
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
@@ -458,5 +459,17 @@
     </div>
   </footer>
 
+  <script>
+    (function() {
+      var btn = document.querySelector('.nav-toggle');
+      var nav = document.querySelector('nav');
+      if (btn && nav) {
+        btn.addEventListener('click', function() { nav.classList.toggle('nav-open'); });
+        document.querySelectorAll('.nav-links a').forEach(function(a) {
+          a.addEventListener('click', function() { nav.classList.remove('nav-open'); });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
