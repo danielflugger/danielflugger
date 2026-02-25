@@ -81,7 +81,7 @@ nav {
 }
 .nav-links .nav-cta {
   background: var(--ink);
-  color: #e8722a;
+  color: #ffffff;
   padding: 0.4rem 1rem;
   border-radius: 4px;
   font-weight: 500;
@@ -89,7 +89,7 @@ nav {
 }
 .nav-links .nav-cta:hover {
   background: #0c0f1a;
-  color: #ffffff;
+  color: #e8722a;
 }
 
 /* ── NAV TOGGLE (hamburger) ── */
@@ -347,8 +347,8 @@ footer a:hover { color: #ffffff; }
   }
   .nav-links a:hover { color: #ffffff !important; background: rgba(255,255,255,0.06); }
   .nav-links a.active { color: #ffffff !important; }
-  .nav-links .nav-cta { background: rgba(232,114,42,0.12) !important; color: #e8722a !important; border-bottom: 1px solid rgba(232,114,42,0.2) !important; font-weight: 500; border-radius: 0; }
-  .nav-links .nav-cta:hover { background: rgba(232,114,42,0.22) !important; color: #ffffff !important; }
+  .nav-links .nav-cta { background: rgba(255,255,255,0.08) !important; color: #ffffff !important; border-bottom: 1px solid rgba(255,255,255,0.12) !important; font-weight: 500; border-radius: 0; }
+  .nav-links .nav-cta:hover { background: rgba(255,255,255,0.12) !important; color: #e8722a !important; }
   .section { padding: 4rem 1.5rem; }
   .footer-inner {
     grid-template-columns: 1fr;
