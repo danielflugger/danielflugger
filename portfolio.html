@@ -351,7 +351,9 @@
       <li><a href="portfolio.html" class="active">Portfolio</a></li>
       <li><a href="research.html">Research</a></li>
       <li><a href="vera.html">VERA</a></li>
+      <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
     </ul>
+    <button class="theme-toggle" aria-label="Toggle theme"></button>
   </nav>
 
   <!-- ── NEW PORTFOLIO GRID ── -->
@@ -647,6 +649,14 @@
 
   <script>
     (function() {
+      if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode');
+      var themeBtn = document.querySelector('.theme-toggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+          var isLight = document.body.classList.toggle('light-mode');
+          localStorage.setItem('theme', isLight ? 'light' : 'default');
+        });
+      }
       var btn = document.querySelector('.nav-toggle');
       var nav = document.querySelector('nav');
       if (btn && nav) {
