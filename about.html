@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Daniel Flügger</title>
-  <meta name="description" content="Applied AI engineer and founder. Extensive experience across music, design, and machine learning. Google Startups Accelerator. Building VERA and geospatial intelligence platforms.">
+  <meta name="description" content="Applied AI engineer and founder. Production ML systems, geospatial intelligence, GCP architecture. Google Startups Accelerator. Building IDist and VERA.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
   <style>
-    .page-hero {
-      padding: 10rem 2.5rem 3rem;
+    /* ── HERO ── */
+    .about-hero {
+      padding: 10rem 2.5rem 4rem;
       max-width: 1080px;
       margin: 0 auto;
     }
-    .page-hero-label {
+    .about-hero-label {
       font-family: 'DM Mono', monospace;
       font-size: 0.72rem;
       letter-spacing: 0.18em;
@@ -25,150 +26,77 @@
       align-items: center;
       gap: 0.75rem;
     }
-    .page-hero-label::before {
+    .about-hero-label::before {
       content: '';
       display: block;
       width: 2rem;
       height: 1px;
       background: var(--accent);
     }
-    .page-hero h1 {
+    .about-hero-h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 900;
       line-height: 1.08;
       letter-spacing: -0.02em;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
-    .page-hero h1 em { font-style: italic; color: var(--accent); }
-    .page-hero-body {
-      font-size: 1.1rem;
-      max-width: 800px;
-      color: #3a3630;
-      line-height: 1.8;
-      text-align: left;
-    }
-    .page-hero-tldr {
+    .about-hero-sub {
       font-family: 'DM Mono', monospace;
       font-size: 0.72rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 1.75rem;
-      margin-top: -0.5rem;
+      line-height: 1.6;
+    }
+    .about-hero-body {
+      font-size: 1.1rem;
+      max-width: 700px;
+      color: #3a3630;
+      line-height: 1.8;
     }
 
-    /* two-col layout */
-    .two-col {
+    /* ── PROSE ── */
+    .about-prose p {
+      font-size: 1.05rem;
+      color: #3a3630;
+      line-height: 1.8;
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+    .about-prose p:last-child { margin-bottom: 0; }
+
+    /* ── STRENGTH CARDS ── */
+    .strength-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
+      gap: 1.5px;
+      background: var(--rule);
+      margin-top: 2.5rem;
     }
-    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; gap: 2.5rem; } }
-
-    .trait-list {
-      list-style: none;
-      margin-top: 2rem;
+    .strength-card {
+      background: var(--card-bg);
+      padding: 2rem 2.25rem;
+      transition: background 0.2s;
     }
-    .trait-list li {
-      padding: 1rem 0;
-      border-top: 1px solid var(--rule);
-      display: flex;
-      gap: 1rem;
-      font-size: 0.95rem;
+    .strength-card:hover { background: #fff; }
+    .strength-card:last-child { grid-column: 1 / -1; }
+    .strength-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+    .strength-card-body {
+      font-size: 0.92rem;
       color: #3a3630;
-      line-height: 1.65;
-    }
-    .trait-list li::before {
-      content: '—';
-      color: var(--accent);
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-    .trait-list li:last-child { border-bottom: 1px solid var(--rule); }
-
-    .context-block {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 2.5rem;
-      margin-top: 3rem;
-    }
-    .context-block-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #e8693a;
-      margin-bottom: 1rem;
-    }
-    .context-block p {
-      font-size: 0.95rem;
-      color: rgba(245,240,232,0.75);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-    .context-block p:last-child { margin-bottom: 0; }
-
-    /* ── THE LONGER ARC — TIMELINE REDESIGN ── */
-    .arc-blocks {
-      max-width: 680px;
-      margin-top: 3rem;
-    }
-    .arc-item {
-      position: relative;
-      padding-left: 3.25rem;
-      padding-bottom: 2.75rem;
-    }
-    /* Vertical connector line */
-    .arc-item::before {
-      content: '';
-      position: absolute;
-      left: 0.55rem;
-      top: 1.65rem;
-      bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, rgba(19,24,35,0.2), transparent);
-    }
-    .arc-item:last-child::before { display: none; }
-    /* Square dot marker */
-    .arc-item::after {
-      content: '';
-      position: absolute;
-      left: 0.3rem;
-      top: 0.3rem;
-      width: 6px;
-      height: 6px;
-      border: 1.5px solid var(--accent);
-      background: var(--cream);
-    }
-    .arc-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.16em;
-      color: var(--accent);
-      opacity: 0.65;
-      margin-bottom: 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-    }
-    .arc-num::after {
-      content: '';
-      display: block;
-      height: 1px;
-      width: 1.5rem;
-      background: currentColor;
-      opacity: 0.4;
-    }
-    .arc-text {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #3a3630;
+      line-height: 1.7;
       margin: 0;
     }
 
-    /* ── WHY I BUILD — FULL-WIDTH DARK SECTION ── */
+    /* ── WHY I BUILD ── */
     .why-build-section {
       background: var(--ink);
       padding: 5rem 2.5rem;
@@ -177,9 +105,12 @@
       max-width: 720px;
       margin: 0 auto;
     }
-    .why-build-section .context-block-label {
+    .why-build-label {
+      font-family: 'DM Mono', monospace;
       font-size: 0.72rem;
-      color: #e8693a;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #e8722a;
       margin-bottom: 2rem;
     }
     .why-build-section p {
@@ -189,6 +120,13 @@
       margin-bottom: 1.25rem;
     }
     .why-build-section p:last-child { margin-bottom: 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-hero { padding: 8rem 1.5rem 3rem; }
+      .strength-grid { grid-template-columns: 1fr; }
+      .strength-card:last-child { grid-column: 1; }
+    }
   </style>
 </head>
 <body>
@@ -208,92 +146,96 @@
     </ul>
   </nav>
 
-  <div class="page-hero">
-    <div class="page-hero-label fade-1">About</div>
-    <h1 class="fade-2" style="width:100%;max-width:100%;">Builder by nature.<br><em>Engineer by practice.</em></h1>
-    <p class="page-hero-tldr fade-3">Production AI systems &nbsp;·&nbsp; Geospatial intelligence &nbsp;·&nbsp; Enterprise data architecture &nbsp;·&nbsp; Google Startups Accelerator</p>
-    <p class="page-hero-body fade-4">
-      I'm Daniel Flügger — an applied AI engineer with extensive experience building across music, design, and machine learning. I'm based in New York, currently in the Google Startups Accelerator, and looking for the right full-time engineering role where I can contribute inside a strong team while continuing to build independently.
-    </p>
+  <!-- HERO -->
+  <div class="about-hero">
+    <div class="about-hero-label fade-1">About</div>
+    <h1 class="about-hero-h1 fade-2">Daniel Flügger</h1>
+    <p class="about-hero-sub fade-2">Applied AI Engineer &nbsp;·&nbsp; Production ML Systems &nbsp;·&nbsp; Geospatial Intelligence &nbsp;·&nbsp; GCP &nbsp;·&nbsp; New York</p>
+    <p class="about-hero-body fade-3">I build AI systems that work in production. My focus is GCP-native data architecture, geospatial intelligence pipelines, and retrieval-augmented generation systems for enterprise. Currently in the Google Startups Accelerator building IDist ®, a global asset management platform. Looking for the right team doing complex, meaningful work.</p>
   </div>
 
   <div class="rule"></div>
 
+  <!-- WHAT I BUILD -->
   <section class="section">
     <div class="container">
-      <div class="two-col">
-        <div>
-          <div class="section-label">The Work</div>
-          <h2 class="section-title">What I actually do.</h2>
-          <p class="section-body prose">
-            <p>My current technical focus is GCP-native AI systems: geospatial intelligence pipelines using PostGIS and BigQuery, retrieval-augmented generation architectures with Vertex AI and the Gemini API, and multi-agent orchestration systems built on FastAPI and Cloud Run.</p>
-            <p>I don't just build prototypes — I build systems designed to operate in production, handle edge cases, and be maintained by someone other than me. Verification, observability, and data sovereignty are built in from day one, not bolted on after.</p>
-            <p>The VERA framework and the Proof Economy essay came out of this practice — my attempt to codify what I've learned about building trustworthy AI systems and what that means for knowledge workers and enterprises navigating this transition.</p>
-          </p>
-        </div>
-        <div>
-          <div class="section-label">What I Bring</div>
-          <h2 class="section-title">The operator's advantage.</h2>
-          <p class="section-body" style="margin-bottom:0;">Most engineers understand the technology. Fewer understand the domain problems the technology is supposed to solve. I bring both.</p>
-          <ul class="trait-list">
-            <li>Extensive cross-domain building experience — I've operated in music, design, real estate, and AI. I understand enterprise buyers from the inside.</li>
-            <li>GCP-native depth — not just API calls. Proper architecture with IAM, Cloud Run, BigQuery, and Vertex AI working together.</li>
-            <li>Spatial intelligence specialization — property, infrastructure, logistics, and insurance domains where location is the core data layer.</li>
-            <li>Founder's judgment — I've shipped products and learned from what didn't work. I bring that cost-awareness into every engineering decision.</li>
-            <li>Verification-first methodology — I don't trust outputs I can't trace. VERA is the formal expression of how I work.</li>
-          </ul>
-        </div>
+      <div class="section-label">The Work</div>
+      <h2 class="section-title">What I build.</h2>
+      <div class="about-prose">
+        <p>My technical focus is GCP-native AI systems. I build geospatial intelligence pipelines with PostGIS and BigQuery, RAG architectures with Vertex AI and Gemini, and production APIs on FastAPI and Cloud Run. The systems I build are designed to be maintained, audited, and trusted by people who aren't engineers.</p>
+        <p>I've shipped four production platforms in the last two years: IDist ® (global asset management, Google Startups Accelerator), LH-PVI (insurance document intelligence, 70% processing reduction), NYCID (NYC property dossiers across 12 municipal data sources), and Vera VB (voice biometric identity infrastructure, private beta).</p>
+        <p>The VERA framework and The Proof Economy essay came from this work. They're my attempt to formalize what I've learned about building trustworthy AI systems and what verification infrastructure means for the next decade.</p>
       </div>
-
     </div>
   </section>
 
-  <section class="why-build-section">
-    <div class="why-build-inner">
-      <div class="context-block-label">Why I Build</div>
-      <p>This is the most transformative technology of my lifetime — and I genuinely love building with it. That's why I'm always in conversation about new projects, new architectures, new ways to apply AI to real problems. The energy comes from the work itself.</p>
-      <p>I'm grateful to be part of the Google Startups Accelerator as a solo founder — their support while building IDist ® has meant a great deal. But building independently isn't new for me. I've started businesses from zero across music, interior design, architecture, and manufacturing in New York City. Each one taught me something about operating under real constraints, managing complex projects, and creating opportunity for talented people.</p>
-      <p>That cross-domain experience shapes how I approach engineering problems. I understand what it takes to move from prototype to production — not just technically, but operationally. I've navigated procurement, compliance, multi-stakeholder coordination, and real budget constraints. I build systems that are designed to be maintained, audited, and trusted by people who aren't engineers.</p>
-      <p>I'm looking for a team working on complex, high-stakes problems where I can contribute real depth in production AI systems while learning from strong engineers and product thinkers around me. I do my best work when the problems are hard, the standards are high, and the people are good.</p>
-    </div>
-  </section>
+  <div class="rule"></div>
 
+  <!-- WHAT I BRING -->
   <section class="section section--cream">
     <div class="container">
-      <div class="section-label">The Longer Arc</div>
-      <h2 class="section-title">A career of pattern recognition.</h2>
-      <div class="arc-blocks">
-        <div class="arc-item">
-          <div class="arc-num">01</div>
-          <p class="arc-text">I started in music production and design — industries where you learn very quickly that the tools don't matter as much as the taste, judgment, and problem framing you bring to them. That carried forward into software.</p>
+      <div class="section-label">Strengths</div>
+      <h2 class="section-title">What makes my work different.</h2>
+      <div class="strength-grid">
+        <div class="strength-card">
+          <div class="strength-card-title">Cross-Domain Experience</div>
+          <p class="strength-card-body">I've built businesses in music, design, real estate, and AI. I understand enterprise buyers, procurement cycles, and the gap between a demo and a product people trust with real decisions.</p>
         </div>
-        <div class="arc-item">
-          <div class="arc-num">02</div>
-          <p class="arc-text">The common thread across everything I've built is a preoccupation with the gap between what systems promise and what they actually deliver — and a determination to close that gap through verification, observability, and honest engineering.</p>
+        <div class="strength-card">
+          <div class="strength-card-title">GCP Architecture</div>
+          <p class="strength-card-body">Not just API calls. Full-stack GCP with IAM, Cloud Run, BigQuery, Vertex AI, Firestore, and Cloud Functions working together as production infrastructure.</p>
         </div>
-        <div class="arc-item">
-          <div class="arc-num">03</div>
-          <p class="arc-text">The Proof Economy essay is my thesis on where this leads economically: in a world of abundant AI capability, the scarce resource is verified, provable quality. VERA is the engineering methodology for building it.</p>
+        <div class="strength-card">
+          <div class="strength-card-title">Geospatial Specialization</div>
+          <p class="strength-card-body">Property, insurance, infrastructure, and logistics domains where location is the core data layer. PostGIS, BigQuery GIS, and spatial reasoning pipelines.</p>
         </div>
-        <div class="arc-item">
-          <div class="arc-num">04</div>
-          <p class="arc-text">I'm sharing both publicly not to position myself as a thought leader, but because I think the ideas are genuinely useful and I'd rather they be in the world than locked on my hard drive.</p>
+        <div class="strength-card">
+          <div class="strength-card-title">Production Engineering</div>
+          <p class="strength-card-body">I build for maintainability, not just functionality. Structured output validation, audit trails, error handling, and observability from day one.</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-card-title">Verification Methodology</div>
+          <p class="strength-card-body">Every output has provenance. Every decision is traceable. VERA is the formal expression of this practice, but the mindset runs through everything I build.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- WHY I BUILD -->
+  <section class="why-build-section">
+    <div class="why-build-inner">
+      <div class="why-build-label">Why I Build</div>
+      <p>This is the most transformative technology of my lifetime, and I love building with it. That's why I'm always exploring new projects, new architectures, and new ways to apply AI to real problems. The energy comes from the work itself.</p>
+      <p>I'm grateful to be part of the Google Startups Accelerator as a solo founder. Their support while building IDist ® has been invaluable. But building from zero isn't new for me. I've started companies across music, interior design, and manufacturing in New York City. Each one sharpened how I think about constraints, coordination, and creating opportunity for talented people.</p>
+      <p>That experience shapes how I approach engineering. I understand what it takes to move from prototype to production, not just technically but operationally. I've navigated procurement, compliance, multi-stakeholder coordination, and real budget constraints.</p>
+      <p>I'm looking for a team working on complex, high-stakes problems where I can contribute real depth in production AI systems while learning from strong engineers and product thinkers. I do my best work when the problems are hard, the standards are high, and the people are good.</p>
+    </div>
+  </section>
+
+  <!-- THE LONGER ARC -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section-label">Background</div>
+      <h2 class="section-title">Pattern recognition across industries.</h2>
+      <div class="about-prose">
+        <p>I started in music production and design. Those industries teach you quickly that tools matter less than the taste, judgment, and problem framing you bring to them. That sensibility carried directly into software engineering.</p>
+        <p>The thread across everything I've built is a focus on the gap between what systems promise and what they actually deliver. The Proof Economy essay is my thesis on where this leads: when AI capability is abundant, the scarce resource is verified quality. VERA is the methodology for building it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
   <section class="section section--dark">
-    <div class="container" style="text-align:center;max-width:640px;">
+    <div class="container" style="text-align:center;max-width:640px;margin:0 auto;">
       <div class="section-label" style="justify-content:center;">
-        <span style="display:block;width:1.5rem;height:1px;background:#e8693a;"></span>
+        <span style="display:block;width:1.5rem;height:1px;background:#e8722a;"></span>
         Let's Talk
       </div>
-      <h2 class="section-title">The best conversations start with a question.</h2>
-      <p class="section-body" style="margin:0 auto 2.5rem;text-align:center;">If something here resonates — or if you want to push back on something — I'd genuinely like to hear from you.</p>
+      <h2 class="section-title">I'd love to hear from you.</h2>
+      <p class="section-body" style="margin:0 auto 2.5rem;text-align:center;">If something here resonates, or if you want to push back on any of it, I'm always up for a good conversation.</p>
       <div class="cta-row" style="justify-content:center;">
-        <a href="contact.html" class="btn-primary">Get in touch →</a>
-        <a href="experience.html" class="btn-outline">View experience</a>
+        <a href="contact.html" class="btn-primary">Get in Touch →</a>
+        <a href="portfolio.html" class="btn-outline">View Portfolio</a>
       </div>
     </div>
   </section>

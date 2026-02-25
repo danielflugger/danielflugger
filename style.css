@@ -50,8 +50,8 @@ nav {
 
 .nav-brand {
   font-family: 'DM Mono', monospace;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
@@ -65,7 +65,8 @@ nav {
   list-style: none;
 }
 .nav-links a {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
