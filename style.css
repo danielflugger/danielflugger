@@ -80,15 +80,15 @@ nav {
   padding-bottom: 2px;
 }
 .nav-links .nav-cta {
-  background: #e8722a;
-  color: #ffffff;
+  background: var(--ink);
+  color: #e8722a;
   padding: 0.4rem 1rem;
   border-radius: 4px;
   font-weight: 500;
   border-bottom: none;
 }
 .nav-links .nav-cta:hover {
-  background: #c85a22;
+  background: #0c0f1a;
   color: #ffffff;
 }
 
@@ -347,8 +347,8 @@ footer a:hover { color: #ffffff; }
   }
   .nav-links a:hover { color: #ffffff !important; background: rgba(255,255,255,0.06); }
   .nav-links a.active { color: #ffffff !important; }
-  .nav-links .nav-cta { background: rgba(232,114,42,0.22) !important; color: #ffffff !important; border-bottom: 1px solid rgba(232,114,42,0.45) !important; font-weight: 500; border-radius: 0; }
-  .nav-links .nav-cta:hover { background: rgba(200,90,34,0.35) !important; }
+  .nav-links .nav-cta { background: rgba(232,114,42,0.12) !important; color: #e8722a !important; border-bottom: 1px solid rgba(232,114,42,0.2) !important; font-weight: 500; border-radius: 0; }
+  .nav-links .nav-cta:hover { background: rgba(232,114,42,0.22) !important; color: #ffffff !important; }
   .section { padding: 4rem 1.5rem; }
   .footer-inner {
     grid-template-columns: 1fr;
