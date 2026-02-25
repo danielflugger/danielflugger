@@ -116,18 +116,40 @@
     }
     .contact-option:hover::after { opacity: 1; }
 
-    /* CONTEXT NOTE */
-    .context-note {
-      margin-top: 3rem;
-      padding: 2rem;
-      border-left: 3px solid var(--accent);
-      background: var(--cream);
+    /* CONTEXT SECTION (dark band — what I'm looking for) */
+    .context-section {
+      background: var(--ink);
+      padding: 5rem 2.5rem;
     }
-    .context-note p {
-      font-size: 0.95rem;
-      color: #3a3630;
-      line-height: 1.75;
+    .context-section-inner {
+      max-width: 720px;
+      margin: 0 auto;
     }
+    .context-section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9a9da5;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .context-section-label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: currentColor;
+    }
+    .context-section p {
+      font-size: 1.05rem;
+      color: rgba(245,240,232,0.82);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+    .context-section p:last-child { margin-bottom: 0; }
 
     @media (max-width: 520px) {
       .contact-hero::after { display: none; }
@@ -176,9 +198,15 @@
         </a>
       </div>
 
-      <div class="context-note fade-5">
-        <p>I'm looking for established organizations, real technical budgets and teams, and genuine AI transformation underway. Property, infrastructure, insurance, logistics, or Google ecosystem partners are particularly interesting. If that sounds like a fit, I'd like to hear from you.</p>
-      </div>
+    </div>
+  </section>
+
+  <section class="context-section">
+    <div class="context-section-inner">
+      <div class="context-section-label">What I'm Looking For</div>
+      <p>I do my best work inside teams that care about what they're building. The company size matters less than the environment — I'm drawn to organizations where engineering quality is valued, where people are thoughtful about the problems they're solving, and where there's real investment in building things that last.</p>
+      <p>I've spent my career building from zero across multiple industries, and now I want to bring that energy and range to a team doing meaningful work with AI. The ideal fit is somewhere I can contribute real depth — in production ML systems, data architecture, and geospatial intelligence — while learning from strong engineers and product thinkers around me.</p>
+      <p>If you're building something that matters and want someone who brings both technical rigor and founder-level ownership to the work, I'd love to talk.</p>
     </div>
   </section>
 
