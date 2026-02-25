@@ -703,31 +703,30 @@
 
     /* ── PULLQUOTE REDESIGN ── */
     .pullquote-featured {
-      border-left: none;
-      padding: 2.5rem 3rem;
+      padding: 2.5rem 3rem 2.5rem 3.5rem;
       margin: 3.5rem 0;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-left: 3px solid rgba(29,78,216,0.7);
+      background: var(--ink);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-left: 3px solid #1d4ed8;
       position: relative;
     }
     .pullquote-featured::before {
-      content: '"';
+      content: '\201C';
       position: absolute;
-      top: 0.75rem;
-      left: 2rem;
+      top: 0.5rem;
+      left: 1.75rem;
       font-family: 'Playfair Display', serif;
-      font-size: 4rem;
+      font-size: 4.5rem;
       line-height: 1;
-      color: rgba(29,78,216,0.25);
+      color: rgba(255,255,255,0.12);
       pointer-events: none;
     }
     .pullquote-featured p {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      font-size: clamp(1.05rem, 1.7vw, 1.35rem);
       font-style: italic;
-      line-height: 1.6;
-      color: rgba(245,240,232,0.85);
+      line-height: 1.65;
+      color: #e8eaed;
     }
 
     /* ── PROSE PARAGRAPHS ── */
@@ -1067,27 +1066,21 @@
         <div class="footer-copy">© 2026 Daniel Flügger</div>
       </div>
       <div class="footer-col">
-        <div class="footer-col-heading">Work</div>
+        <div class="footer-col-heading">Explore</div>
         <ul class="footer-links">
-          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
           <li><a href="experience.html">Experience</a></li>
-          <li><a href="https://github.com/danielflugger" target="_blank">GitHub</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col-heading">Research</div>
-        <ul class="footer-links">
-          <li><a href="the-proof-economy.html">The Proof Economy</a></li>
-          <li><a href="vera.html">VERA Framework</a></li>
-          <li><a href="https://danielflugger.github.io/VERA/" target="_blank">Open Source</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="research.html">Research</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <div class="footer-col-heading">Connect</div>
         <ul class="footer-links">
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="https://linkedin.com/in/danielflugger" target="_blank">LinkedIn</a></li>
           <li><a href="https://github.com/danielflugger" target="_blank">GitHub</a></li>
+          <li><a href="https://linkedin.com/in/danielflugger" target="_blank">LinkedIn</a></li>
+          <li><a href="vera.html">VERA</a></li>
         </ul>
       </div>
     </div>
