@@ -43,45 +43,41 @@
     font-optical-sizing: auto;
   }
 
-  /* --- ESSAY SECONDARY NAV --- */
+  /* --- ESSAY CHAPTER NAV --- */
   .essay-nav {
-    position: sticky;
-    top: 62px;
-    z-index: 40;
-    background: var(--color-paper);
-    border-bottom: 1px solid var(--color-rule);
+    position: fixed;
+    top: 60px;
+    left: 0; right: 0;
+    z-index: 99;
+    background: rgba(250, 249, 246, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #d4d0c8;
   }
   .essay-nav-inner {
-    max-width: var(--max-width-wide);
+    max-width: 780px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 10px 24px;
     display: flex;
+    gap: 20px;
     overflow-x: auto;
     white-space: nowrap;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
   }
-  .essay-nav-inner::-webkit-scrollbar { display: none; }
-  .essay-nav-inner a {
-    font-family: var(--font-sans);
-    font-size: 12px;
+  .essay-nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--color-ink-faint);
+    color: #888;
     text-decoration: none;
-    padding: 11px 12px;
-    display: inline-block;
-    flex-shrink: 0;
-    transition: color 0.2s;
   }
-  .essay-nav-inner a:hover { color: var(--color-ink); }
+  .essay-nav a:hover { color: #1a1a1a; }
 
   /* --- HEADER --- */
   .site-header {
     max-width: var(--max-width-wide);
     margin: 0 auto;
-    padding: 11rem 24px 0;
+    padding: 200px 24px 0;
     text-align: center;
   }
 
@@ -322,7 +318,7 @@
   @media (max-width: 600px) {
     body { font-size: 17px; line-height: 1.68; }
     .toc { padding: 24px 20px; }
-    .site-header { padding: 8rem 20px 0; }
+    .site-header { padding: 180px 20px 0; }
     .article { padding: 0 20px 80px; }
     .drop-cap::first-letter { font-size: 52px; }
   }
@@ -345,7 +341,7 @@
     </ul>
   </nav>
 
-  <div class="essay-nav">
+  <div class="essay-nav" id="essayNav">
     <div class="essay-nav-inner">
       <a href="#prologue">Prologue</a>
       <a href="#ch1">Ch 1</a>
