@@ -43,41 +43,11 @@
     font-optical-sizing: auto;
   }
 
-  /* --- ESSAY CHAPTER NAV --- */
-  .essay-nav {
-    position: fixed;
-    top: 72px;
-    left: 0; right: 0;
-    z-index: 99;
-    background: rgba(250, 249, 246, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid #d4d0c8;
-  }
-  .essay-nav-inner {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 10px 24px;
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  .essay-nav a {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #888;
-    text-decoration: none;
-  }
-  .essay-nav a:hover { color: #1a1a1a; }
-
   /* --- HEADER --- */
   .site-header {
     max-width: var(--max-width-wide);
     margin: 0 auto;
-    padding: 280px 24px 0;
+    padding: 120px 24px 0;
     text-align: center;
   }
 
@@ -318,7 +288,7 @@
   @media (max-width: 600px) {
     body { font-size: 17px; line-height: 1.68; }
     .toc { padding: 24px 20px; }
-    .site-header { padding: 260px 20px 0; }
+    .site-header { padding: 100px 20px 0; }
     .article { padding: 0 20px 80px; }
     .drop-cap::first-letter { font-size: 52px; }
   }
@@ -341,19 +311,6 @@
     </ul>
   </nav>
 
-  <div class="essay-nav" id="essayNav">
-    <div class="essay-nav-inner">
-      <a href="#prologue">Prologue</a>
-      <a href="#ch1">Ch 1</a>
-      <a href="#ch2">Ch 2</a>
-      <a href="#ch3">Ch 3</a>
-      <a href="#ch4">Ch 4</a>
-      <a href="#ch5">Ch 5</a>
-      <a href="#ch6">Ch 6</a>
-      <a href="#ch7">Ch 7</a>
-      <a href="#lexicon">Lexicon</a>
-    </div>
-  </div>
 
 <header class="site-header" id="top">
   <p class="overline">A Thesis on Identity and Value in the Intelligence Age</p>
