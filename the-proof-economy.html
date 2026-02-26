@@ -14,7 +14,7 @@
     --color-ink: #1a1a1a;
     --color-ink-light: #4a4a4a;
     --color-ink-faint: #888;
-    --color-paper: #faf9f6;
+    --color-paper: #ffffff;
     --color-rule: #d4d0c8;
     --color-accent: #c4a35a;
     --color-toc-bg: #f4f2ed;
@@ -38,7 +38,7 @@
     color: var(--color-ink);
     font-family: var(--font-body);
     font-size: 19px;
-    line-height: 1.72;
+    line-height: 1.58;
     font-weight: 400;
     font-optical-sizing: auto;
     padding-top: 72px;
@@ -66,7 +66,7 @@
 
   .site-header h1 {
     font-family: var(--font-display);
-    font-size: clamp(42px, 7vw, 64px);
+    font-size: clamp(36px, 5.5vw, 52px);
     font-weight: 700;
     line-height: 1.08;
     letter-spacing: -0.02em;
@@ -76,12 +76,11 @@
 
   .site-header .subtitle {
     font-family: var(--font-display);
-    font-size: clamp(18px, 3vw, 23px);
+    font-size: clamp(16px, 2.5vw, 21px);
     font-weight: 400;
     font-style: italic;
     line-height: 1.45;
     color: var(--color-ink-light);
-    max-width: 540px;
     margin: 0 auto 28px;
   }
 
@@ -104,13 +103,15 @@
   .toc-wrapper {
     max-width: var(--max-width-wide);
     margin: 0 auto;
-    padding: 36px 24px 40px;
+    padding: 20px 24px 40px;
   }
 
   .toc {
-    background: var(--color-toc-bg);
-    border: 1px solid var(--color-rule);
-    padding: 32px 36px;
+    background: #1a1a2e !important;
+    border: none !important;
+    border-radius: 4px;
+    padding: 40px 44px;
+    color: #ffffff !important;
   }
 
   .toc-label {
@@ -119,8 +120,8 @@
     font-weight: 500;
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: var(--color-ink-faint);
-    margin-bottom: 18px;
+    color: #e8722a !important;
+    margin-bottom: 24px;
   }
 
   .toc-list {
@@ -128,30 +129,43 @@
   }
 
   .toc-list li {
-    margin-bottom: 6px;
+    margin-bottom: 0;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
   }
+  .toc-list li:last-child { border-bottom: none !important; }
 
   .toc-list a {
     font-family: var(--font-display);
-    font-size: 16.5px;
+    font-size: 17px;
     font-weight: 500;
-    color: var(--color-ink);
+    color: #ffffff !important;
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    border-bottom: none !important;
+    transition: color 0.2s ease;
   }
 
   .toc-list a:hover {
-    border-bottom-color: var(--color-accent);
-    color: var(--color-accent);
+    color: #e8722a !important;
+    border-bottom-color: transparent !important;
   }
 
   .toc-list .toc-desc {
     font-family: var(--font-body);
     font-size: 14px;
     font-style: italic;
-    color: var(--color-ink-faint);
+    color: #ffffff !important;
     margin-left: 4px;
+  }
+
+  .toc-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 400;
+    color: #ffffff !important;
+    margin-right: 16px;
+    min-width: 24px;
+    display: inline-block;
   }
 
   /* --- ARTICLE BODY --- */
@@ -162,7 +176,7 @@
   }
 
   .article p {
-    margin-bottom: 22px;
+    margin-bottom: 16px;
   }
 
   .article p:last-child {
@@ -319,24 +333,22 @@
   <p class="overline">A Thesis on Identity and Value in the Intelligence Age</p>
   <h1>The Proof Economy</h1>
   <p class="subtitle">What Your Work Is Worth When Intelligence Becomes Free</p>
-  <p class="byline">Daniel Flügger &nbsp;·&nbsp; February 2026</p>
+  <p class="byline">Daniel Flügger &nbsp;·&nbsp; February 22, 2026</p>
 </header>
-
-<hr class="header-rule">
 
 <div class="toc-wrapper">
   <div class="toc">
     <p class="toc-label">Contents</p>
     <ul class="toc-list">
-      <li><a href="#prologue">Prologue: The Question Nobody Is Asking</a> <span class="toc-desc">— Not what AI can do. Whether your work still matters, and how to make sure it does.</span></li>
-      <li><a href="#ch1">Chapter 1: The Extraction Tax</a> <span class="toc-desc">— The ancient pattern of intermediaries capturing the value that creators generate.</span></li>
-      <li><a href="#ch2">Chapter 2: The Proof Thesis</a> <span class="toc-desc">— Three claims: intelligence becomes infrastructure, verification replaces marketing, precision beats scale.</span></li>
-      <li><a href="#ch3">Chapter 3: The Value Stack</a> <span class="toc-desc">— How industries mature, and where the margin lives at each stage.</span></li>
-      <li><a href="#ch4">Chapter 4: The Convergence Window</a> <span class="toc-desc">— Eight forces aligning for the first time. Why 2025–2027 is the moment.</span></li>
-      <li><a href="#ch5">Chapter 5: The Unbundling</a> <span class="toc-desc">— Domain by domain, what happens when the extraction layer dissolves.</span></li>
-      <li><a href="#ch6">Chapter 6: The Margin Architecture</a> <span class="toc-desc">— What proof infrastructure actually looks like in practice.</span></li>
-      <li><a href="#ch7">Chapter 7: The Clean Signal</a> <span class="toc-desc">— When the proof layer works, the noise drops out and the signal shines.</span></li>
-      <li><a href="#lexicon">Lexicon</a> <span class="toc-desc">— The complete vocabulary of the Proof Economy framework.</span></li>
+      <li><a href="#prologue"><span class="toc-num">00</span> The Question Nobody Is Asking</a><br><span class="toc-desc">Not what AI can do. Whether your work still matters, and how to make sure it does.</span></li>
+      <li><a href="#ch1"><span class="toc-num">01</span> The Extraction Tax</a><br><span class="toc-desc">The ancient pattern of intermediaries capturing the value that creators generate.</span></li>
+      <li><a href="#ch2"><span class="toc-num">02</span> The Proof Thesis</a><br><span class="toc-desc">Three claims: intelligence becomes infrastructure, verification replaces marketing, precision beats scale.</span></li>
+      <li><a href="#ch3"><span class="toc-num">03</span> The Value Stack</a><br><span class="toc-desc">How industries mature, and where the margin lives at each stage.</span></li>
+      <li><a href="#ch4"><span class="toc-num">04</span> The Convergence Window</a><br><span class="toc-desc">Eight forces aligning for the first time. Why 2025–2027 is the moment.</span></li>
+      <li><a href="#ch5"><span class="toc-num">05</span> The Unbundling</a><br><span class="toc-desc">Domain by domain, what happens when the extraction layer dissolves.</span></li>
+      <li><a href="#ch6"><span class="toc-num">06</span> The Margin Architecture</a><br><span class="toc-desc">What proof infrastructure actually looks like in practice.</span></li>
+      <li><a href="#ch7"><span class="toc-num">07</span> The Clean Signal</a><br><span class="toc-desc">When the proof layer works, the noise drops out and the signal shines.</span></li>
+      <li><a href="#lexicon"><span class="toc-num">—</span> Lexicon</a><br><span class="toc-desc">The complete vocabulary of the Proof Economy framework.</span></li>
     </ul>
   </div>
 </div>
