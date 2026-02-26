@@ -43,11 +43,45 @@
     font-optical-sizing: auto;
   }
 
+  /* --- ESSAY SECONDARY NAV --- */
+  .essay-nav {
+    position: sticky;
+    top: 62px;
+    z-index: 40;
+    background: var(--color-paper);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .essay-nav-inner {
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .essay-nav-inner::-webkit-scrollbar { display: none; }
+  .essay-nav-inner a {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+    text-decoration: none;
+    padding: 11px 12px;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .essay-nav-inner a:hover { color: var(--color-ink); }
+
   /* --- HEADER --- */
   .site-header {
     max-width: var(--max-width-wide);
     margin: 0 auto;
-    padding: 8rem 24px 0;
+    padding: 11rem 24px 0;
     text-align: center;
   }
 
@@ -176,6 +210,7 @@
     color: var(--color-ink-faint);
     margin-bottom: 8px;
     padding-top: 64px;
+    scroll-margin-top: 110px;
   }
 
   .article h2 {
@@ -287,7 +322,7 @@
   @media (max-width: 600px) {
     body { font-size: 17px; line-height: 1.68; }
     .toc { padding: 24px 20px; }
-    .site-header { padding: 40px 20px 0; }
+    .site-header { padding: 8rem 20px 0; }
     .article { padding: 0 20px 80px; }
     .drop-cap::first-letter { font-size: 52px; }
   }
@@ -309,6 +344,20 @@
       <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
     </ul>
   </nav>
+
+  <div class="essay-nav">
+    <div class="essay-nav-inner">
+      <a href="#prologue">Prologue</a>
+      <a href="#ch1">Ch 1</a>
+      <a href="#ch2">Ch 2</a>
+      <a href="#ch3">Ch 3</a>
+      <a href="#ch4">Ch 4</a>
+      <a href="#ch5">Ch 5</a>
+      <a href="#ch6">Ch 6</a>
+      <a href="#ch7">Ch 7</a>
+      <a href="#lexicon">Lexicon</a>
+    </div>
+  </div>
 
 <header class="site-header" id="top">
   <p class="overline">A Thesis on Identity and Value in the Intelligence Age</p>
