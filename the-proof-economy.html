@@ -625,6 +625,30 @@
 
   <p>What none of these systems cover — neither the file-level provenance tools nor the traditional certification regimes — is the biometric identity layer, the longitudinal evidence of skill development and verified outcomes, the human judgment attestation that separates real expertise from algorithmic approximation, and the accumulated dataset that compounds in value over time. The Proof Economy integrates what currently requires five separate tools into a single sovereign infrastructure layer that is affordable from day one. File-level provenance will be commoditized as C2PA adoption matures. That is not a threat to this thesis — it is a validation of it. The Proof Economy is built on the assumption that file timestamps become free and ubiquitous, and that the value shifts to the layers those standards do not address: Who are you? What have you built? What does your specific judgment add that a machine cannot replicate? Those questions require infrastructure that does not yet exist at scale, and building it is the work.</p>
 
+  <h3>The Two-Layer Architecture That Actually Works</h3>
+
+  <p>In practice, building trustworthy AI systems requires two distinct layers that serve different purposes — and confusing them is one of the most expensive mistakes I see organizations make.</p>
+
+  <p><strong>Layer 1: Production Review Gates (Human-in-the-Loop Governance)</strong><br>
+Safety, compliance, and decision quality controls. Human review checkpoints for high-stakes automated decisions. Audit trails, regulatory readiness, risk classification, and approval workflows. This layer is not optional for any production AI system operating at scale. It is the floor.</p>
+
+  <p><strong>Layer 2: Knowledge Sovereignty (Verification Architecture)</strong><br>
+Who architects the reasoning protocols themselves? What gets verified, how evidence chains are structured, what institutional knowledge gets preserved rather than extracted. Ownership of the intellectual infrastructure — the moat that makes Layer 1 meaningful over time.</p>
+
+  <p>These are not competing approaches. They are different layers of the same stack, and production systems need both operating in concert. The organizations I have worked with that achieve durable results — a geospatial pipeline integrating twelve municipal data sources for insurance underwriting, a vendor intelligence system scoring across five hundred sources for design and construction procurement — succeed because they invested in both layers simultaneously, not because they chose one over the other.</p>
+
+  <p>The gap most organizations face is not technology. It is the methodology for building verification into the architecture from day one rather than retrofitting it after an audit or an incident. Layer 1 tells you when to stop. Layer 2 tells you what you actually know, and proves it.</p>
+
+  <h3>The Ground Truth Problem</h3>
+
+  <p>When AI systems make real decisions — underwriting insurance, validating property titles, approving procurement contracts — approximate correctness is not a success criterion. You need a ground truth validation system running constantly, not as a compliance formality but as the operational foundation of the work.</p>
+
+  <p>I have built this in production. An insurance verification pipeline I developed achieved a seventy percent reduction in processing time — not by removing human judgment, but by building a verification protocol that validated against multiple ground truth sources simultaneously, flagged conflicts automatically, and routed human review only where sources genuinely disagreed. The efficiency came from precision, not speed. The system knew what it did not know, and said so.</p>
+
+  <p>A geospatial intelligence platform I built for property and infrastructure assessment ingests data across twelve municipal sources in real time. The verification challenge is not the data volume — it is the conflict resolution. When two authoritative sources disagree about a parcel boundary, the system does not average them. It documents the conflict, traces the provenance of each source, and produces a structured uncertainty record that a human reviewer can evaluate with full context. The output is not a number. It is a verified claim with a documented basis.</p>
+
+  <p>This distinction — between producing a result and producing a verified claim with traceable provenance — is the practical definition of the Proof Economy at the system level. It is also what separates production infrastructure from a polished demo.</p>
+
   <p>Those are the components. But infrastructure without a human reason to use it is just plumbing, and the most important thing happening right now is not the technology. It is the people who are already, independently, deciding that their work is worth protecting.</p>
 
   <h3>The Sovereign Turn</h3>
@@ -705,7 +729,9 @@
 
   <p><strong>As a human, you must be the loop.</strong></p>
 
-  <p>I would genuinely love to hear your thoughts — whether you are building something in this space, whether you see gaps in the framework, or whether your experience validates or challenges what is written here. The ideas are stronger when tested against reality.</p>
+  <p>I am sharing this framework publicly because I believe the connective tissue — the shared vocabulary, the architectural patterns, the verification methodology — becomes more useful when it is tested against more realities than mine. If you are building verification infrastructure in your organization, developing AI governance systems for regulated industries, or designing platforms where accuracy and auditability are non-negotiable, I would genuinely like to hear from you. The ideas are stronger when tested against reality, and the problems worth solving are rarely solved alone.</p>
+
+  <p>I am an applied AI engineer currently in the Google Startups Accelerator, open to the right full-time engineering role and to strategic partnerships where the work is serious and the problems are hard. If this framework resonates with what you are building, the best starting point is a real conversation. <a href="contact.html">Get in touch.</a></p>
 
   <hr class="chapter-sep">
 
