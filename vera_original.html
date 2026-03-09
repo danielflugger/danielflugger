@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VERA Framework — Own What You Build | Daniel Flügger</title>
-  <meta name="description" content="Four claims: Human Is The Loop, Verification Over Marketing, The Influencer Inversion, Own What You Build. VERA is the sovereign knowledge infrastructure for makers, builders, and quiet experts. Patent Pending — U.S. Application No. 64/000,086.">
+  <title>VERA — Verified Evidence & Reasoning Architecture | Daniel Flügger</title>
+  <meta name="description" content="VERA is a practical framework for building your knowledge moat. Whether you're a solo entrepreneur, quiet expert, or small enterprise — it puts you in the driver's seat of your own intelligence architecture.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -707,154 +707,6 @@
     .prose p { margin-bottom: 1.25rem; }
     .prose p:last-child { margin-bottom: 0; }
 
-    /* ── TL;DR CLAIMS BLOCK ── */
-    .tldr-block {
-      background: var(--cream, #f8f6f2);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      padding: 2.5rem 0;
-      margin: 2.5rem 0 2rem;
-    }
-
-    .tldr-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .tldr-label::before {
-      content: '';
-      display: block;
-      width: 1.5rem;
-      height: 1px;
-      background: var(--accent);
-    }
-
-    .tldr-claims {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      background: var(--rule);
-      border: 1px solid var(--rule);
-    }
-
-    .tldr-claim {
-      background: #fff;
-      padding: 1.75rem 2rem;
-      border: none;
-      position: relative;
-    }
-
-    .tldr-claim::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 2px;
-      height: 100%;
-      background: transparent;
-      transition: background 0.25s;
-    }
-
-    .tldr-claim:hover::after {
-      background: var(--accent);
-    }
-
-    .tldr-claim-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      color: var(--accent);
-      display: block;
-      margin-bottom: 0.4rem;
-      opacity: 0.7;
-    }
-
-    .tldr-claim strong {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--ink);
-    }
-
-    .tldr-claim p {
-      font-size: 0.88rem;
-      color: var(--muted, #6b6560);
-      line-height: 1.65;
-    }
-
-    /* ── ADDITIONAL PULLQUOTES ── */
-    .pullquote-essay {
-      border-left: 3px solid var(--accent);
-      padding: 1.5rem 2rem 1.5rem 1.75rem;
-      margin: 2rem 0 0;
-      background: var(--cream, #f8f6f2);
-      position: relative;
-    }
-
-    .pullquote-essay::before {
-      content: '\201C';
-      position: absolute;
-      top: 0.2rem;
-      left: 1rem;
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      line-height: 1;
-      color: rgba(29,78,216,0.12);
-      pointer-events: none;
-    }
-
-    .pullquote-essay p {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1rem, 1.6vw, 1.2rem);
-      font-style: italic;
-      line-height: 1.6;
-      color: var(--ink);
-    }
-
-    .pullquote-essay cite {
-      display: block;
-      margin-top: 0.75rem;
-      font-size: 0.85rem;
-      font-style: normal;
-      color: var(--muted, #6b6560);
-    }
-
-    .pullquote-essay cite a {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid var(--accent);
-    }
-
-    /* ── PATENT NOTICE ── */
-    .patent-notice {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.4);
-      margin-top: 2rem;
-      text-align: center;
-    }
-
-    .patent-notice strong {
-      color: rgba(255,255,255,0.65);
-      letter-spacing: 0.1em;
-    }
-
-    @media (max-width: 640px) {
-      .tldr-claims { grid-template-columns: 1fr; }
-      .pullquote-essay { padding-left: 1.25rem; }
-    }
-
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -917,32 +769,6 @@
         <p>VERA is the practical methodology for building what the Proof Economy describes: a private, sovereign knowledge infrastructure that compounds over time — protecting your methods, preserving your highest-value thinking, and letting you decide when and how to monetize it.</p>
         <p>Whether you're building from scratch or sitting on years of hard-won expertise, VERA gives you a structured way to codify, verify, and own it before anyone else can extract or replicate it.</p>
       </div>
-      <div class="tldr-block">
-        <p class="tldr-label">Four Claims. One Framework.</p>
-        <div class="tldr-claims">
-          <div class="tldr-claim">
-            <span class="tldr-claim-num">01</span>
-            <strong>Human Is The Loop</strong>
-            <p>Not governance oversight — you architect the reasoning layer itself. What gets verified, how it compounds, who owns it.</p>
-          </div>
-          <div class="tldr-claim">
-            <span class="tldr-claim-num">02</span>
-            <strong>Verification Over Marketing</strong>
-            <p>When proof infrastructure exists, the proof is the brand. Stop performing for algorithms. Let verified work speak.</p>
-          </div>
-          <div class="tldr-claim">
-            <span class="tldr-claim-num">03</span>
-            <strong>The Influencer Inversion</strong>
-            <p>Audience size stops being the unit of value. Verified depth replaces performed visibility. The quiet expert wins.</p>
-          </div>
-          <div class="tldr-claim">
-            <span class="tldr-claim-num">04</span>
-            <strong>Own What You Build</strong>
-            <p>Your methods, your reasoning chains, your judgment — structured, signed, and sovereign before anyone can extract or replicate them.</p>
-          </div>
-        </div>
-      </div>
-
       <div class="hero-cta-row">
         <a href="https://danielflugger.github.io/VERA/" target="_blank" class="btn-primary">
           Read the Full Framework →
@@ -1007,16 +833,6 @@
       <div class="pullquote" style="border-left: 3px solid var(--accent); padding-left: 1.5rem; margin-top: 2rem; font-style: italic; font-size: 1.1em;">
         <p>"You do not build the proof layer to protect something you have stopped caring about. You build it, and in the building, you remember why you cared in the first place."</p>
         <p style="margin-top: 0.75rem; font-size: 0.9em; font-style: normal; color: var(--ink-light);">— from <a href="the-proof-economy.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">The Proof Economy</a>, the thesis behind VERA.</p>
-      </div>
-
-      <div class="pullquote-essay">
-        <p>Intelligence becomes the commodity. Proof becomes the premium. The entity that controls the proof layer controls the margin — and for the first time, we can build that layer so it serves creators rather than extracts from them.</p>
-        <cite>— from <a href="the-proof-economy.html">The Proof Economy</a></cite>
-      </div>
-
-      <div class="pullquote-essay">
-        <p>The Influencer Inversion is not a prediction. It is already happening. Frontier labs are withholding their best work. Designers are removing tutorials. Practitioners are building private knowledge graphs on local machines. They independently arrived at the same conclusion: if your thinking is visible, it is extractable.</p>
-        <cite>— from <a href="the-proof-economy.html">The Proof Economy</a></cite>
       </div>
     </div>
   </section>
@@ -1278,7 +1094,6 @@
           Read The Proof Economy
         </a>
       </div>
-      <p class="patent-notice">Patent Pending — U.S. Application No. 64/000,086 &nbsp;·&nbsp; <strong>Own What You Build.</strong></p>
     </div>
   </section>
 
