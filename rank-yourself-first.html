@@ -352,6 +352,34 @@
     .article { padding: 0 20px 80px; }
     .plan-list li { grid-template-columns: 1fr; }
   }
+
+  /* Dropdown nav */
+  .nav-dropdown { position: relative; }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--color-paper, #ffffff);
+    border: 1px solid var(--color-rule, #d4d0c8);
+    min-width: 220px;
+    list-style: none;
+    padding: 0.5rem 0;
+    z-index: 200;
+  }
+  .dropdown-menu li a {
+    display: block;
+    padding: 0.6rem 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink, #1a1a1a);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .dropdown-menu li a:hover { color: var(--color-accent, #c4a35a); }
+  .nav-dropdown:hover .dropdown-menu { display: block; }
 </style>
 </head>
 <body>
@@ -361,12 +389,17 @@
   <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
   <ul class="nav-links">
     <li><a href="about.html">About</a></li>
-    <li><a href="authority.html">Authority</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="experience.html">Experience</a></li>
     <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="rank-yourself-first.html" class="active">Ranking</a></li>
-    <li><a href="research.html">Research</a></li>
+    <li class="nav-dropdown">
+      <a href="research.html" class="active">Writing</a>
+      <ul class="dropdown-menu">
+        <li><a href="authority.html">Wall of Phony Authority</a></li>
+        <li><a href="rank-yourself-first.html">Rank Yourself First</a></li>
+        <li><a href="the-proof-economy.html">The Proof Economy</a></li>
+      </ul>
+    </li>
     <li><a href="vera.html">VERA</a></li>
     <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
   </ul>
@@ -420,7 +453,7 @@
 
   <p>There is a gap that almost nobody names directly, but almost everybody in professional life eventually falls into it. It is not the gap between what you can do and what the market recognizes. That gap — the visibility problem — has been written about at length. The deeper gap is internal. It is the gap between what you genuinely know and what you can articulate, locate, and stand behind when the context that made it self-evident disappears.</p>
 
-  <p>I watched this problem operate at close range for years running a luxury interior architecture and design-build practice in Manhattan. The expensive mistake is always the same: a contractor who claimed capability they did not have, a designer learning the category on the client's time and money. The wood arrives, the installation begins, and the gap between what was promised and what is actually possible reveals itself slowly, expensively, irreversibly. At four hundred dollars a yard for fabric there is no iterating your way out of a wrong cut. At five hundred thousand dollars for a renovation there is no version control for a finished interior.</p>
+  <p>I watched this problem operate at close range for years running a luxury design-build practice in Manhattan — the kind of practice where the gap between claimed capability and actual execution reveals itself slowly, expensively, and irreversibly. The expensive mistake is always the same shape. The context made the value self-evident. Then the context changed.</p>
 
   <p>What I learned in that environment was that most professionals — even very accomplished ones — cannot clearly separate what they know from first-hand experience from what they have absorbed from the environment they operated in. Their value was always contextual and self-evident. The clients trusted it because the referral network vouched for it. The firm's reputation stood behind it. The work spoke for itself in the rooms where it lived. Then the context changes. The firm restructures. The referral network thins. The layoffs accelerate. And suddenly the same person who was undeniably valuable inside a specific context cannot clearly articulate what they know to someone who wasn't in those rooms.</p>
 
@@ -643,5 +676,17 @@
 
 </article>
 
+<script>
+  (function() {
+    var btn = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('nav');
+    if (btn && nav) {
+      btn.addEventListener('click', function() { nav.classList.toggle('nav-open'); });
+      document.querySelectorAll('.nav-links a').forEach(function(a) {
+        a.addEventListener('click', function() { nav.classList.remove('nav-open'); });
+      });
+    }
+  })();
+</script>
 </body>
 </html>

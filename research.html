@@ -10,12 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
   <style>
-    .page-hero {
-      padding: 10rem 2.5rem 5rem;
+    .writing-section {
+      padding: 8rem 2.5rem 5rem;
       max-width: 1080px;
       margin: 0 auto;
     }
-    .page-hero-label {
+    .writing-header {
+      margin-bottom: 4rem;
+    }
+    .writing-header-label {
       font-family: 'DM Mono', monospace;
       font-size: 0.72rem;
       letter-spacing: 0.18em;
@@ -26,125 +29,70 @@
       align-items: center;
       gap: 0.75rem;
     }
-    .page-hero-label::before { content:''; display:block; width:2rem; height:1px; background:var(--accent); }
-    .page-hero h1 {
+    .writing-header-label::before { content:''; display:block; width:2rem; height:1px; background:var(--accent); }
+    .writing-header h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.8rem, 6vw, 4.5rem);
       font-weight: 900;
       line-height: 1.08;
       letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
-    .page-hero h1 em { font-style: italic; color: var(--accent); }
-    .page-hero p {
+    .writing-header p {
       font-size: 1.05rem;
-      max-width: 600px;
+      max-width: 560px;
       color: #3a3630;
       line-height: 1.8;
     }
 
-    /* ESSAY CARD */
-    .essay-card {
+    /* THREE ESSAY CARDS */
+    .essay-cards {
       display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 0;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
       background: var(--rule);
-      margin-top: 3rem;
     }
-    .essay-card-meta {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 3rem;
+    .essay-card {
+      background: var(--card-bg);
+      padding: 2.5rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      gap: 0.75rem;
+      transition: background 0.2s;
     }
-    .essay-card-label {
+    .essay-card:hover { background: #fff; }
+    .essay-card-tag {
       font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #e8693a;
-      margin-bottom: 1rem;
+      color: var(--accent);
     }
     .essay-card-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem;
+      font-size: 1.35rem;
       font-weight: 700;
       line-height: 1.2;
-      margin-bottom: 0.75rem;
+      color: var(--ink);
     }
-    .essay-card-subtitle {
-      font-size: 0.95rem;
-      color: rgba(245,240,232,0.6);
-      font-style: italic;
-      margin-bottom: 2rem;
-    }
-    .essay-card-date {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      color: rgba(245,240,232,0.4);
-    }
-    .essay-card-body {
-      background: var(--card-bg);
-      padding: 3rem;
-    }
-    .essay-card-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-style: normal;
-    }
-    .chapter-list {
-      list-style: none;
-      margin-bottom: 2.5rem;
-    }
-    .chapter-list li {
+    .essay-card-desc {
       font-size: 0.9rem;
-      padding: 0.6rem 0;
-      border-bottom: 1px solid var(--rule);
-      display: flex;
-      gap: 1rem;
-      align-items: baseline;
       color: #3a3630;
+      line-height: 1.7;
+      flex: 1;
     }
-    .chapter-num {
+    .essay-card-link {
       font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
       color: var(--accent);
-      flex-shrink: 0;
+      text-decoration: none;
+      margin-top: 0.5rem;
     }
-
-    /* VERA link */
-    .vera-bridge {
-      background: var(--cream);
-      padding: 2.5rem;
-      margin-top: 3rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: center;
-    }
-    .vera-bridge-text h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .vera-bridge-text p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
+    .essay-card-link:hover { text-decoration: underline; }
 
     @media (max-width: 768px) {
-      .essay-card { grid-template-columns: 1fr; }
-      .vera-bridge { grid-template-columns: 1fr; }
+      .essay-cards { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -155,56 +103,47 @@
     <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     <ul class="nav-links">
       <li><a href="about.html">About</a></li>
-      <li><a href="authority.html">Authority</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="experience.html">Experience</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="rank-yourself-first.html">Ranking</a></li>
-      <li><a href="research.html" class="active">Research</a></li>
+      <li class="nav-dropdown">
+        <a href="research.html" class="active">Writing</a>
+        <ul class="dropdown-menu">
+          <li><a href="authority.html">Wall of Phony Authority</a></li>
+          <li><a href="rank-yourself-first.html">Rank Yourself First</a></li>
+          <li><a href="the-proof-economy.html">The Proof Economy</a></li>
+        </ul>
+      </li>
       <li><a href="vera.html">VERA</a></li>
       <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
     </ul>
   </nav>
 
-  <section class="section" style="padding-top:2rem;">
-    <div class="container">
-
+  <section class="writing-section">
+    <div class="writing-header">
+      <div class="writing-header-label">Writing</div>
+      <h1>Essays &amp; Frameworks</h1>
+      <p>Three essays on value, proof, and professional identity in the intelligence age.</p>
+    </div>
+    <div class="essay-cards">
       <div class="essay-card">
-        <div class="essay-card-meta">
-          <div>
-            <div class="essay-card-label">Essay · February 2026</div>
-            <div class="essay-card-title">The Proof Economy</div>
-            <div class="essay-card-subtitle">Who Captures Value When Everything Becomes Possible</div>
-          </div>
-          <div>
-            <div class="essay-card-date">Daniel Flügger · February 2026</div>
-          </div>
-        </div>
-        <div class="essay-card-body">
-          <h3>Contents</h3>
-          <ul class="chapter-list">
-            <li><span class="chapter-num">00</span> The Question Nobody Is Asking</li>
-            <li><span class="chapter-num">01</span> The Extraction Tax</li>
-            <li><span class="chapter-num">02</span> The Proof Thesis</li>
-            <li><span class="chapter-num">03</span> The Value Stack</li>
-            <li><span class="chapter-num">04</span> The Convergence Window</li>
-            <li><span class="chapter-num">05</span> The Unbundling</li>
-            <li><span class="chapter-num">06</span> The Margin Architecture</li>
-            <li><span class="chapter-num">07</span> The Clean Signal</li>
-            <li><span class="chapter-num">—</span> Lexicon</li>
-          </ul>
-          <a href="the-proof-economy.html" class="btn-primary">Read the essay →</a>
-        </div>
+        <div class="essay-card-tag">Essay · Shortest · Start here</div>
+        <div class="essay-card-title">Wall of Phony Authority</div>
+        <p class="essay-card-desc">Why borrowed expertise proves nothing — and how to build your own cognitive filter for everything you consume.</p>
+        <a href="authority.html" class="essay-card-link">Read the essay →</a>
       </div>
-
-      <div class="vera-bridge">
-        <div class="vera-bridge-text">
-          <h3>From thesis to methodology</h3>
-          <p>The Proof Economy describes why verification infrastructure matters. VERA is the how — a documented, replicable framework for building your own proof layer, privately and on your own terms.</p>
-        </div>
-        <a href="vera.html" class="btn-secondary">Explore VERA</a>
+      <div class="essay-card">
+        <div class="essay-card-tag">Essay · The system</div>
+        <div class="essay-card-title">Rank Yourself First</div>
+        <p class="essay-card-desc">The private system for knowing what you're worth before anyone else does. Includes a 30-day implementation plan.</p>
+        <a href="rank-yourself-first.html" class="essay-card-link">Read the essay →</a>
       </div>
-
+      <div class="essay-card">
+        <div class="essay-card-tag">Essay · Long-form thesis</div>
+        <div class="essay-card-title">The Proof Economy</div>
+        <p class="essay-card-desc">A 10,000-word framework on value, proof, and identity in the intelligence age. The complete intellectual foundation.</p>
+        <a href="the-proof-economy.html" class="essay-card-link">Read the essay →</a>
+      </div>
     </div>
   </section>
 
