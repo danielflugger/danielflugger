@@ -27,6 +27,12 @@
     --font-sans: 'Inter', -apple-system, sans-serif;
     --max-width: 680px;
     --max-width-wide: 780px;
+    /* aliases for inline HTML */
+    --rule: #d4d0c8;
+    --muted: #888;
+    --text: #1a1a1a;
+    --dark: #1a1a2e;
+    --accent: #c4a35a;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -544,13 +550,90 @@
 
   <p>That is the complete strategy. Everything else is implementation.</p>
 
-  <div class="cta-block">
-    <p>The record is yours. The framework is here when you're ready to build it.</p>
-    <div class="cta-links">
-      <a href="the-proof-economy.html">The full framework: The Proof Economy →</a>
-      <a href="vera.html">The methodology: VERA →</a>
-      <a href="contact.html">Build this with support →</a>
+  <hr style="border:none;border-top:1px solid var(--rule);margin:3rem 0;">
+
+  <div id="guide">
+    <p style="font-family:Arial,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">The Self-Implementation Guide</p>
+
+    <h2 style="font-family:Georgia,serif;font-size:1.55rem;font-weight:700;color:var(--dark);margin-bottom:0.5rem;line-height:1.25;">Build It Yourself. Own It Completely.</h2>
+
+    <p style="font-size:1.05rem;line-height:1.78;color:var(--text);margin-bottom:1.4rem;">A standalone technical implementation guide — not a course, not a video series. A serious working document covering the complete sovereignty stack: local model setup, knowledge graph seeding, offline cryptographic signing infrastructure, git-based provenance record, and the VERA ranking methodology applied to your specific domain. The signing architecture is patent pending (U.S. Appl. No. 64/000,086). This guide gives you the complete framework to implement it for yourself.</p>
+
+    <p style="font-size:1.05rem;line-height:1.78;color:var(--text);margin-bottom:2rem;">Self-serve. Requires technical competence — you should be comfortable in a terminal and with local development tooling. If you want to build this with direct support, the private engagement is the alternative.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:2rem 0 2.5rem;">
+      <div>
+        <p style="font-family:Arial,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#16a34a;margin-bottom:1rem;">This is for you if you</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.65rem;">
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--text);">
+            <span style="color:#16a34a;font-weight:700;flex-shrink:0;">✓</span>
+            Are technically comfortable — terminal, local dev, open source tooling
+          </li>
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--text);">
+            <span style="color:#16a34a;font-weight:700;flex-shrink:0;">✓</span>
+            Have read the Proof Economy — the framework is the prerequisite
+          </li>
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--text);">
+            <span style="color:#16a34a;font-weight:700;flex-shrink:0;">✓</span>
+            Want the complete system and are self-directed enough to build it
+          </li>
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--text);">
+            <span style="color:#16a34a;font-weight:700;flex-shrink:0;">✓</span>
+            Want to own the methodology independently, at your own pace
+          </li>
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--text);">
+            <span style="color:#16a34a;font-weight:700;flex-shrink:0;">✓</span>
+            Understand what you are building before you start
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-family:Arial,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#dc2626;margin-bottom:1rem;">This is not for you if you</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.65rem;">
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--muted);">
+            <span style="color:#dc2626;font-weight:700;flex-shrink:0;">✗</span>
+            Have never used a terminal or local development environment
+          </li>
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--muted);">
+            <span style="color:#dc2626;font-weight:700;flex-shrink:0;">✗</span>
+            Want someone to build it with you — that is the private engagement
+          </li>
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--muted);">
+            <span style="color:#dc2626;font-weight:700;flex-shrink:0;">✗</span>
+            Are looking for a quick-start template rather than a complete system
+          </li>
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--muted);">
+            <span style="color:#dc2626;font-weight:700;flex-shrink:0;">✗</span>
+            Have not read the Proof Economy — start there first
+          </li>
+          <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:var(--muted);">
+            <span style="color:#dc2626;font-weight:700;flex-shrink:0;">✗</span>
+            Want results without doing the work
+          </li>
+        </ul>
+      </div>
     </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;background:var(--dark);margin-bottom:2rem;">
+      <div>
+        <p style="font-family:Arial,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.25rem;">Implementation Guide</p>
+        <p style="font-family:Georgia,serif;font-size:1.1rem;color:#fff;margin:0;">The complete sovereignty stack. Self-serve.</p>
+      </div>
+      <div style="text-align:right;">
+        <p style="font-family:Georgia,serif;font-size:1.6rem;font-weight:700;color:#fff;margin:0 0 0.5rem;">$500</p>
+        <a href="mailto:dflugger@gmail.com" style="font-family:Arial,sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff;background:var(--accent);padding:0.6rem 1.2rem;text-decoration:none;display:inline-block;">Get the guide →</a>
+      </div>
+    </div>
+
+    <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;">
+      Or read the full framework first:
+      <a href="the-proof-economy.html" style="color:var(--accent);text-decoration:none;">The Proof Economy →</a>
+      &nbsp;·&nbsp;
+      <a href="vera.html" style="color:var(--accent);text-decoration:none;">VERA methodology →</a>
+      &nbsp;·&nbsp;
+      For private implementation support:
+      <a href="mailto:dflugger@gmail.com" style="color:var(--accent);text-decoration:none;">dflugger@gmail.com</a>
+    </p>
   </div>
 
   <p class="author-bio">Daniel Flügger &nbsp;·&nbsp; New York &nbsp;·&nbsp; 2026</p>
