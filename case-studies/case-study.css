@@ -95,7 +95,7 @@ body { padding-top: 72px; }
 .cs-overview {
   font-size: 1rem;
   line-height: 1.82;
-  color: #3a3630;
+  color: #111827;
   max-width: 760px;
   margin-bottom: 2.5rem;
 }
@@ -211,7 +211,7 @@ body { padding-top: 72px; }
 .cs-body {
   font-size: 1rem;
   line-height: 1.82;
-  color: #3a3630;
+  color: #111827;
 }
 .cs-body p + p { margin-top: 1rem; }
 .cs-body ul {
@@ -225,7 +225,7 @@ body { padding-top: 72px; }
 .cs-body ul li {
   padding: 0.35rem 0 0.35rem 1.5rem;
   position: relative;
-  color: #3a3630;
+  color: #111827;
   font-size: 1rem;
   line-height: 1.7;
 }
@@ -310,7 +310,7 @@ body { padding-top: 72px; }
 }
 .cs-arch-layer-desc {
   font-size: 0.9rem;
-  color: #3a3630;
+  color: #111827;
   line-height: 1.65;
 }
 
@@ -372,7 +372,7 @@ body { padding-top: 72px; }
 }
 .cs-takeaway-body {
   font-size: 0.9rem;
-  color: #3a3630;
+  color: #111827;
   line-height: 1.75;
 }
 
@@ -427,7 +427,7 @@ body { padding-top: 72px; }
 
 /* ── CTA BUTTON OVERRIDES ── */
 .cs-cta-buttons .btn-secondary {
-  background: #e8722a;
+  background: #c84b1f;
   color: #ffffff;
   padding: 0.875rem 2rem;
   border-bottom: none;

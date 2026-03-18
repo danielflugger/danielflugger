@@ -17,9 +17,9 @@
     --color-ink: #1a1a1a;
     --color-ink-light: #4a4a4a;
     --color-ink-faint: #888;
-    --color-paper: #ffffff;
+    --color-paper: #F5F3EE;
     --color-rule: #d4d0c8;
-    --color-accent: #c4a35a;
+    --color-accent: #c84b1f;
     --color-toc-bg: #f4f2ed;
     --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
     --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
@@ -123,7 +123,7 @@
     font-weight: 500;
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: #e8722a !important;
+    color: #c84b1f !important;
     margin-bottom: 24px;
   }
 
@@ -147,7 +147,7 @@
   }
 
   .toc-list a:hover {
-    color: #e8722a !important;
+    color: #c84b1f !important;
     border-bottom-color: transparent !important;
   }
 
@@ -395,8 +395,8 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background: var(--color-paper, #ffffff);
-    border: 1px solid var(--color-rule, #d4d0c8);
+    background: #1a1a2e;
+    border: 1px solid rgba(255,255,255,0.08);
     min-width: 220px;
     list-style: none;
     padding: 0.5rem 0;
@@ -409,11 +409,11 @@
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-ink, #1a1a1a);
+    color: rgba(255,255,255,0.65);
     text-decoration: none;
     white-space: nowrap;
   }
-  .dropdown-menu li a:hover { color: var(--color-accent, #c4a35a); }
+  .dropdown-menu li a:hover { color: #c84b1f; }
   .nav-dropdown:hover .dropdown-menu { display: block; }
 </style>
 </head>
