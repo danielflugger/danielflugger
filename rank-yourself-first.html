@@ -1,600 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rank Yourself First — Daniel Flügger</title>
-  <meta name="description" content="The private system for knowing what you're worth before anyone else does. By Daniel Flügger.">
-  <meta property="og:title" content="Rank Yourself First — Daniel Flügger">
-  <meta property="og:description" content="The private system for knowing what you're worth before anyone else does.">
-  <meta property="og:url" content="https://danielflugger.com/rank-yourself-first.html">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rank Yourself First — Daniel Flügger</title>
+<meta name="description" content="The private system for knowing what you're worth before anyone else does. By Daniel Flügger.">
+<meta property="og:title" content="Rank Yourself First — Daniel Flügger">
+<meta property="og:description" content="The private system for knowing what you're worth before anyone else does.">
+<meta property="og:url" content="https://danielflugger.com/rank-yourself-first.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --color-ink: #1a1a1a;
+    --color-ink-light: #4a4a4a;
+    --color-ink-faint: #888;
+    --color-paper: #ffffff;
+    --color-rule: #d4d0c8;
+    --color-accent: #c4a35a;
+    --color-toc-bg: #f4f2ed;
+    --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+    --max-width: 680px;
+    --max-width-wide: 780px;
+  }
 
-    :root {
-      --bg:       #f5f4f0;
-      --surface:  #ffffff;
-      --dark:     #1a1a2e;
-      --text:     #2d2d2d;
-      --muted:    #6b6b6b;
-      --accent:   #c84b1f;
-      --rule:     #e0ddd6;
-      --nav-h:    64px;
-      --max:      1280px;
-      --essay:    680px;
-    }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { font-size: 16px; scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Georgia', 'Times New Roman', serif;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 19px;
+    line-height: 1.58;
+    font-weight: 400;
+    font-optical-sizing: auto;
+    padding-top: 72px;
+  }
 
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--bg);
-      border-bottom: 1px solid var(--rule);
-      height: var(--nav-h);
-      display: flex; align-items: center;
-    }
-    .nav-inner {
-      max-width: var(--max);
-      width: 100%; margin: 0 auto;
-      padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--dark);
-      text-decoration: none;
-    }
-    .nav-logo span { font-weight: 300; letter-spacing: 0.18em; }
-    .nav-links {
-      display: flex; align-items: center; gap: 1.75rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--dark); }
-    .nav-links a.active { color: var(--dark); font-weight: 700; border-bottom: 2px solid var(--dark); padding-bottom: 2px; }
-    .nav-cta {
-      background: var(--dark); color: #fff !important;
-      padding: 0.45rem 1.1rem;
-      border-radius: 2px;
-      font-weight: 700 !important;
-    }
-    .nav-cta:hover { background: #2d2d4e !important; color: #fff !important; }
+  nav { font-family: 'DM Sans', sans-serif; }
 
-    /* ── HERO ── */
-    .hero {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 4rem 2rem 2rem;
-      display: grid;
-      grid-template-columns: 380px 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .hero-card {
-      background: var(--dark);
-      padding: 2.5rem;
-      color: #fff;
-      position: sticky;
-      top: calc(var(--nav-h) + 2rem);
-    }
-    .hero-label {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.2rem;
-    }
-    .hero-title {
-      font-family: 'Georgia', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      line-height: 1.2;
-      color: #fff;
-      margin-bottom: 1rem;
-    }
-    .hero-sub {
-      font-family: 'Georgia', serif;
-      font-size: 0.95rem;
-      font-style: italic;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.6;
-      margin-bottom: 2.5rem;
-    }
-    .hero-byline {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.35);
-      text-transform: uppercase;
-      margin-top: auto;
-    }
-    .hero-toc h3 {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-    .hero-toc ol { list-style: none; }
-    .hero-toc li {
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
-      padding: 0.6rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-    .hero-toc li:last-child { border-bottom: none; }
-    .toc-num {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      min-width: 1.8rem;
-    }
-    .toc-link {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.8rem;
-      color: var(--text);
-      text-decoration: none;
-      line-height: 1.4;
-    }
-    .toc-link:hover { color: var(--accent); }
+  /* --- HEADER --- */
+  .site-header {
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+    padding: 80px 24px 0;
+    text-align: center;
+  }
 
-    /* ── ESSAY BODY ── */
-    .essay-wrap {
-      max-width: var(--essay);
-      padding-top: 0.5rem;
-    }
-    .chapter {
-      margin-bottom: 4rem;
-    }
-    .chapter-label {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.6rem;
-    }
-    .chapter h2 {
-      font-family: 'Georgia', serif;
-      font-size: 1.55rem;
-      font-weight: 700;
-      line-height: 1.25;
-      color: var(--dark);
-      margin-bottom: 0.4rem;
-    }
-    .chapter h3 {
-      font-family: 'Georgia', serif;
-      font-size: 1rem;
-      font-weight: 400;
-      font-style: italic;
-      color: var(--muted);
-      margin-bottom: 1.8rem;
-      padding-bottom: 1.2rem;
-      border-bottom: 1px solid var(--rule);
-    }
-    .chapter p {
-      font-size: 1.05rem;
-      line-height: 1.78;
-      color: var(--text);
-      margin-bottom: 1.4rem;
-    }
-    .chapter p:last-child { margin-bottom: 0; }
+  .site-header .overline {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+    margin-bottom: 28px;
+  }
 
-    blockquote {
-      border-left: 3px solid var(--accent);
-      padding: 0.5rem 0 0.5rem 1.5rem;
-      margin: 2rem 0;
-    }
-    blockquote p {
-      font-style: italic;
-      color: #444;
-      font-size: 1.05rem;
-    }
+  .site-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5.5vw, 52px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin-bottom: 20px;
+  }
 
-    .plan-list {
-      list-style: none;
-      margin: 1.5rem 0;
-    }
-    .plan-list li {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 1rem;
-      padding: 1.2rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-    .plan-list li:first-child { border-top: 1px solid var(--rule); }
-    .plan-days {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      padding-top: 0.1rem;
-    }
-    .plan-body {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--text);
-    }
-    .plan-body strong {
-      display: block;
-      font-family: 'Arial', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--dark);
-      margin-bottom: 0.3rem;
-    }
+  .site-header .subtitle {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 2.5vw, 21px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--color-ink-light);
+    margin: 0 auto 28px;
+  }
 
-    .essay-rule {
-      border: none;
-      border-top: 1px solid var(--rule);
-      margin: 3rem 0;
-    }
+  .site-header .byline {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--color-ink-faint);
+  }
 
-    .close-links {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--rule);
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .close-links a {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.8rem;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-    }
-    .close-links a:hover { text-decoration: underline; }
-    .byline-sig {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 2.5rem;
-      letter-spacing: 0.06em;
-    }
+  .header-rule {
+    max-width: var(--max-width-wide);
+    margin: 40px auto 0;
+    border: none;
+    border-top: 1px solid var(--color-rule);
+  }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--dark);
-      color: rgba(255,255,255,0.45);
-      margin-top: 6rem;
-      padding: 3rem 2rem;
-    }
-    .footer-inner {
-      max-width: var(--max);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-    .footer-name {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #fff;
-      margin-bottom: 0.4rem;
-    }
-    .footer-tagline {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-    }
-    .footer-links { display: flex; flex-direction: column; gap: 0.5rem; text-align: right; }
-    .footer-links a {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-    }
-    .footer-links a:hover { color: #fff; }
-    .footer-copy {
-      max-width: var(--max);
-      margin: 2rem auto 0;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      font-family: 'Arial', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.06em;
-    }
+  /* --- TABLE OF CONTENTS --- */
+  .toc-wrapper {
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+    padding: 20px 24px 40px;
+  }
 
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; gap: 2rem; }
-      .hero-card { position: static; }
-      .nav-links { display: none; }
-    }
-  </style>
+  .toc {
+    background: #1a1a2e !important;
+    border: none !important;
+    border-radius: 4px;
+    padding: 40px 44px;
+    color: #ffffff !important;
+  }
+
+  .toc-label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #e8722a !important;
+    margin-bottom: 24px;
+  }
+
+  .toc-list { list-style: none; }
+
+  .toc-list li {
+    margin-bottom: 0;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  }
+  .toc-list li:last-child { border-bottom: none !important; }
+
+  .toc-list a {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 500;
+    color: #ffffff !important;
+    text-decoration: none;
+    border-bottom: none !important;
+    transition: color 0.2s ease;
+  }
+
+  .toc-list a:hover {
+    color: #e8722a !important;
+    border-bottom-color: transparent !important;
+  }
+
+  .toc-list .toc-desc {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-style: italic;
+    color: rgba(255,255,255,0.6) !important;
+    margin-left: 4px;
+  }
+
+  .toc-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45) !important;
+    margin-right: 16px;
+    min-width: 24px;
+    display: inline-block;
+  }
+
+  /* --- ARTICLE BODY --- */
+  .article {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+
+  .article p { margin-bottom: 1.4rem; }
+  .article p:last-child { margin-bottom: 0; }
+
+  .chapter-marker {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+    margin-bottom: 8px;
+    padding-top: 64px;
+    scroll-margin-top: 110px;
+  }
+
+  .article h2 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4.5vw, 36px);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    margin-bottom: 28px;
+  }
+
+  .article h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--color-ink-light);
+    margin-top: -18px;
+    margin-bottom: 28px;
+  }
+
+  .article strong {
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .chapter-sep {
+    border: none;
+    text-align: center;
+    margin: 56px 0;
+    line-height: 1;
+  }
+  .chapter-sep::after {
+    content: '◆';
+    font-size: 10px;
+    color: var(--color-rule);
+    letter-spacing: 16px;
+  }
+
+  .pull-quote {
+    border-left: 3px solid var(--color-ink);
+    margin: 2.5rem 0;
+    padding: .5rem 0 .5rem 1.75rem;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-ink-light);
+    line-height: 1.6;
+  }
+
+  /* --- PLAN LIST (Thirty Days) --- */
+  .plan-list {
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+  .plan-list li {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .plan-list li:first-child { border-top: 1px solid var(--color-rule); }
+  .plan-days {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    padding-top: 0.1rem;
+  }
+  .plan-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-ink);
+    font-family: var(--font-body);
+  }
+  .plan-body strong {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    margin-bottom: 0.3rem;
+  }
+
+  /* --- CLOSE LINKS --- */
+  .cta-block {
+    margin: 3.5rem 0 1rem;
+    padding: 2.5rem;
+    background: #1a1a2e;
+    border-radius: 4px;
+  }
+  .cta-block p {
+    font-family: var(--font-body);
+    color: rgba(255,255,255,0.65);
+    font-size: .95rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.7;
+  }
+  .cta-block p:first-child {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.05rem;
+    font-style: italic;
+  }
+  .cta-links {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .cta-links a {
+    font-family: var(--font-sans);
+    font-size: .78rem;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    letter-spacing: .05em;
+  }
+  .cta-links a:hover { color: rgba(255,255,255,0.75); }
+
+  .author-bio {
+    margin-top: 60px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-rule);
+    font-size: 16px;
+    font-style: italic;
+    color: var(--color-ink-faint);
+    line-height: 1.7;
+  }
+
+  .back-top {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-rule);
+    transition: color 0.2s;
+  }
+  .back-top:hover { color: var(--color-accent); }
+
+  @media (max-width: 600px) {
+    body { font-size: 17px; line-height: 1.68; }
+    .toc { padding: 24px 20px; }
+    .site-header { padding: 80px 20px 0; }
+    .article { padding: 0 20px 80px; }
+    .plan-list li { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Daniel <span>Flügger</span></a>
-    <ul class="nav-links">
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="experience.html">Experience</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="vera.html">VERA</a></li>
-      <li><a href="rank-yourself-first.html" class="active">Rank Yourself</a></li>
-      <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
-    </ul>
-  </div>
+  <a href="index.html" class="nav-brand">Daniel <span>Flügger</span></a>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="vera.html">VERA</a></li>
+    <li><a href="rank-yourself-first.html" class="active">Rank Yourself</a></li>
+    <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
+  </ul>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
+<header class="site-header" id="top">
+  <p class="overline">Essay &nbsp;·&nbsp; March 2026</p>
+  <h1>Rank Yourself First</h1>
+  <p class="subtitle">The private system for knowing what you're worth before anyone else does</p>
+  <p class="byline">Daniel Flügger &nbsp;·&nbsp; 2026</p>
+</header>
+<hr class="header-rule">
 
-  <!-- LEFT: sticky card + TOC -->
-  <div>
-    <div class="hero-card">
-      <div class="hero-label">Essay &nbsp;·&nbsp; March 2026</div>
-      <h1 class="hero-title">Rank Yourself First</h1>
-      <p class="hero-sub">The private system for knowing what you're worth before anyone else does</p>
-      <div class="hero-byline">Daniel Flügger &nbsp;·&nbsp; 2026</div>
-    </div>
-
-    <div class="hero-toc" style="margin-top:2rem;">
-      <h3>Contents</h3>
-      <ol>
-        <li><span class="toc-num">—</span><a class="toc-link" href="#opening">The Memory Problem</a></li>
-        <li><span class="toc-num">01</span><a class="toc-link" href="#ch1">The Conviction Gap</a></li>
-        <li><span class="toc-num">02</span><a class="toc-link" href="#ch2">The Inversion</a></li>
-        <li><span class="toc-num">03</span><a class="toc-link" href="#ch3">The Ranking System</a></li>
-        <li><span class="toc-num">04</span><a class="toc-link" href="#ch4">The Knowledge Graph</a></li>
-        <li><span class="toc-num">05</span><a class="toc-link" href="#ch5">The Offline Advantage</a></li>
-        <li><span class="toc-num">06</span><a class="toc-link" href="#ch6">Thirty Days</a></li>
-        <li><span class="toc-num">—</span><a class="toc-link" href="#close">Own It</a></li>
-      </ol>
-    </div>
+<div class="toc-wrapper">
+  <div class="toc">
+    <p class="toc-label">Contents</p>
+    <ul class="toc-list">
+      <li><a href="#opening"><span class="toc-num">—</span> The Memory Problem</a><br><span class="toc-desc">The deluge, the decay, and the thing that disappears by morning.</span></li>
+      <li><a href="#ch1"><span class="toc-num">01</span> The Conviction Gap</a><br><span class="toc-desc">Why great work disappears before you can even show it to anyone.</span></li>
+      <li><a href="#ch2"><span class="toc-num">02</span> The Inversion</a><br><span class="toc-desc">Build in public is the wrong advice for the wrong person at the wrong time.</span></li>
+      <li><a href="#ch3"><span class="toc-num">03</span> The Ranking System</a><br><span class="toc-desc">Not a performance review. A mirror.</span></li>
+      <li><a href="#ch4"><span class="toc-num">04</span> The Knowledge Graph</a><br><span class="toc-desc">The system that never forgets and what that's actually worth.</span></li>
+      <li><a href="#ch5"><span class="toc-num">05</span> The Offline Advantage</a><br><span class="toc-desc">What the physical workroom taught me about sovereign knowledge.</span></li>
+      <li><a href="#ch6"><span class="toc-num">06</span> Thirty Days</a><br><span class="toc-desc">The sequence that builds something real before the world asks for it.</span></li>
+      <li><a href="#close"><span class="toc-num">—</span> Own It</a><br><span class="toc-desc">The conviction is the strategy.</span></li>
+    </ul>
   </div>
+</div>
 
-  <!-- RIGHT: essay -->
-  <div class="essay-wrap">
+<article class="article">
 
-    <!-- OPENING -->
-    <div class="chapter" id="opening">
-      <div class="chapter-label">Opening</div>
-      <h2>The Memory Problem</h2>
-      <h3>The deluge, the decay, and the thing that disappears by morning</h3>
+  <div class="chapter-marker" id="opening">Opening</div>
+  <h2>The Memory Problem</h2>
+  <h3>The deluge, the decay, and the thing that disappears by morning</h3>
 
-      <p>The essay you are about to read exists partly because of a problem it describes. Midway through a long working session, I realized I needed to capture something before I left — not because it was complicated, but because I knew from experience that the specific shape of an idea, the precise way it connected to something I had been thinking about for months, would be gone by morning. Not the general concept. The specific connection. The thing that makes it yours rather than anyone else's synthesis of the same information.</p>
+  <p>The essay you are about to read exists partly because of a problem it describes. Midway through a long working session, I realized I needed to capture something before I left — not because it was complicated, but because I knew from experience that the specific shape of an idea, the precise way it connected to something I had been thinking about for months, would be gone by morning. Not the general concept. The specific connection. The thing that makes it yours rather than anyone else's synthesis of the same information.</p>
 
-      <p>We are all living inside an information flood that has no historical precedent. The volume of intelligence being produced and distributed is genuinely staggering — models generating analysis, people sharing takes, platforms surfacing content at a velocity that the human brain was not built to process. Most people are managing this with the same cognitive tools they used ten years ago: skimming, bookmarking, sharing, hoping something sticks. Almost none of it does. The research on memory consolidation is unambiguous: information that doesn't get structured, connected to existing knowledge, and revisited dissolves. The half-life of most things we read online is hours, not days.</p>
+  <p>We are all living inside an information flood that has no historical precedent. The volume of intelligence being produced and distributed is genuinely staggering — models generating analysis, people sharing takes, platforms surfacing content at a velocity that the human brain was not built to process. Most people are managing this with the same cognitive tools they used ten years ago: skimming, bookmarking, sharing, hoping something sticks. Almost none of it does. The research on memory consolidation is unambiguous: information that doesn't get structured, connected to existing knowledge, and revisited dissolves. The half-life of most things we read online is hours, not days.</p>
 
-      <p>This is not a productivity problem. It is an identity problem.</p>
+  <p>This is not a productivity problem. It is an identity problem.</p>
 
-      <p>When you cannot locate what you actually know — when you cannot separate the things you have genuinely internalized from the things you have merely been exposed to — you cannot build conviction. And without conviction, you cannot defend what you have built, price it correctly, or find the people who need it. The question of where you fit in a rapidly shifting professional landscape is not answered by reading more. It is answered by ranking what you already know and building a record of that ranking that compounds over time.</p>
+  <p>When you cannot locate what you actually know — when you cannot separate the things you have genuinely internalized from the things you have merely been exposed to — you cannot build conviction. And without conviction, you cannot defend what you have built, price it correctly, or find the people who need it. The question of where you fit in a rapidly shifting professional landscape is not answered by reading more. It is answered by ranking what you already know and building a record of that ranking that compounds over time.</p>
 
-      <p>The answer is not a better note-taking system. It is a practice of ranking what you actually know, building a record that accumulates, and keeping it sovereign — owned by you, readable by no one else unless you choose.</p>
-    </div>
+  <p>The answer is not a better note-taking system. It is a practice of ranking what you actually know, building a record that accumulates, and keeping it sovereign — owned by you, readable by no one else unless you choose.</p>
 
-    <hr class="essay-rule">
+  <hr class="chapter-sep">
 
-    <!-- CH1 -->
-    <div class="chapter" id="ch1">
-      <div class="chapter-label">Chapter 01</div>
-      <h2>The Conviction Gap</h2>
-      <h3>Why great work disappears before you can even show it to anyone</h3>
+  <div class="chapter-marker" id="ch1">Chapter 01</div>
+  <h2>The Conviction Gap</h2>
+  <h3>Why great work disappears before you can even show it to anyone</h3>
 
-      <p>There is a gap that almost nobody names directly, but almost everybody in professional life eventually falls into it. It is not the gap between what you can do and what the market recognizes. That gap — the visibility problem — has been written about at length. The deeper gap is internal. It is the gap between what you genuinely know and what you can articulate, locate, and stand behind when the context that made it self-evident disappears.</p>
+  <p>There is a gap that almost nobody names directly, but almost everybody in professional life eventually falls into it. It is not the gap between what you can do and what the market recognizes. That gap — the visibility problem — has been written about at length. The deeper gap is internal. It is the gap between what you genuinely know and what you can articulate, locate, and stand behind when the context that made it self-evident disappears.</p>
 
-      <p>I watched this problem operate at close range for years running a luxury interior architecture and design-build practice in Manhattan. The expensive mistake is always the same: a contractor who claimed capability they did not have, a designer learning the category on the client's time and money. The wood arrives, the installation begins, and the gap between what was promised and what is actually possible reveals itself slowly, expensively, irreversibly. At four hundred dollars a yard for fabric there is no iterating your way out of a wrong cut. At five hundred thousand dollars for a renovation there is no version control for a finished interior.</p>
+  <p>I watched this problem operate at close range for years running a luxury interior architecture and design-build practice in Manhattan. The expensive mistake is always the same: a contractor who claimed capability they did not have, a designer learning the category on the client's time and money. The wood arrives, the installation begins, and the gap between what was promised and what is actually possible reveals itself slowly, expensively, irreversibly. At four hundred dollars a yard for fabric there is no iterating your way out of a wrong cut. At five hundred thousand dollars for a renovation there is no version control for a finished interior.</p>
 
-      <p>What I learned in that environment was that most professionals — even very accomplished ones — cannot clearly separate what they know from first-hand experience from what they have absorbed from the environment they operated in. Their value was always contextual and self-evident. The clients trusted it because the referral network vouched for it. The firm's reputation stood behind it. The work spoke for itself in the rooms where it lived. Then the context changes. The firm restructures. The referral network thins. The layoffs accelerate. And suddenly the same person who was undeniably valuable inside a specific context cannot clearly articulate what they know to someone who wasn't in those rooms.</p>
+  <p>What I learned in that environment was that most professionals — even very accomplished ones — cannot clearly separate what they know from first-hand experience from what they have absorbed from the environment they operated in. Their value was always contextual and self-evident. The clients trusted it because the referral network vouched for it. The firm's reputation stood behind it. The work spoke for itself in the rooms where it lived. Then the context changes. The firm restructures. The referral network thins. The layoffs accelerate. And suddenly the same person who was undeniably valuable inside a specific context cannot clearly articulate what they know to someone who wasn't in those rooms.</p>
 
-      <p>That is the Conviction Gap. Not the inability to perform. The inability to locate the performance in yourself, separate it from the context it lived in, and present it on your own terms.</p>
+  <p>That is the Conviction Gap. Not the inability to perform. The inability to locate the performance in yourself, separate it from the context it lived in, and present it on your own terms.</p>
 
-      <p>The private banker whose best work lives inside confidentiality agreements. The researcher who has been going offline with their work because they've watched what happens when the wrong people get access to it. The fabricator who built a decade of technique and then started pulling their YouTube channel, not because they have nothing to say, but because they understand the asymmetry of what they're giving away versus what they're getting back. All of them are sitting on real, substantial, hard-won expertise. All of them are struggling with the same problem: they cannot prove it to themselves in a form that travels without the original context.</p>
+  <p>The private banker whose best work lives inside confidentiality agreements. The researcher who has been going offline with their work because they've watched what happens when the wrong people get access to it. The fabricator who built a decade of technique and then started pulling their YouTube channel, not because they have nothing to say, but because they understand the asymmetry of what they're giving away versus what they're getting back. All of them are sitting on real, substantial, hard-won expertise. All of them are struggling with the same problem: they cannot prove it to themselves in a form that travels without the original context.</p>
 
-      <p>The Conviction Gap is what this system addresses first. Before it proves anything to anyone else, the ranking practice is a mirror. The person who has done this work knows something most people don't: exactly where they stand.</p>
-    </div>
+  <p>The Conviction Gap is what this system addresses first. Before it proves anything to anyone else, the ranking practice is a mirror. The person who has done this work knows something most people don't: exactly where they stand.</p>
 
-    <hr class="essay-rule">
+  <hr class="chapter-sep">
 
-    <!-- CH2 -->
-    <div class="chapter" id="ch2">
-      <div class="chapter-label">Chapter 02</div>
-      <h2>The Inversion</h2>
-      <h3>Build in public is the wrong advice for the wrong person at the wrong time</h3>
+  <div class="chapter-marker" id="ch2">Chapter 02</div>
+  <h2>The Inversion</h2>
+  <h3>Build in public is the wrong advice for the wrong person at the wrong time</h3>
 
-      <p>The dominant advice in professional reputation-building for the past decade has been a variation of the same instruction: build in public, ship early, share often, grow your audience. Post on LinkedIn. Start a newsletter. Document your process. The assumption is that visibility creates credibility and credibility creates opportunity.</p>
+  <p>The dominant advice in professional reputation-building for the past decade has been a variation of the same instruction: build in public, ship early, share often, grow your audience. Post on LinkedIn. Start a newsletter. Document your process. The assumption is that visibility creates credibility and credibility creates opportunity.</p>
 
-      <p>For a specific person in a specific situation, that advice is correct. For the quiet expert — the person operating inside NDAs, inside private referral networks, inside domains where confidentiality is not optional but structural — it is not just wrong. It is potentially destructive. The relationships that make you valuable are built on discretion. The domain knowledge that makes you irreplaceable is worth exactly what you don't give away. The moment you start performing your expertise for an audience, you begin optimizing for the audience's response rather than the actual quality of the work.</p>
+  <p>For a specific person in a specific situation, that advice is correct. For the quiet expert — the person operating inside NDAs, inside private referral networks, inside domains where confidentiality is not optional but structural — it is not just wrong. It is potentially destructive. The relationships that make you valuable are built on discretion. The domain knowledge that makes you irreplaceable is worth exactly what you don't give away. The moment you start performing your expertise for an audience, you begin optimizing for the audience's response rather than the actual quality of the work.</p>
 
-      <p>Meta wants to put glasses on your face that record everything you see, build a memory of your life, and surface it back to you through hardware he controls. The promise is personal knowledge management. The reality is that the most intimate record of your professional reasoning — what you actually think, how you actually work through problems, what you actually know — lives in a vendor's infrastructure, subject to their retention policies, their business model, their cooperation or lack of it in a dispute.</p>
+  <p>Meta wants to put glasses on your face that record everything you see, build a memory of your life, and surface it back to you through hardware he controls. The promise is personal knowledge management. The reality is that the most intimate record of your professional reasoning — what you actually think, how you actually work through problems, what you actually know — lives in a vendor's infrastructure, subject to their retention policies, their business model, their cooperation or lack of it in a dispute.</p>
 
-      <p>The inversion is this: build the private record first. Until the conviction is real. Then choose what to surface, with whom, on what terms. The public layer is a selective expression of something that already exists and already belongs to you. Not a performance. Not a broadcast. A considered release.</p>
+  <p>The inversion is this: build the private record first. Until the conviction is real. Then choose what to surface, with whom, on what terms. The public layer is a selective expression of something that already exists and already belongs to you. Not a performance. Not a broadcast. A considered release.</p>
 
-      <p>The sovereignty stack gives this instinct technical infrastructure. Your reasoning sessions run on your hardware. Your knowledge graph lives in your files. Your signing key never leaves your machine. You decide what gets recorded. You decide what leaves the machine. The public layer — a minimal site, a selective piece of writing, a specific LinkedIn post that points somewhere deeper — is the output of a private process that was never designed for the platform in the first place.</p>
+  <p>The sovereignty stack gives this instinct technical infrastructure. Your reasoning sessions run on your hardware. Your knowledge graph lives in your files. Your signing key never leaves your machine. You decide what gets recorded. You decide what leaves the machine. The public layer — a minimal site, a selective piece of writing, a specific LinkedIn post that points somewhere deeper — is the output of a private process that was never designed for the platform in the first place.</p>
 
-      <p>The platform gets what you choose to give it. The record is yours.</p>
-    </div>
+  <p>The platform gets what you choose to give it. The record is yours.</p>
 
-    <hr class="essay-rule">
+  <hr class="chapter-sep">
 
-    <!-- CH3 -->
-    <div class="chapter" id="ch3">
-      <div class="chapter-label">Chapter 03</div>
-      <h2>The Ranking System</h2>
-      <h3>Not a performance review. A mirror.</h3>
+  <div class="chapter-marker" id="ch3">Chapter 03</div>
+  <h2>The Ranking System</h2>
+  <h3>Not a performance review. A mirror.</h3>
 
-      <p>What does it actually mean to rank what you know? Not a resume. Not a list of credentials. Not a LinkedIn skills section where you add "Machine Learning" because three colleagues endorsed you for it. A genuine, honest, private separation of three categories: what you know from first principles and direct experience; what you have working knowledge of; and what you have merely been exposed to.</p>
+  <p>What does it actually mean to rank what you know? Not a resume. Not a list of credentials. Not a LinkedIn skills section where you add "Machine Learning" because three colleagues endorsed you for it. A genuine, honest, private separation of three categories: what you know from first principles and direct experience; what you have working knowledge of; and what you have merely been exposed to.</p>
 
-      <p>The distinction is not obvious to most people because most professional environments never ask them to make it. The company treats your expertise as an organizational asset and doesn't particularly care whether you understand it from the ground up or have learned to use it competently. Your clients care about the outcome, not the epistemology of how you produced it. Your colleagues extend you the same professional courtesy you extend them — a general assumption of competence at the level your role requires.</p>
+  <p>The distinction is not obvious to most people because most professional environments never ask them to make it. The company treats your expertise as an organizational asset and doesn't particularly care whether you understand it from the ground up or have learned to use it competently. Your clients care about the outcome, not the epistemology of how you produced it. Your colleagues extend you the same professional courtesy you extend them — a general assumption of competence at the level your role requires.</p>
 
-      <p>When that context disappears, the distinction matters enormously. Deep expertise and surface familiarity are priced completely differently. The person who can separate them in themselves — honestly, without defensiveness, without the ambient inflation that comes from years of being in a room where everyone assumed you knew things — has a foundation that the person who cannot make that separation does not have.</p>
+  <p>When that context disappears, the distinction matters enormously. Deep expertise and surface familiarity are priced completely differently. The person who can separate them in themselves — honestly, without defensiveness, without the ambient inflation that comes from years of being in a room where everyone assumed you knew things — has a foundation that the person who cannot make that separation does not have.</p>
 
-      <p>The researcher knows which papers they genuinely worked through versus which ones they scanned. The lawyer knows which cases they actually litigated versus which ones they have strong opinions about from reading the summaries. The fabricator knows which techniques are genuinely in their hands versus which ones they watched on YouTube and could probably replicate but have never tested under pressure. The ranking is not about being impressive. It is about being honest with yourself first, precisely because no one else is going to do it for you.</p>
+  <p>The researcher knows which papers they genuinely worked through versus which ones they scanned. The lawyer knows which cases they actually litigated versus which ones they have strong opinions about from reading the summaries. The fabricator knows which techniques are genuinely in their hands versus which ones they watched on YouTube and could probably replicate but have never tested under pressure. The ranking is not about being impressive. It is about being honest with yourself first, precisely because no one else is going to do it for you.</p>
 
-      <p>That honesty is the foundation everything else is built on. You cannot build conviction on a foundation you haven't examined. You cannot price your expertise correctly if you don't know where your actual edges are. You cannot find the clients or roles where your specific depth is genuinely valuable if you can't articulate what that depth is separate from the institution or context it developed in.</p>
+  <p>That honesty is the foundation everything else is built on. You cannot build conviction on a foundation you haven't examined. You cannot price your expertise correctly if you don't know where your actual edges are. You cannot find the clients or roles where your specific depth is genuinely valuable if you can't articulate what that depth is separate from the institution or context it developed in.</p>
 
-      <blockquote><p>The first person you have to prove anything to is yourself. Everything after that is a choice about what to share, with whom, and on what terms.</p></blockquote>
-    </div>
+  <div class="pull-quote">The first person you have to prove anything to is yourself. Everything after that is a choice about what to share, with whom, and on what terms.</div>
 
-    <hr class="essay-rule">
+  <hr class="chapter-sep">
 
-    <!-- CH4 -->
-    <div class="chapter" id="ch4">
-      <div class="chapter-label">Chapter 04</div>
-      <h2>The Knowledge Graph</h2>
-      <h3>The system that never forgets and what that's actually worth</h3>
+  <div class="chapter-marker" id="ch4">Chapter 04</div>
+  <h2>The Knowledge Graph</h2>
+  <h3>The system that never forgets and what that's actually worth</h3>
 
-      <p>The ranking tells you where you stand today. The knowledge graph tells you how you got there, what changed, and what connections emerged that weren't visible before. It is the difference between a photograph and a film — the same subject, but one shows you a moment and the other shows you movement through time.</p>
+  <p>The ranking tells you where you stand today. The knowledge graph tells you how you got there, what changed, and what connections emerged that weren't visible before. It is the difference between a photograph and a film — the same subject, but one shows you a moment and the other shows you movement through time.</p>
 
-      <p>Every interaction you have had with a difficult problem in your domain, every pattern you have recognized that someone without your background would have missed, every decision made under real uncertainty rather than textbook conditions — that is an asset. Right now it lives in your head, in email histories, in notes scattered across systems that belong to employers or platforms. The knowledge graph gives it a home that belongs to you. A structured private record of the intellectual territory you actually occupy: nodes that represent concepts you genuinely own, edges that represent the connections you have built through experience, timestamps that show when each piece was added and how your understanding evolved.</p>
+  <p>Every interaction you have had with a difficult problem in your domain, every pattern you have recognized that someone without your background would have missed, every decision made under real uncertainty rather than textbook conditions — that is an asset. Right now it lives in your head, in email histories, in notes scattered across systems that belong to employers or platforms. The knowledge graph gives it a home that belongs to you. A structured private record of the intellectual territory you actually occupy: nodes that represent concepts you genuinely own, edges that represent the connections you have built through experience, timestamps that show when each piece was added and how your understanding evolved.</p>
 
-      <p>The critical property is the temporal dimension. A knowledge graph built over six months reflects how your thinking has actually evolved. What you understood in October. What changed in December. What connections emerged in February that you couldn't have articulated in January. That record is not reproducible by anyone who didn't do the work. It is the provenance of your reasoning. It is also the thing that makes the conviction real — not because it proves anything to anyone else yet, but because you can look at it and see the actual intellectual territory you occupy rather than the territory you wish you occupied.</p>
+  <p>The critical property is the temporal dimension. A knowledge graph built over six months reflects how your thinking has actually evolved. What you understood in October. What changed in December. What connections emerged in February that you couldn't have articulated in January. That record is not reproducible by anyone who didn't do the work. It is the provenance of your reasoning. It is also the thing that makes the conviction real — not because it proves anything to anyone else yet, but because you can look at it and see the actual intellectual territory you occupy rather than the territory you wish you occupied.</p>
 
-      <p>A colleague of mine has been working on this problem — the problem of memory and temporal knowledge — for years. His insight is that most knowledge management systems treat memory as a retrieval problem: how do you find what you stored? The harder problem is continuity: how does the system carry the context of who you were when you stored it, so that what you learned in 2023 doesn't get orphaned from what you learned in 2026? His approach, built around community detection algorithms that automatically surface clusters in your thinking, produces something genuinely different from a folder of notes. The system doesn't require you to categorize yourself. It finds the structure in your actual intellectual activity and shows it back to you as evidence.</p>
+  <p>A colleague of mine has been working on this problem — the problem of memory and temporal knowledge — for years. His insight is that most knowledge management systems treat memory as a retrieval problem: how do you find what you stored? The harder problem is continuity: how does the system carry the context of who you were when you stored it, so that what you learned in 2023 doesn't get orphaned from what you learned in 2026? His approach, built around community detection algorithms that automatically surface clusters in your thinking, produces something genuinely different from a folder of notes. The system doesn't require you to categorize yourself. It finds the structure in your actual intellectual activity and shows it back to you as evidence.</p>
 
-      <p>The system never forgets. You choose what you add. The graph builds from your sessions — from the problems you work through, the reasoning you document, the connections you make in real time — and it accumulates. After months it becomes something rare: a map of a mind that has been working on a specific set of problems over time. That map is prior art for your own thinking. No one can claim what you developed if you developed it in a way that proves it.</p>
-    </div>
+  <p>The system never forgets. You choose what you add. The graph builds from your sessions — from the problems you work through, the reasoning you document, the connections you make in real time — and it accumulates. After months it becomes something rare: a map of a mind that has been working on a specific set of problems over time. That map is prior art for your own thinking. No one can claim what you developed if you developed it in a way that proves it.</p>
 
-    <hr class="essay-rule">
+  <hr class="chapter-sep">
 
-    <!-- CH5 -->
-    <div class="chapter" id="ch5">
-      <div class="chapter-label">Chapter 05</div>
-      <h2>The Offline Advantage</h2>
-      <h3>What the physical workroom taught me about sovereign knowledge</h3>
+  <div class="chapter-marker" id="ch5">Chapter 05</div>
+  <h2>The Offline Advantage</h2>
+  <h3>What the physical workroom taught me about sovereign knowledge</h3>
 
-      <p>When ChatGPT launched, my first response was not anxiety. It was relief. The treasure trove of knowledge our practice had built over fifteen years — the physical sample libraries, the verified vendor relationships, the fabrication knowledge built in workrooms where furniture was made by hand — none of it was in a database that could be scraped. Our vendors don't have websites. Our clients don't have public profiles. Our knowledge lived in physical things and in the hands of people who had spent years developing it. It was sovereign before the word existed for what it was.</p>
+  <p>When ChatGPT launched, my first response was not anxiety. It was relief. The treasure trove of knowledge our practice had built over fifteen years — the physical sample libraries, the verified vendor relationships, the fabrication knowledge built in workrooms where furniture was made by hand — none of it was in a database that could be scraped. Our vendors don't have websites. Our clients don't have public profiles. Our knowledge lived in physical things and in the hands of people who had spent years developing it. It was sovereign before the word existed for what it was.</p>
 
-      <p>The offline advantage is not about being anti-technology. It is about understanding that the most valuable knowledge has always been the knowledge that doesn't get easily extracted. The fabricator who knows how a specific wood species moves with humidity over decades. The lawyer who knows which arguments work before a specific judge. The designer who knows which vendor actually delivers at the specified quality versus which one has learned to write a compelling proposal. This knowledge is not in any corpus. It cannot be synthesized from documentation. It comes from being inside the problem rather than processing descriptions of it.</p>
+  <p>The offline advantage is not about being anti-technology. It is about understanding that the most valuable knowledge has always been the knowledge that doesn't get easily extracted. The fabricator who knows how a specific wood species moves with humidity over decades. The lawyer who knows which arguments work before a specific judge. The designer who knows which vendor actually delivers at the specified quality versus which one has learned to write a compelling proposal. This knowledge is not in any corpus. It cannot be synthesized from documentation. It comes from being inside the problem rather than processing descriptions of it.</p>
 
-      <p>The tools now exist to bring that same principle to knowledge work broadly. A local language model running on your hardware means your reasoning sessions never leave your machine. Your knowledge graph is stored in files you control. Your signing key is generated on your device and never transmitted. The model doesn't need to be cloud-hosted to be useful — Llama running locally is capable enough for serious reasoning work, and what it lacks in scale it more than compensates for in sovereignty.</p>
+  <p>The tools now exist to bring that same principle to knowledge work broadly. A local language model running on your hardware means your reasoning sessions never leave your machine. Your knowledge graph is stored in files you control. Your signing key is generated on your device and never transmitted. The model doesn't need to be cloud-hosted to be useful — Llama running locally is capable enough for serious reasoning work, and what it lacks in scale it more than compensates for in sovereignty.</p>
 
-      <p>You choose what gets recorded. You hold the key. You decide what leaves the machine. The public layer — if there is one — is a selection from a private record that was never designed for the platform.</p>
+  <p>You choose what gets recorded. You hold the key. You decide what leaves the machine. The public layer — if there is one — is a selection from a private record that was never designed for the platform.</p>
 
-      <p>Your most valuable knowledge should live somewhere you control. Not because you are hiding anything. Because the things worth protecting have always been kept close.</p>
-    </div>
+  <p>Your most valuable knowledge should live somewhere you control. Not because you are hiding anything. Because the things worth protecting have always been kept close.</p>
 
-    <hr class="essay-rule">
+  <hr class="chapter-sep">
 
-    <!-- CH6 -->
-    <div class="chapter" id="ch6">
-      <div class="chapter-label">Chapter 06</div>
-      <h2>Thirty Days</h2>
-      <h3>The sequence that builds something real before the world asks for it</h3>
+  <div class="chapter-marker" id="ch6">Chapter 06</div>
+  <h2>Thirty Days</h2>
+  <h3>The sequence that builds something real before the world asks for it</h3>
 
-      <p>Conviction is not a feeling you wait for. It is a structure you build. Here is the sequence.</p>
+  <p>Conviction is not a feeling you wait for. It is a structure you build. Here is the sequence.</p>
 
-      <ul class="plan-list">
-        <li>
-          <div class="plan-days">Days 1–7</div>
-          <div class="plan-body">
-            <strong>The Private Audit</strong>
-            Run the ranking across your actual domains. Write down what you genuinely know from first principles and direct experience, what you have working knowledge of, and what you have merely been exposed to. This document belongs to you and no one else sees it. The goal is not an impressive inventory. It is an honest map of where you actually stand — not where your resume says you stand, not where your employer's org chart places you. The audit typically takes four to six hours spread across the week. The discomfort of distinguishing between what you know and what you've absorbed is the point.
-          </div>
-        </li>
-        <li>
-          <div class="plan-days">Days 8–14</div>
-          <div class="plan-body">
-            <strong>Seed the Knowledge Graph</strong>
-            Take the top three domains from your audit and begin mapping the edges. What connects them? What problems have you solved at the intersection of two domains that someone with only one of them couldn't have solved? What do you understand about this territory that someone who only read about it wouldn't know? You are not building a comprehensive map. You are identifying the nodes that are genuinely yours — the concepts you own from the inside rather than the ones you recognize from the outside.
-          </div>
-        </li>
-        <li>
-          <div class="plan-days">Days 15–21</div>
-          <div class="plan-body">
-            <strong>Build the Signing Infrastructure</strong>
-            Generate your key pair. Set up your private session directory. Run your first signed session using a local model on a real problem in your domain. Read the signed record. That document — timestamped, signed with a key that never left your hardware — is the first artifact in your sovereign professional record. The timestamp is yours. The key is yours. No vendor can revoke it, no platform policy can change it, no employer can claim it. You produced this reasoning, at this time, and you can prove it independently of anyone else's cooperation.
-          </div>
-        </li>
-        <li>
-          <div class="plan-days">Days 22–30</div>
-          <div class="plan-body">
-            <strong>The Minimal Public Surface</strong>
-            One page. Your name. Your domain in one sentence. A link to one piece of substantial writing that demonstrates the thinking. Not a full website, not a blog, not a content strategy. The minimum viable public layer that lets the right person find you when they are looking. Everything else is optional and can be added when you have something specific to say. The public layer exists to surface what already exists. It is not the thing itself.
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <hr class="essay-rule">
-
-    <!-- CLOSE -->
-    <div class="chapter" id="close">
-      <div class="chapter-label">Close</div>
-      <h2>Own It</h2>
-      <h3>The conviction is the strategy</h3>
-
-      <p>The world is not going to slow down and wait for you to figure out where you fit. The restructuring is real, the acceleration is real, and the professional landscape you spent years learning to navigate is being rearranged from its foundation in real time. None of that is served by waiting for more clarity.</p>
-
-      <p>But the world also cannot extract what you haven't put into a format it can reach. The private record is the thing that travels with you regardless of what happens to your employer, your platform, your industry's structure. It is also the thing that tells you — before anyone else asks — that you have something worth protecting.</p>
-
-      <p>Build the private record first. Build it honestly. The conviction follows from the work of building it, not from reading about why you should. Once the conviction is real, every subsequent decision — what to share, with whom, at what price, on what terms — becomes coherent rather than reactive. You are not scrambling to prove something. You are choosing what to reveal from a position that already exists.</p>
-
-      <p>That is the complete strategy. Everything else is implementation.</p>
-
-      <div class="close-links">
-        <a href="the-proof-economy.html">The full framework: The Proof Economy →</a>
-        <a href="vera.html">The methodology: VERA →</a>
-        <a href="contact.html">Build this with support →</a>
+  <ul class="plan-list">
+    <li>
+      <div class="plan-days">Days 1–7</div>
+      <div class="plan-body">
+        <strong>The Private Audit</strong>
+        Run the ranking across your actual domains. Write down what you genuinely know from first principles and direct experience, what you have working knowledge of, and what you have merely been exposed to. This document belongs to you and no one else sees it. The goal is not an impressive inventory. It is an honest map of where you actually stand — not where your resume says you stand, not where your employer's org chart places you. The audit typically takes four to six hours spread across the week. The discomfort of distinguishing between what you know and what you've absorbed is the point.
       </div>
+    </li>
+    <li>
+      <div class="plan-days">Days 8–14</div>
+      <div class="plan-body">
+        <strong>Seed the Knowledge Graph</strong>
+        Take the top three domains from your audit and begin mapping the edges. What connects them? What problems have you solved at the intersection of two domains that someone with only one of them couldn't have solved? What do you understand about this territory that someone who only read about it wouldn't know? You are not building a comprehensive map. You are identifying the nodes that are genuinely yours — the concepts you own from the inside rather than the ones you recognize from the outside.
+      </div>
+    </li>
+    <li>
+      <div class="plan-days">Days 15–21</div>
+      <div class="plan-body">
+        <strong>Build the Signing Infrastructure</strong>
+        Generate your key pair. Set up your private session directory. Run your first signed session using a local model on a real problem in your domain. Read the signed record. That document — timestamped, signed with a key that never left your hardware — is the first artifact in your sovereign professional record. The timestamp is yours. The key is yours. No vendor can revoke it, no platform policy can change it, no employer can claim it. You produced this reasoning, at this time, and you can prove it independently of anyone else's cooperation.
+      </div>
+    </li>
+    <li>
+      <div class="plan-days">Days 22–30</div>
+      <div class="plan-body">
+        <strong>The Minimal Public Surface</strong>
+        One page. Your name. Your domain in one sentence. A link to one piece of substantial writing that demonstrates the thinking. Not a full website, not a blog, not a content strategy. The minimum viable public layer that lets the right person find you when they are looking. Everything else is optional and can be added when you have something specific to say. The public layer exists to surface what already exists. It is not the thing itself.
+      </div>
+    </li>
+  </ul>
 
-      <div class="byline-sig">Daniel Flügger &nbsp;·&nbsp; New York &nbsp;·&nbsp; 2026</div>
-    </div>
+  <hr class="chapter-sep">
 
-  </div><!-- /essay-wrap -->
-</div><!-- /hero -->
+  <div class="chapter-marker" id="close">Close</div>
+  <h2>Own It</h2>
+  <h3>The conviction is the strategy</h3>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-name">Daniel Flügger</div>
-      <div class="footer-tagline">Applied AI Engineer &nbsp;·&nbsp; New York</div>
-    </div>
-    <div class="footer-links">
-      <a href="about.html">About</a>
-      <a href="experience.html">Experience</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="research.html">Research</a>
-      <a href="https://danielflugger.com">danielflugger.com</a>
+  <p>The world is not going to slow down and wait for you to figure out where you fit. The restructuring is real, the acceleration is real, and the professional landscape you spent years learning to navigate is being rearranged from its foundation in real time. None of that is served by waiting for more clarity.</p>
+
+  <p>But the world also cannot extract what you haven't put into a format it can reach. The private record is the thing that travels with you regardless of what happens to your employer, your platform, your industry's structure. It is also the thing that tells you — before anyone else asks — that you have something worth protecting.</p>
+
+  <p>Build the private record first. Build it honestly. The conviction follows from the work of building it, not from reading about why you should. Once the conviction is real, every subsequent decision — what to share, with whom, at what price, on what terms — becomes coherent rather than reactive. You are not scrambling to prove something. You are choosing what to reveal from a position that already exists.</p>
+
+  <p>That is the complete strategy. Everything else is implementation.</p>
+
+  <div class="cta-block">
+    <p>The record is yours. The framework is here when you're ready to build it.</p>
+    <div class="cta-links">
+      <a href="the-proof-economy.html">The full framework: The Proof Economy →</a>
+      <a href="vera.html">The methodology: VERA →</a>
+      <a href="contact.html">Build this with support →</a>
     </div>
   </div>
-  <div class="footer-copy">© 2026 Daniel Flügger</div>
-</footer>
+
+  <p class="author-bio">Daniel Flügger &nbsp;·&nbsp; New York &nbsp;·&nbsp; 2026</p>
+
+  <a href="#top" class="back-top">↑ Back to top</a>
+
+</article>
 
 </body>
 </html>
