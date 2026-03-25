@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google AI Studio — Advanced Developer Guide · danielflugger.com</title>
+  <meta name="description" content="An enterprise-grade guide to Google AI Studio: project dashboards, decision logging, system instructions, Gemini API integration, and building block-by-block from zero.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #111827;
+      --accent: #131823;
+      --muted: #6b7280;
+      --rule: #e5e7eb;
+      --paper: #ffffff;
+      --cream: #f8f7f4;
+      --blue: #2563eb;
+      --green: #059669;
+      --amber: #d97706;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid var(--rule);
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* LAYOUT */
+    .container { max-width: 740px; margin: 0 auto; padding: 0 2rem; }
+
+    /* HERO */
+    .hero {
+      padding: 104px 2rem 56px;
+      max-width: 740px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--rule);
+    }
+    .eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+      display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+    }
+    .tag {
+      display: inline-block; background: var(--cream);
+      padding: 0.2rem 0.6rem; font-size: 0.62rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: 'DM Mono', monospace; color: var(--muted);
+    }
+    .tag.blue { background: #eff6ff; color: var(--blue); }
+    .tag.green { background: #ecfdf5; color: var(--green); }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      line-height: 1.15; font-weight: 400;
+      color: var(--accent); margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 600px; font-weight: 300; margin-bottom: 1.5rem;
+    }
+    .meta-row {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* TOC */
+    .toc {
+      background: var(--cream);
+      padding: 1.75rem 2rem;
+      margin: 2rem 0 3rem;
+    }
+    .toc-label {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; counter-reset: toc; }
+    .toc li { counter-increment: toc; display: flex; gap: 0.75rem; align-items: baseline; }
+    .toc li::before {
+      content: "0" counter(toc);
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      color: var(--muted); flex-shrink: 0; min-width: 1.8rem;
+    }
+    .toc li:nth-child(n+10)::before { content: counter(toc); }
+    .toc a {
+      font-size: 0.9rem; color: var(--ink); text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+    .toc a:hover { border-bottom-color: var(--ink); }
+
+    /* ARTICLE SECTIONS */
+    .section { padding: 3.5rem 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 72px; }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-num {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.75rem; display: block;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem; font-weight: 400;
+      color: var(--accent); margin-bottom: 1.25rem; line-height: 1.2;
+    }
+    h2 em { font-style: italic; }
+
+    h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 500;
+      color: var(--accent); margin: 2rem 0 0.75rem;
+    }
+
+    p { margin-bottom: 1.1rem; font-size: 0.975rem; color: #374151; font-weight: 300; }
+    p strong { font-weight: 500; color: var(--ink); }
+
+    /* CALLOUTS */
+    .callout {
+      border-left: 2px solid var(--rule);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      background: var(--cream);
+    }
+    .callout.blue { border-left-color: var(--blue); background: #eff6ff; }
+    .callout.green { border-left-color: var(--green); background: #ecfdf5; }
+    .callout.amber { border-left-color: var(--amber); background: #fffbeb; }
+    .callout-label {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.5rem; display: block;
+    }
+    .callout.blue .callout-label { color: var(--blue); }
+    .callout.green .callout-label { color: var(--green); }
+    .callout.amber .callout-label { color: var(--amber); }
+    .callout p { margin: 0; font-size: 0.9rem; }
+
+    /* CODE BLOCKS */
+    .code-block {
+      background: var(--accent);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    .code-block pre {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem; line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      white-space: pre-wrap;
+    }
+    .code-block .comment { color: rgba(255,255,255,0.4); }
+    .code-block .key { color: #93c5fd; }
+    .code-block .val { color: #86efac; }
+    .code-block .str { color: #fde68a; }
+    .code-label {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; display: block;
+    }
+
+    /* DASHBOARD CARD */
+    .dashboard {
+      border: 1px solid var(--rule);
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+    .dashboard-header {
+      background: var(--accent); padding: 0.85rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .dashboard-title {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7);
+    }
+    .dashboard-badge {
+      font-family: 'DM Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5);
+      padding: 0.2rem 0.5rem;
+    }
+    .dashboard-body { padding: 1.25rem; background: var(--cream); }
+    .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+    .dash-cell {
+      background: var(--paper); padding: 0.85rem 1rem;
+    }
+    .dash-cell.full { grid-column: 1 / -1; }
+    .dash-key {
+      font-family: 'DM Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.35rem; display: block;
+    }
+    .dash-val {
+      font-size: 0.85rem; color: var(--ink); font-weight: 400; line-height: 1.4;
+    }
+    .dash-val.mono { font-family: 'DM Mono', monospace; font-size: 0.75rem; }
+    .swatch-row { display: flex; gap: 0.4rem; margin-top: 0.35rem; flex-wrap: wrap; }
+    .swatch {
+      width: 28px; height: 28px; border: 1px solid var(--rule);
+      position: relative;
+    }
+    .swatch span {
+      position: absolute; bottom: -1.2rem; left: 0;
+      font-family: 'DM Mono', monospace; font-size: 0.5rem;
+      color: var(--muted); white-space: nowrap;
+    }
+
+    /* STEP LIST */
+    .step-list { display: flex; flex-direction: column; gap: 0; margin: 1.5rem 0; }
+    .step {
+      display: flex; gap: 1.25rem; padding: 1.25rem;
+      background: var(--cream); border-bottom: 1px solid var(--rule);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      color: var(--muted); flex-shrink: 0; padding-top: 0.15rem; min-width: 1.5rem;
+    }
+    .step-content strong { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.3rem; color: var(--accent); }
+    .step-content p { margin: 0; font-size: 0.85rem; color: var(--muted); font-weight: 300; }
+
+    /* DECISION TABLE */
+    .decision-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.85rem; }
+    .decision-table th {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--accent); color: rgba(255,255,255,0.6);
+      padding: 0.65rem 0.85rem; text-align: left; font-weight: 400;
+    }
+    .decision-table td { padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--rule); color: #374151; vertical-align: top; }
+    .decision-table tr:nth-child(even) td { background: var(--cream); }
+    .decision-table td:first-child { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+
+    /* QUOTE */
+    blockquote {
+      border-left: 2px solid var(--rule); padding-left: 1.5rem;
+      margin: 2rem 0;
+    }
+    blockquote p {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.1rem; color: var(--ink); margin: 0;
+    }
+    blockquote cite {
+      display: block; margin-top: 0.6rem;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-style: normal;
+    }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
+    .checklist li {
+      display: flex; gap: 0.75rem; font-size: 0.9rem; color: #374151; font-weight: 300; align-items: flex-start;
+    }
+    .checklist li::before {
+      content: "→"; font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; color: var(--muted); flex-shrink: 0; padding-top: 0.2rem;
+    }
+
+    /* MD SAMPLE */
+    .md-sample {
+      background: #0f172a; padding: 1.5rem;
+      margin: 1.5rem 0; overflow-x: auto;
+    }
+    .md-sample pre {
+      font-family: 'DM Mono', monospace; font-size: 0.76rem;
+      line-height: 1.75; color: #e2e8f0; white-space: pre-wrap;
+    }
+    .md-h { color: #7dd3fc; }
+    .md-bold { color: #fde68a; font-weight: 500; }
+    .md-comment { color: #475569; }
+    .md-value { color: #86efac; }
+    .md-label { color: #c084fc; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2.5rem 2rem;
+      max-width: 740px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    footer span { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+    footer a { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; text-transform: uppercase; }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 600px) {
+      .dash-grid { grid-template-columns: 1fr; }
+      nav .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Daniel Flügger</a>
+  <div class="nav-links">
+    <a href="research.html">Research</a>
+    <a href="vera.html">VERA</a>
+    <a href="the-proof-economy.html">The Proof Economy</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">
+    <span>Advanced Guide</span>
+    <span class="tag blue">Google AI Studio</span>
+    <span class="tag green">Google Developers Group</span>
+  </div>
+  <h1>Google AI Studio:<br><em>The Enterprise Developer's Playbook</em></h1>
+  <p class="hero-sub">Beyond vibe coding — how to build production-grade systems block by block, track every decision, and turn AI Studio into a disciplined engineering environment.</p>
+  <div class="meta-row">
+    <span>Daniel Flügger</span>
+    <span>March 2026</span>
+    <span>Google Cloud Partner</span>
+    <span>Companion to <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" style="color:var(--muted);text-underline-offset:3px;text-decoration:underline;" target="_blank">GDG Codelab ↗</a></span>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="toc">
+    <p class="toc-label">Contents</p>
+    <ol>
+      <li><a href="#scratch">End-to-End: Starting From Zero</a></li>
+      <li><a href="#why">Why AI Studio in 2026</a></li>
+      <li><a href="#dashboards">The Project Dashboard Pattern</a></li>
+      <li><a href="#style-dashboard">Style Guide Dashboard</a></li>
+      <li><a href="#gcp-dashboard">GCP Stack Reference Card</a></li>
+      <li><a href="#project-md">The Project Evolution MD</a></li>
+      <li><a href="#system-instructions">System Instructions as Onboarding Packages</a></li>
+      <li><a href="#block-by-block">Build Block by Block</a></li>
+      <li><a href="#gemini-api">Working with the Gemini Developer API</a></li>
+      <li><a href="#version-control">Version Control Strategy</a></li>
+      <li><a href="#prompting">Advanced Prompting Patterns</a></li>
+      <li><a href="#deploy">From Prototype to Production on Cloud Run</a></li>
+      <li><a href="#verification">The Verification Layer</a></li>
+    </ol>
+  </div>
+
+  <!-- 00 -->
+  <section class="section" id="scratch">
+    <span class="section-num">00 — Walkthrough</span>
+    <h2>End-to-End: <em>Starting From Zero</em></h2>
+    <p>This section is the practical walkthrough this guide builds toward. Everything in sections 01–12 is reference material. This section is the sequence. Follow it start to finish for any new project — including converting an existing static site into a real application with auth, a CMS layer, and gated content.</p>
+    <p>The example project used here is realistic and complete: converting a static HTML site on Firebase into a structured application with a markdown-driven public layer, a gated notes/intelligence section on Cloud Run, and Lemon Squeezy payment integration. This is not hypothetical — it is the exact architecture described in the product plan and the exact project you will execute on danielflugger.com.</p>
+
+    <div class="callout blue">
+      <span class="callout-label">Before you open AI Studio</span>
+      <p>Complete the <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" target="_blank" style="color:var(--blue);">introductory GDG codelab</a> first. You need to know how to create a project, use the Build tab, and do a one-click Cloud Run deploy. This walkthrough picks up exactly where the codelab ends.</p>
+    </div>
+
+    <h3>Phase 0 — Before the first prompt (20 minutes)</h3>
+    <p>Open a text editor, not AI Studio. Create a folder for your project. Create three files: <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">DASHBOARD.md</code>, <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">EVOLUTION.md</code>, and <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">Design.md</code>. Use the minimal templates from Sections 03, 04, and 05. Fill in only what you know right now — leave everything else as <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">[DECIDE]</code>. Commit these three files to a new GitHub repo before writing a single line of code.</p>
+
+    <div class="step-list">
+      <div class="step"><span class="step-num">1</span><div class="step-content"><strong>Create the project repo</strong><p>New GitHub repo. Clone locally. Create DASHBOARD.md, EVOLUTION.md, Design.md from the templates in this guide. Commit: <code style="font-family:'DM Mono',monospace;font-size:0.8em;">chore: project scaffolding — dashboards and evolution log</code></p></div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-content"><strong>Write the project brief in EVOLUTION.md</strong><p>One paragraph: what you are building, who it is for, what "done" means, what it explicitly does NOT do. This takes 10 minutes and saves 10 hours. Do not skip it. Log it as your first EVOLUTION.md entry.</p></div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-content"><strong>Define the data shape on paper</strong><p>Before touching AI Studio, sketch your data model. For a site with gated content: User (id, lemon_squeezy_license, tier), Post (slug, title, body_md, tier, published_at), LogEntry (slug, title, body_md, published_at — public). Draw the table/model diagram on paper or in a note. You will give this to AI Studio as an image in step 5.</p></div></div>
+      <div class="step"><span class="step-num">4</span><div class="step-content"><strong>Fill in the GCP Stack section of DASHBOARD.md</strong><p>Go to your GCP Console. Copy your Project ID into DASHBOARD.md. Choose your region. List only the services you have already provisioned or will provision in the first block. Leave everything else blank with [ADD WHEN PROVISIONED]. Commit.</p></div></div>
+    </div>
+
+    <h3>Phase 1 — First AI Studio session: data model only</h3>
+    <p>Open AI Studio. Create a new project. Connect it to your GitHub repo. Paste your System Instructions from the template in Section 06. Upload your three dashboard files as context. Then — and only then — write your first prompt.</p>
+
+    <div class="code-block">
+      <span class="code-label">First prompt — data model only</span>
+      <pre><span class="comment"># Upload: DASHBOARD.md, EVOLUTION.md, your hand-drawn data model photo</span>
+
+"Read DASHBOARD.md and EVOLUTION.md first.
+
+Generate the Pydantic v2 data models for this project only — 
+no routing, no database connections, no UI. Three models:
+User, Post, LogEntry.
+
+Rules:
+- Strict Pydantic v2 validation
+- No optional fields unless explicitly noted
+- Add a docstring to every model explaining its purpose
+- Put all three models in models.py only
+- Do not create any other files"</pre>
+    </div>
+
+    <p>When the models are generated, review them carefully before accepting. Run the verification prompt from Section 10: ask the model to list every assumption it made. Adjust. When the models look correct, create a GitHub checkpoint, commit to GitHub: <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">feat(data): Pydantic v2 models — User, Post, LogEntry [arch-001]</code>. Log the decision in EVOLUTION.md.</p>
+
+    <h3>Phase 2 — First block: one service, one operation</h3>
+    <p>Pick the single most important data operation in your project and build only that. For a site with gated content, it is license validation — the function that checks whether a Lemon Squeezy license key is valid before serving gated content. Everything else waits.</p>
+
+    <div class="code-block">
+      <span class="code-label">Second prompt — single operation, one file</span>
+      <pre>"Add a license validation function in auth.py only.
+
+The function: validate_license(license_key: str) -> bool
+- Makes a POST request to the Lemon Squeezy license validation API
+- Returns True if the license is active and valid
+- Returns False for all other states
+- Logs the API call at INFO level with the response status (not the key itself)
+- Includes a dry_run parameter that returns True without calling the API
+- Raises LicenseValidationError (define it in auth.py) on network failure
+
+Do not create a route, a UI, or any other file.
+Add the Lemon Squeezy API endpoint to config.py — not hardcoded."</pre>
+    </div>
+
+    <div class="callout amber">
+      <span class="callout-label">For newcomers to AI Studio: the most important habit</span>
+      <p>After every prompt that generates code, run the verification prompt before accepting: <em>"List every file you modified, every new dependency added, and every assumption made."</em> Make this reflexive. It takes 10 seconds and catches the silent changes that become debugging sessions later.</p>
+    </div>
+
+    <h3>Phase 3 — Connect two blocks</h3>
+    <p>You now have models and a license validation function. The next block connects them: a FastAPI route that accepts a license key, validates it, and returns the appropriate content tier. One route, one file.</p>
+
+    <div class="code-block">
+      <span class="code-label">Third prompt — connect blocks, one route</span>
+      <pre>"Add one FastAPI route in routes/content.py only.
+
+Route: GET /content/{slug}
+- Accepts header: X-License-Key: str
+- Calls validate_license() from auth.py
+- If valid: queries the database for the Post with matching slug
+  (use a stub function get_post_by_slug(slug) in db.py — 
+  return a hardcoded Post object for now, real DB comes next block)
+- If invalid: return 403 with message 'Valid license required'
+- If post not found: return 404
+- Return Post as JSON using the Pydantic model from models.py
+
+Do not add the database connection yet — use the stub.
+Do not add authentication middleware — just the header check for now."</pre>
+    </div>
+
+    <p>The stub pattern is the key technique for newcomers. You build the route shape with fake data, verify the logic is correct, then replace the stub with real database calls in the next block. This keeps each block independently testable and prevents the common failure mode of building everything at once and not knowing where the error is.</p>
+
+    <h3>Phase 4 — Replace stubs with real services (one at a time)</h3>
+    <p>Only now do you add the Cloud SQL connection. One prompt, one file, replacing one stub.</p>
+
+    <div class="code-block">
+      <span class="code-label">Fourth prompt — real database, replace stub</span>
+      <pre>"Replace the get_post_by_slug stub in db.py with a real 
+Cloud SQL (PostgreSQL) query using asyncpg.
+
+Requirements from DASHBOARD.md:
+- Cloud SQL instance: [from your dashboard]
+- Use Cloud SQL Python Connector for authentication
+- Do not hardcode connection strings — read from environment variables
+- IAM permission needed: roles/cloudsql.client — confirm this is in DASHBOARD.md
+- Connection should use connection pooling (min 2, max 10)
+- Add a get_db_pool() function that initializes once at startup
+- The get_post_by_slug function: returns Post | None
+
+Update DASHBOARD.md § Active Services to add Cloud SQL.
+Do not touch any other file."</pre>
+    </div>
+
+    <h3>Phase 5 — Add the public log layer</h3>
+    <p>The public log (markdown files → static HTML → Firebase) is a separate layer from the gated content. It requires a GitHub Action, not Cloud Run. Prompt AI Studio to generate the GitHub Action workflow file.</p>
+
+    <div class="code-block">
+      <span class="code-label">Fifth prompt — GitHub Action for public log</span>
+      <pre>"Create .github/workflows/deploy-log.yml only.
+
+This workflow:
+- Triggers on push to main when any file in /log/*.md changes
+- Uses a Python script (scripts/build_log.py) to convert 
+  all /log/*.md files to /public/log/*.html
+- Each HTML file uses a minimal template that matches the 
+  style tokens in DASHBOARD.md § Colors and § Typography
+- Deploys the /public directory to Firebase Hosting
+- Requires secret: FIREBASE_SERVICE_ACCOUNT (already configured)
+
+Also create scripts/build_log.py with the conversion logic.
+Use python-markdown library. Keep the HTML template minimal — 
+nav, article, footer. No JavaScript required."</pre>
+    </div>
+
+    <h3>Phase 6 — Deploy to Cloud Run and test for real</h3>
+    <p>At this point you have: data models, license validation, a content route with real database, and a public log pipeline. Deploy the FastAPI app to Cloud Run using the production flags from Section 11 — not the one-click deploy. Test every endpoint against the real Cloud Run URL, not the AI Studio preview. The latency, error handling, and IAM behavior will be different. Fix what breaks. Log it in EVOLUTION.md.</p>
+
+    <h3>Phase 7 — Add the UI last</h3>
+    <p>Only when the logic layer is deployed and tested do you build the UI. In AI Studio's Build tab, your System Instructions already have the style guide. Your first UI prompt is simple:</p>
+
+    <div class="code-block">
+      <span class="code-label">UI prompt — after logic is working</span>
+      <pre>"Build a minimal HTML/CSS/JS frontend for the gated content layer.
+
+It needs three views only:
+1. /log — public list of log entries, links to individual entries
+2. /notes — license key input form + content view (calls GET /content/{slug})  
+3. /notes/{slug} — single gated post view
+
+Use only the design tokens in DASHBOARD.md § Colors and § Typography.
+No JavaScript frameworks — vanilla JS for the license key form only.
+No new colors, fonts, or spacing values.
+
+Start with view 1 only. Do not build views 2 and 3 yet."</pre>
+    </div>
+
+    <h3>Newcomer checklist — things that will trip you up</h3>
+    <div class="step-list">
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>AI Studio streaming breaks the preview iframe</strong><p>If you're building anything with streaming responses from Gemini, test it on Cloud Run — not the preview. Prototype with non-streaming, switch to streaming at deploy time. Log this in EVOLUTION.md § What Was Tried and Abandoned the first time it happens.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>The model will add dependencies without asking</strong><p>Your System Instructions say to ask first, but it will still sometimes add a new import silently. The verification prompt catches this. Run it after every significant code generation — not just when you're suspicious.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>GitHub sync is one-way — don't edit in GitHub</strong><p>If you make a quick fix directly in GitHub, it will not sync back to AI Studio. Make all code changes inside AI Studio, commit out to GitHub. If you need to restore from GitHub, export the code and start a new AI Studio project.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>Cold start on Cloud Run min-instances=0 is 2–8 seconds</strong><p>The AI Studio preview is warm and fast. Your Cloud Run deployment with min-instances=0 will have a cold start on the first request after inactivity. For interactive tools, set min-instances=1 and log the cost implication in EVOLUTION.md.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>The IAM permissions gap</strong><p>AI Studio prototype assumes ambient permissions. Cloud Run requires explicit IAM. List the exact roles your service account needs in DASHBOARD.md before deploying. The most common missing role: roles/cloudsql.client for Cloud SQL connections.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>Revert at two failed fix attempts — not three</strong><p>If the model cannot fix something in two rounds, it will not fix it in five. Revert to the last checkpoint. Document the failure in EVOLUTION.md § What Was Tried and Abandoned. Approach from a different angle. This is the discipline that separates fast builders from people who spend a day arguing with a broken codebase.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 01 -->
+  <section class="section" id="why">
+    <span class="section-num">01 — Context</span>
+    <h2>Why AI Studio in 2026</h2>
+    <p>The introductory codelab covers the mechanics. This guide starts where it ends. If you've watched the pre-recorded session, you know how to get an app running. The question this guide answers is different: <strong>how do you use AI Studio as a disciplined engineering environment</strong> when you don't know what the project is going to become?</p>
+    <p>Google AI Studio's differentiating advantages over competing platforms aren't obvious from the homepage. Privacy is one — your apps are private by default, unlike most free-tier vibe coding tools. Native Gemini access is another — no API key required for the free tier models, and the Gemini Developer API is notably faster and more code-precise than earlier versions. Meaning the generated code tends to be leaner and closer to what you actually need.</p>
+    <p>But the real advantage for serious builders is the combination of AI Studio's rapid iteration loop with a disciplined project infrastructure you build around it. Most guides teach you how to use the tool. This one teaches you how to engineer with it.</p>
+
+    <div class="callout blue">
+      <span class="callout-label">Who this is for</span>
+      <p>Technical leads, GCP builders, and founders who have shipped real systems and want to use AI Studio as a production prototyping environment — not just a demo tool. Intermediate to advanced. You should have completed the <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" target="_blank" style="color:var(--blue);">introductory codelab</a> before reading this.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="section" id="dashboards">
+    <span class="section-num">02 — Pattern</span>
+    <h2>The Project Dashboard Pattern</h2>
+    <p>The single most useful thing you can do before writing your first prompt to the AI Studio coding agent is create two reference artifacts: a <strong>Style Guide Dashboard</strong> and a <strong>GCP Stack Reference Card</strong>. Both live as files in your project. Both get referenced in your System Instructions. Both make every subsequent prompt more precise.</p>
+    <p>This pattern solves the most common AI Studio failure mode: the model generating inconsistent UI, wrong service names, incorrect IAM patterns, or drift from your design system across a long build session. When the model can read your reference card, it stops hallucinating your stack.</p>
+
+    <div class="step-list">
+      <div class="step"><span class="step-num">01</span><div class="step-content"><strong>Create DASHBOARD.md in your project root</strong><p>Two sections: Style Guide and GCP Stack. Keep each section to one screen — the goal is fast reference, not documentation.</p></div></div>
+      <div class="step"><span class="step-num">02</span><div class="step-content"><strong>Reference it in System Instructions</strong><p>One line: "Before any UI or infrastructure change, check DASHBOARD.md for design tokens and approved service names."</p></div></div>
+      <div class="step"><span class="step-num">03</span><div class="step-content"><strong>Update it when the stack evolves</strong><p>The dashboard is a living document, not a spec. When you add a service or change a color, update the card. Commit the update to GitHub.</p></div></div>
+    </div>
+
+    <div class="callout amber">
+      <span class="callout-label">Why not two separate files?</span>
+      <p>One file means one read operation for the model. When the coding agent needs to understand both your UI constraints and your infrastructure, having it in one place reduces the chance it checks one and ignores the other. Keep it short enough to fit in a single context window read.</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="section" id="style-dashboard">
+    <span class="section-num">03 — Artifact</span>
+    <h2>Style Guide Dashboard</h2>
+    <p>The style guide section of your dashboard is a minimal design token reference. Not a full design system — just the set of values the AI needs to generate consistent UI without asking you. Colors, typography, spacing scale, component patterns you've approved. Here's what a production-ready style dashboard looks like:</p>
+
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <span class="dashboard-title">DASHBOARD.md — Style Guide Section</span>
+        <span class="dashboard-badge">Reference Only</span>
+      </div>
+      <div class="dashboard-body">
+        <div class="dash-grid">
+          <div class="dash-cell">
+            <span class="dash-key">Primary Font</span>
+            <div class="dash-val mono">font-family: 'Inter', sans-serif<br>headings: 'Playfair Display'</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Font Scale</span>
+            <div class="dash-val mono">xs:0.75rem · sm:0.875rem<br>base:1rem · lg:1.125rem · xl:1.25rem</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Color Tokens</span>
+            <div class="dash-val">
+              <div class="swatch-row">
+                <div class="swatch" style="background:#111827"><span>--ink</span></div>
+                <div class="swatch" style="background:#f8f7f4;border-color:#e5e7eb"><span>--cream</span></div>
+                <div class="swatch" style="background:#2563eb"><span>--blue</span></div>
+                <div class="swatch" style="background:#059669"><span>--green</span></div>
+                <div class="swatch" style="background:#6b7280"><span>--muted</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Spacing Scale</span>
+            <div class="dash-val mono">4 · 8 · 12 · 16 · 24 · 32 · 48 · 64px<br>Component padding: 16px default</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Border Radius</span>
+            <div class="dash-val mono">none (sharp) — project default<br>sm: 4px for inputs only</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Approved Components</span>
+            <div class="dash-val mono">Button · Card · Table · Badge<br>Input · Textarea · Modal</div>
+          </div>
+          <div class="dash-cell full">
+            <span class="dash-key">Do Not Use</span>
+            <div class="dash-val mono">No Tailwind gradients on white · No purple accents · No rounded-xl · No box-shadow on cards · No Inter for headings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>The "Do Not Use" section is underrated. Explicitly telling the model what not to generate is as important as telling it what to generate. The AI will default to whatever is most common in its training data — usually Inter, rounded corners, and purple gradients. Block it explicitly.</p>
+
+    <h3>The customizable block approach</h3>
+    <p>When you don't know what the project is going to be yet, start with a minimal dashboard and add tokens as you make decisions. Each new decision becomes a committed line in the dashboard. The dashboard evolves with the project. By the time you're shipping, it's a complete record of every design decision you made and why — which is exactly what a new team member or a future version of you needs.</p>
+
+    <div class="code-block">
+      <span class="code-label">DASHBOARD.md — Style Guide (minimal starting template)</span>
+      <pre><span class="comment"># STYLE GUIDE — [Project Name]
+# Update this file when design decisions are made. Commit every change.</span>
+
+<span class="key">## Colors</span>
+<span class="val">--background:</span> <span class="str">#ffffff</span>
+<span class="val">--surface:</span>    <span class="str">#f8f7f4</span>
+<span class="val">--ink:</span>        <span class="str">#111827</span>
+<span class="val">--muted:</span>      <span class="str">#6b7280</span>
+<span class="val">--accent:</span>     <span class="str">[DECIDE: blue #2563eb OR green #059669]</span>
+<span class="val">--rule:</span>       <span class="str">#e5e7eb</span>
+
+<span class="key">## Typography</span>
+<span class="val">Body:</span>     DM Sans 300/400/500
+<span class="val">Headings:</span> Playfair Display 400/600
+<span class="val">Code:</span>     DM Mono 400/500
+
+<span class="key">## Spacing</span>
+<span class="val">Base unit:</span> 4px
+<span class="val">Component padding:</span> 16px
+<span class="val">Section spacing:</span> 64px
+
+<span class="key">## DECISIONS PENDING</span>
+<span class="comment"># - Accent color (above)
+# - Mobile nav pattern
+# - Table or card layout for data views</span></pre>
+    </div>
+
+    <div class="callout green">
+      <span class="callout-label">System Instructions hook</span>
+      <p>Add this to your System Instructions: <em>"The style guide is in DASHBOARD.md under ## Colors and ## Typography. Never introduce a color, font, or spacing value not listed there. When you need something not in the style guide, ask before adding it."</em></p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="section" id="gcp-dashboard">
+    <span class="section-num">04 — Artifact</span>
+    <h2>GCP Stack Reference Card</h2>
+    <p>The second section of your dashboard is a quick-reference card for your Google Cloud architecture. Its purpose is not documentation — it's to prevent the model from inventing service names, using deprecated APIs, or connecting services in ways that don't match your actual IAM setup.</p>
+    <p>Keep it to the services actually in use. Do not list aspirational services. The model reads this as ground truth.</p>
+
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <span class="dashboard-title">DASHBOARD.md — GCP Stack Section</span>
+        <span class="dashboard-badge">Quick Reference Only</span>
+      </div>
+      <div class="dashboard-body">
+        <div class="dash-grid">
+          <div class="dash-cell">
+            <span class="dash-key">Project ID</span>
+            <div class="dash-val mono">your-project-id-here</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Region</span>
+            <div class="dash-val mono">us-central1 (primary)<br>us-east1 (failover)</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Compute</span>
+            <div class="dash-val mono">Cloud Run (serverless)<br>min: 0 · max: 10 instances</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">AI / ML</span>
+            <div class="dash-val mono">Vertex AI — gemini-1.5-pro-002<br>Embeddings: text-embedding-004</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Storage</span>
+            <div class="dash-val mono">Cloud Storage: gs://[bucket]<br>BigQuery: dataset.table_naming_convention</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Database</span>
+            <div class="dash-val mono">Cloud SQL (PostgreSQL 15)<br>+ PostGIS 3.3 extension</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">Auth Pattern</span>
+            <div class="dash-val mono">Service Account JSON<br>Principle of least privilege — list permissions here</div>
+          </div>
+          <div class="dash-cell">
+            <span class="dash-key">API Gateway</span>
+            <div class="dash-val mono">FastAPI on Cloud Run<br>Pydantic v2 models — strict validation</div>
+          </div>
+          <div class="dash-cell full">
+            <span class="dash-key">Do Not Use</span>
+            <div class="dash-val mono">App Engine · Cloud Functions (use Cloud Run) · Firestore (use Cloud SQL) · any Firebase service · gcloud commands that require owner role</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout amber">
+      <span class="callout-label">Critical: Pin your model names</span>
+      <p>AI Studio will sometimes substitute model names it thinks are equivalent. Add to System Instructions: <em>"Never change the model name specified in DASHBOARD.md. If you think a different model is better, flag it — do not change it silently."</em> Model substitutions break cost estimates, latency assumptions, and capability contracts.</p>
+    </div>
+
+    <h3>IAM permissions as a reference constraint</h3>
+    <p>List the minimum IAM roles your service account has. When the coding agent knows it can't use owner-level permissions, it writes code that works within the actual constraint rather than code that requires you to elevate permissions at deploy time. This is the single biggest source of friction between AI Studio prototypes and production deployments — the prototype assumed permissions the prod environment doesn't have.</p>
+
+    <div class="code-block">
+      <span class="code-label">DASHBOARD.md — GCP Stack (minimal starting template)</span>
+      <pre><span class="key">## GCP Stack</span>
+<span class="val">Project:</span>  <span class="str">your-project-id</span>
+<span class="val">Region:</span>   <span class="str">us-central1</span>
+
+<span class="key">### Active Services</span>
+<span class="comment"># Only list what is actually provisioned</span>
+<span class="val">Compute:</span>    Cloud Run (serverless)
+<span class="val">AI:</span>         Vertex AI Gemini — <span class="str">gemini-2.0-flash-001</span>
+<span class="val">Storage:</span>    <span class="str">[ADD WHEN PROVISIONED]</span>
+<span class="val">Database:</span>   <span class="str">[ADD WHEN PROVISIONED]</span>
+
+<span class="key">### IAM — Service Account Permissions</span>
+<span class="val">roles/run.invoker</span>
+<span class="val">roles/aiplatform.user</span>
+<span class="comment"># Add roles here as they are granted — never assume owner</span>
+
+<span class="key">### Do Not Use</span>
+<span class="comment"># List services/patterns to avoid for this project</span></pre>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="section" id="project-md">
+    <span class="section-num">05 — Artifact</span>
+    <h2>The Project Evolution MD</h2>
+    <p>The project dashboard is your reference. The Project Evolution MD is your <em>log</em>. It answers the question that every developer eventually asks: <strong>why did I make that decision three weeks ago?</strong></p>
+    <p>Most documentation captures what was built. The Project Evolution MD captures what was decided, what was tried and abandoned, what changed direction and why. It is a running record of the project's thinking, not just its state. This is the artifact that makes a project recoverable — by you, by a future collaborator, by an AI coding agent that needs to understand the context of the current codebase.</p>
+
+    <h3>Structure</h3>
+    <p>Four sections, maintained in order. Never delete old entries — append only. The log is the proof of process.</p>
+
+    <div class="md-sample">
+      <pre><span class="md-h"># PROJECT EVOLUTION — [Project Name]</span>
+<span class="md-comment"># Append-only. Never delete. Each entry: date · decision · reasoning · alternatives considered.</span>
+
+<span class="md-h">## 01. Project Brief</span>
+<span class="md-bold">What we are building:</span> <span class="md-value">[One paragraph. Written at project start. Do not update — see ## Pivots]</span>
+<span class="md-bold">Who it is for:</span>        <span class="md-value">[Specific audience — not "developers", but "GCP engineers at Series B companies"]</span>
+<span class="md-bold">Definition of done:</span>   <span class="md-value">[What does "shipped" mean for this project?]</span>
+<span class="md-bold">Non-goals:</span>            <span class="md-value">[Explicitly what this does NOT do — critical for keeping scope]</span>
+
+<span class="md-h">## 02. Architecture Decisions</span>
+<span class="md-comment"># Format: [DATE] DECISION — reasoning — what we considered and rejected</span>
+
+<span class="md-label">[2026-03-15]</span> <span class="md-bold">Database: Cloud SQL over Firestore</span>
+<span class="md-value">Reasoning: Need PostGIS spatial queries. Firestore has no spatial index.
+Alternatives considered: Firestore (rejected: no ST_DWithin), AlloyDB (rejected: cost at this scale)
+Cost implication: ~$30/month vs $0 Firestore free tier. Accepted.</span>
+
+<span class="md-label">[2026-03-18]</span> <span class="md-bold">Auth: Lemon Squeezy JWT over custom session tokens</span>
+<span class="md-value">Reasoning: No time to build auth infrastructure. LS license tokens are sufficient for V1.
+Revisit at: 500 users or when enterprise SSO is required.</span>
+
+<span class="md-h">## 03. What Was Tried and Abandoned</span>
+<span class="md-comment"># This section is as important as ## 02. Prevents re-trying failed approaches.</span>
+
+<span class="md-label">[2026-03-16]</span> <span class="md-bold">Tried: Streaming responses from Vertex AI in AI Studio Build tab</span>
+<span class="md-value">Result: Streaming breaks the AI Studio preview iframe. Works fine in Cloud Run.
+Do not attempt streaming in AI Studio Build — prototype with non-streaming, switch at deploy.</span>
+
+<span class="md-h">## 04. Pivots</span>
+<span class="md-comment"># When the brief changes, document it here. What changed, why, what it affects.</span>
+
+<span class="md-label">[2026-03-20]</span> <span class="md-bold">Pivot: From B2C dashboard to B2B API</span>
+<span class="md-value">Original brief: consumer-facing dashboard.
+New direction: headless API with documentation site.
+Trigger: First three user conversations revealed buyers want to integrate, not use a UI.
+Affects: Remove all UI components. Focus on OpenAPI spec and rate limiting.</span>
+
+<span class="md-h">## 05. Open Questions</span>
+<span class="md-comment"># Unresolved decisions. Move to ## 02 when decided.</span>
+
+<span class="md-label">[ ]</span> Should the rate limiting be per-user or per-organization?
+<span class="md-label">[ ]</span> Does the Cloud Run instance need GPU for inference or CPU-only?
+<span class="md-label">[ ]</span> What is the right batch size for BigQuery ingestion at 10k records/hour?</pre>
+    </div>
+
+    <h3>How to maintain it without friction</h3>
+    <p>The evolution MD fails when it becomes a chore. Keep entries short — three to five lines per decision. Date every entry. Use the exact format above so it's parseable. The discipline is in the habit, not the length. A 30-second entry after every significant decision compounds into an invaluable project record.</p>
+
+    <div class="callout blue">
+      <span class="callout-label">Closing the loop with AI Studio</span>
+      <p>Give the coding agent access to EVOLUTION.md and add to System Instructions: <em>"Before suggesting an approach, check ## What Was Tried and Abandoned to verify we have not already tried it. If it is listed there, do not suggest it again."</em> This alone eliminates a significant class of repeated mistakes in long build sessions.</p>
+    </div>
+
+    <h3>The commit log as a decision audit trail</h3>
+    <p>Your Git commit history and the Evolution MD are complementary. The commit log shows <em>what</em> changed. The Evolution MD shows <em>why</em>. Together they make the project's reasoning fully recoverable. When you export your project from AI Studio to GitHub, every milestone commit should correspond to an entry in the Evolution MD.</p>
+
+    <table class="decision-table">
+      <thead><tr><th>Git Commit Message</th><th>Corresponding Evolution MD Entry</th></tr></thead>
+      <tbody>
+        <tr><td>feat: add PostGIS spatial query layer</td><td>[DATE] Database: Cloud SQL over Firestore — reasoning logged</td></tr>
+        <tr><td>refactor: remove streaming, use batch</td><td>[DATE] Tried: streaming in AI Studio — failed, documented</td></tr>
+        <tr><td>chore: pivot to headless API</td><td>[DATE] Pivot: B2C dashboard → B2B API — trigger and impact logged</td></tr>
+        <tr><td>fix: correct IAM roles for Cloud Run invoker</td><td>[DATE] Auth pattern: service account permissions — roles listed in DASHBOARD.md</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 06 -->
+  <section class="section" id="system-instructions">
+    <span class="section-num">06 — Configuration</span>
+    <h2>System Instructions as <em>Onboarding Packages</em></h2>
+    <p>The System Instructions field in AI Studio is the most underused enterprise feature on the platform. Most developers leave it blank or write a single sentence. Treat it instead as the onboarding documentation you would write for a new junior engineer joining your project. They need to know how you work, what the stack is, how to communicate, and what they absolutely must not do.</p>
+
+    <h3>The complete production System Instructions template</h3>
+
+    <div class="code-block">
+      <span class="code-label">System Instructions — Production Template</span>
+      <pre><span class="comment">## Project Context</span>
+You are a senior software engineer on [Project Name].
+Stack: [FastAPI / Cloud Run / BigQuery / Vertex AI Gemini].
+Read DASHBOARD.md before any code change. It contains style tokens and approved GCP services.
+Read EVOLUTION.md before suggesting an approach — check ## What Was Tried and Abandoned first.
+
+<span class="comment">## Code Standards</span>
+- One file per feature. Never create a monolithic app.tsx or main.py.
+- Add docstrings to every function: what it does, inputs, outputs, raises.
+- Start every file with a 3–5 line comment: what this feature does and its use cases.
+- Maintain Design.md at project root — update it when any feature changes.
+- Group all configurable values (model names, bucket names, endpoints) in config.py or config.ts.
+- Log all function calls at INFO level with parameters. Log all LLM calls with model, prompt, config, and output (strip inline binary data).
+- Always create a dry-run / test path that does not alter live data.
+
+<span class="comment">## Model Names (DO NOT CHANGE)</span>
+- Gemini: gemini-2.0-flash-001
+- Embeddings: text-embedding-004
+If you believe a different model is better, flag it with a comment — do not substitute silently.
+
+<span class="comment">## Communication Protocol</span>
+- If a request is ambiguous, ask one clarifying question before writing code.
+- If you are about to add a new dependency not in requirements.txt, ask first.
+- If you cannot implement something within the IAM permissions in DASHBOARD.md, say so.
+- Do not add features not explicitly requested. Scope creep starts here.
+- When you make a tradeoff, document it inline with a # TRADEOFF: comment.
+
+<span class="comment">## What Not To Do</span>
+- Do not use App Engine, Cloud Functions, or Firestore (see DASHBOARD.md § Do Not Use).
+- Do not introduce colors or fonts not in the style guide.
+- Do not require owner-level IAM permissions.
+- Do not use rounded-xl, box-shadow on cards, or purple/gradient accents.
+- Do not change working code without being asked. Only fix what is broken.</pre>
+    </div>
+
+    <p>The "What Not To Do" section is the highest-value addition most developers skip. Every line there represents a mistake that either happened in a previous session or a failure mode you've seen in production. It's a boundary layer, not a limitation.</p>
+
+    <div class="callout green">
+      <span class="callout-label">Iterating on System Instructions over time</span>
+      <p>Treat System Instructions as a living document. When the model makes a mistake you have to correct repeatedly, add a line preventing it. When you join a new project phase, update the stack section. Version-control your System Instructions by pasting a copy into your EVOLUTION.md at each major project milestone.</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="section" id="block-by-block">
+    <span class="section-num">07 — Methodology</span>
+    <h2>Build Block by Block</h2>
+    <p>The most common mistake in AI Studio — even by experienced developers — is prompting for the complete application before the architecture is clear. The result is a monolith that works in the demo and breaks under the first real requirement. The block-by-block approach inverts this.</p>
+
+    <blockquote>
+      <p>"The discipline is not in the prompt. It is in what you refuse to prompt for until the previous block is solid."</p>
+    </blockquote>
+
+    <h3>The block sequence</h3>
+    <div class="step-list">
+      <div class="step"><span class="step-num">01</span><div class="step-content"><strong>Data shape first</strong><p>Before any UI or API, define the data model. Ask AI Studio to generate the Pydantic model or TypeScript interface only. No routing, no UI, no database connections. Verify the shape is correct for your use case.</p></div></div>
+      <div class="step"><span class="step-num">02</span><div class="step-content"><strong>Single operation, one service</strong><p>Write one function that does one thing against one GCP service. A BigQuery query that returns rows. A Vertex AI call that returns an embedding. Test it in isolation. Commit it. Document the result in EVOLUTION.md.</p></div></div>
+      <div class="step"><span class="step-num">03</span><div class="step-content"><strong>Add the next block, not the next feature</strong><p>Connect two blocks. The data model to the database write. The embedding to the vector search. Not three connections at once — one. When it works, commit. When it doesn't, revert (not debug endlessly).</p></div></div>
+      <div class="step"><span class="step-num">04</span><div class="step-content"><strong>UI last, never first</strong><p>Build the UI as the final layer over working logic. An AI Studio prototype with a beautiful UI and broken business logic has negative value — it looks done when it isn't. Verify the logic layer first, always.</p></div></div>
+      <div class="step"><span class="step-num">05</span><div class="step-content"><strong>Deploy the block, not the app</strong><p>When a block is solid, deploy it to Cloud Run as its own endpoint. Get a real URL. Test against real infrastructure. The latency and error profile of Cloud Run is different from the AI Studio preview — find out early.</p></div></div>
+    </div>
+
+    <h3>The revert discipline</h3>
+    <p>AI Studio gives you checkpoints and GitHub sync. The rule: if the model cannot fix a problem in two rounds, revert to the last checkpoint. Do not negotiate with a broken codebase. Copy the broken approach into EVOLUTION.md under ## What Was Tried and Abandoned, note why it failed, and approach from a different direction. This discipline saves more time than any prompting technique.</p>
+
+    <div class="callout amber">
+      <span class="callout-label">When to stop using AI Studio and switch to Claude Code or a terminal</span>
+      <p>AI Studio is the right tool for rapid block prototyping. Switch to Claude Code or a local environment when: you need fine-grained IAM configuration, complex Cloud Build pipelines, multi-repo coordination, or anything requiring a local filesystem. The tools are complementary — AI Studio for the iteration loop, Claude Code for the integration and deployment layer.</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="section" id="gemini-api">
+    <span class="section-num">08 — API</span>
+    <h2>Working with the Gemini Developer API</h2>
+    <p>The Gemini Developer API (not the Vertex AI Gemini endpoint) is meaningfully different in practice: faster response times, more precise code generation with less boilerplate, and a cleaner Python client. For prototyping in AI Studio and for lightweight production workloads, it is often the better choice. For enterprise workloads requiring VPC, CMEK, or Vertex AI feature store integration, stay on the Vertex AI endpoint.</p>
+
+    <h3>When to use which endpoint</h3>
+    <table class="decision-table">
+      <thead><tr><th>Scenario</th><th>Use Gemini Developer API</th><th>Use Vertex AI Gemini</th></tr></thead>
+      <tbody>
+        <tr><td>AI Studio prototyping</td><td>✓ Native, no config</td><td>—</td></tr>
+        <tr><td>Fast iteration, light workloads</td><td>✓ Lower latency</td><td>—</td></tr>
+        <tr><td>Enterprise VPC / private network</td><td>—</td><td>✓ Required</td></tr>
+        <tr><td>CMEK / data residency compliance</td><td>—</td><td>✓ Required</td></tr>
+        <tr><td>Vertex AI Feature Store integration</td><td>—</td><td>✓ Required</td></tr>
+        <tr><td>RAG with Vertex AI Search</td><td>—</td><td>✓ Required</td></tr>
+        <tr><td>Multi-model pipeline (mix providers)</td><td>✓ Cleaner client</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h3>The export code workflow</h3>
+    <p>One of the most underused features in AI Studio: the <strong>Get Code</strong> button exports your exact prompt configuration — model, system instructions, temperature, top-p — as executable Python, JavaScript, or cURL. This is not a template. It is the production code for that call, ready to drop into a FastAPI endpoint or Cloud Function.</p>
+
+    <div class="code-block">
+      <span class="code-label">Exported Python — Gemini Developer API (production-ready)</span>
+      <pre><span class="comment">import google.generativeai as genai
+import logging
+from config import GEMINI_MODEL, SYSTEM_INSTRUCTION  # centralized config</span>
+
+<span class="key">log</span> = logging.getLogger(__name__)
+
+<span class="key">def</span> <span class="val">generate_response</span>(user_prompt: str, temperature: float = <span class="str">0.2</span>) -> str:
+    <span class="comment">"""
+    Generate a response using the Gemini Developer API.
+    Args:
+        user_prompt: The user's input string.
+        temperature: Controls output randomness. Lower = more precise.
+    Returns:
+        str: Model response text.
+    Raises:
+        google.api_core.exceptions.GoogleAPICallError: On API failure.
+    """</span>
+    log.info(<span class="str">"generate_response called"</span>, extra={<span class="str">"prompt_len"</span>: len(user_prompt), <span class="str">"temp"</span>: temperature})
+
+    model = genai.GenerativeModel(
+        model_name=GEMINI_MODEL,  <span class="comment"># from config — never hardcode</span>
+        system_instruction=SYSTEM_INSTRUCTION,
+        generation_config=genai.GenerationConfig(
+            temperature=temperature,
+            top_p=<span class="str">0.95</span>,
+            max_output_tokens=<span class="str">2048</span>,
+        )
+    )
+
+    response = model.generate_content(user_prompt)
+    log.info(<span class="str">"generate_response complete"</span>, extra={<span class="str">"output_len"</span>: len(response.text)})
+    <span class="key">return</span> response.text</pre>
+    </div>
+
+    <p>Note the pattern: centralized config, docstring on every function, logging of all LLM calls, no hardcoded model names. These are not stylistic preferences — they are the difference between a prototype that works once and a system that is maintainable.</p>
+  </section>
+
+  <!-- 09 -->
+  <section class="section" id="version-control">
+    <span class="section-num">09 — Workflow</span>
+    <h2>Version Control Strategy</h2>
+    <p>AI Studio's built-in checkpoints and GitHub sync are complementary tools. Understanding when to use each determines whether your project history is a recoverable asset or a tangle of partial saves.</p>
+
+    <h3>Checkpoints: for instant revert within a session</h3>
+    <p>Use checkpoints aggressively — before any significant prompt, before a refactor, before testing a major integration. They are free and fast. The rule: if you would be annoyed to lose the last 20 minutes of work, create a checkpoint first. Note the one critical limitation: <strong>checkpoints capture code state, not database state.</strong> Do not revert to a checkpoint that predates a schema migration or database write.</p>
+
+    <h3>GitHub: for milestone commits</h3>
+    <p>Commit to GitHub at meaningful milestones, not continuously. The goal is a clean commit history where each commit corresponds to a working block. Suggested commit points:</p>
+    <ul class="checklist">
+      <li>Data model defined and validated</li>
+      <li>First GCP service integration working</li>
+      <li>Core business logic complete (no UI yet)</li>
+      <li>UI layer added over working logic</li>
+      <li>Deployed to Cloud Run and tested against real infrastructure</li>
+      <li>Each subsequent block completed</li>
+    </ul>
+
+    <div class="callout amber">
+      <span class="callout-label">One-way sync limitation</span>
+      <p>AI Studio → GitHub sync is currently one-way. You can commit from AI Studio to GitHub, but changes made directly in GitHub will not sync back to AI Studio. Treat GitHub as your milestone archive and AI Studio as your active working environment. If you need to restore from a GitHub commit, export the code and create a new AI Studio project from it.</p>
+    </div>
+
+    <h3>Naming conventions that survive months</h3>
+    <div class="code-block">
+      <span class="code-label">Commit message convention</span>
+      <pre><span class="comment"># Format: type(scope): description [EVOLUTION.md ref]</span>
+
+<span class="val">feat</span>(data): add PostGIS spatial query layer [arch-001]
+<span class="val">feat</span>(api): BigQuery ingestion endpoint, dry-run included [arch-002]
+<span class="val">refactor</span>(ai): switch to batch inference, remove streaming [abandon-001]
+<span class="val">fix</span>(iam): correct Cloud Run invoker permissions [arch-003]
+<span class="val">pivot</span>(scope): remove UI layer, headless API only [pivot-001]
+<span class="val">docs</span>(dashboard): update GCP stack — add Cloud SQL [arch-004]
+
+<span class="comment"># The [ref] maps to your EVOLUTION.md entries
+# Anyone reading the git log can find the reasoning in the MD file</span></pre>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="section" id="prompting">
+    <span class="section-num">10 — Technique</span>
+    <h2>Advanced Prompting Patterns</h2>
+    <p>The following patterns apply specifically to AI Studio's Build tab coding agent — not the chat interface. They are ordered by impact.</p>
+
+    <h3>1. The constraint-first prompt</h3>
+    <p>State constraints before the request. The model uses constraints to scope its output — constraints stated after the request are often partially ignored.</p>
+    <div class="code-block">
+      <span class="code-label">Weak prompt vs constraint-first prompt</span>
+      <pre><span class="comment">❌ Weak:</span>
+"Add a user authentication system using Firebase Auth."
+
+<span class="comment">✓ Constraint-first:</span>
+"Add user authentication. Constraints: no Firebase (see DASHBOARD.md § Do Not Use).
+Use Cloud Run + Lemon Squeezy JWT validation only. Touch only auth.py and middleware.py —
+no other files. Do not add new dependencies without asking."</pre>
+    </div>
+
+    <h3>2. The annotated screenshot prompt</h3>
+    <p>For UI feedback, take a screenshot, draw directly on it (AI Studio's Annotate App feature), and combine it with a one-line text description. Visual annotation dramatically reduces the clarification loop for layout and spacing changes. Write the text description anyway — the combination of annotated image and text outperforms either alone.</p>
+
+    <h3>3. The "what changed" verification prompt</h3>
+    <p>After any significant code generation, before accepting the changes, run this prompt:</p>
+    <div class="code-block">
+      <span class="code-label">Verification prompt — run after every significant change</span>
+      <pre>"Before I accept these changes: list every file you modified, 
+every new dependency you added, and every assumption you made 
+about the existing codebase. Flag anything that is a 
+# TRADEOFF or a # TODO."</pre>
+    </div>
+    <p>This surfaces silent changes — files the model edited that you didn't ask it to touch, dependencies added without asking, assumptions made about data shape. Catching these before acceptance saves significant debugging time.</p>
+
+    <h3>4. The split-file mandate</h3>
+    <p>Issue this at project start, in System Instructions, and repeat it whenever the codebase shows signs of monolith growth. One file per feature is the rule. When the coding agent generates a 600-line main.py, it has violated this rule and the file needs to be split before continuing. Monoliths in AI Studio are almost impossible to maintain across sessions — the model loses track of what's in the file and begins generating contradictory code.</p>
+
+    <h3>5. Multimodal input for technical diagrams</h3>
+    <p>Upload architecture diagrams, data model ERDs, or whiteboard photos alongside your prompt. The model interprets these accurately and uses them to validate its generated code against your intended structure. A photo of a hand-drawn ER diagram is a legitimate and effective input — don't wait until you have a polished diagram.</p>
+
+    <h3>6. Temperature calibration by task type</h3>
+    <table class="decision-table">
+      <thead><tr><th>Task Type</th><th>Temperature</th><th>Reasoning</th></tr></thead>
+      <tbody>
+        <tr><td>SQL / API / data models</td><td>0.1 – 0.2</td><td>Precision required, no creative variation</td></tr>
+        <tr><td>Business logic / algorithms</td><td>0.2 – 0.4</td><td>Mostly deterministic with some flexibility</td></tr>
+        <tr><td>UI layout / component design</td><td>0.5 – 0.7</td><td>Multiple valid solutions, creativity appropriate</td></tr>
+        <tr><td>Documentation / naming</td><td>0.6 – 0.8</td><td>Variety in phrasing is useful</td></tr>
+        <tr><td>Brainstorming / architecture</td><td>0.8 – 1.0</td><td>Exploring solution space, not committing</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 11 -->
+  <section class="section" id="deploy">
+    <span class="section-num">11 — Deployment</span>
+    <h2>From AI Studio to Production on Cloud Run</h2>
+    <p>AI Studio's one-click Cloud Run deploy is fast and useful for sharing prototypes. For anything approaching production, you need to understand what it's doing and where it makes decisions you need to override.</p>
+
+    <h3>What the one-click deploy does</h3>
+    <ul class="checklist">
+      <li>Containerizes your application using a default base image</li>
+      <li>Deploys to Cloud Run in your selected region with default memory and CPU</li>
+      <li>Sets up a public HTTPS endpoint with Google-managed TLS</li>
+      <li>Uses the default Compute Engine service account (often too permissive)</li>
+    </ul>
+
+    <h3>What you need to override for production</h3>
+    <div class="code-block">
+      <span class="code-label">Cloud Run deploy — production flags (gcloud CLI)</span>
+      <pre>gcloud run deploy [SERVICE_NAME] \
+  --image gcr.io/[PROJECT_ID]/[IMAGE] \
+  --region us-central1 \
+  --platform managed \
+  <span class="comment"># Use a dedicated service account with minimum permissions</span>
+  --service-account [SA_NAME]@[PROJECT_ID].iam.gserviceaccount.com \
+  <span class="comment"># Set explicit resource limits — never use defaults in production</span>
+  --memory 512Mi \
+  --cpu 1 \
+  --min-instances 0 \
+  --max-instances 10 \
+  <span class="comment"># Require authentication — remove allow-unauthenticated unless intentional</span>
+  --no-allow-unauthenticated \
+  <span class="comment"># Set concurrency to match your application's thread safety</span>
+  --concurrency 80 \
+  <span class="comment"># Environment variables — never hardcode secrets in image</span>
+  --set-env-vars "PROJECT_ID=[PROJECT_ID],REGION=us-central1" \
+  --set-secrets "GEMINI_API_KEY=gemini-api-key:latest"</pre>
+    </div>
+
+    <h3>The latency gap between prototype and production</h3>
+    <p>The AI Studio preview runs in a warm, low-latency environment. Cold start on a Cloud Run instance with min-instances=0 adds 2–8 seconds to the first request after inactivity. For interactive applications this is unacceptable. Test your application's cold start latency early — set min-instances=1 for latency-sensitive workloads and document the cost implication in EVOLUTION.md.</p>
+  </section>
+
+  <!-- 12 -->
+  <section class="section" id="verification">
+    <span class="section-num">12 — Principle</span>
+    <h2>The Verification Layer</h2>
+    <p>Every tool in this guide — the dashboard, the evolution MD, the system instructions, the block-by-block methodology — serves a single underlying principle: <strong>your build process should be as verifiable as your output.</strong></p>
+    <p>The EVOLUTION.md commit history is not just project management. It is a provenance record. Every decision logged, every abandoned approach documented, every pivot explained — this is the evidence layer that makes your work defensible, transferable, and recoverable. In a world where AI can generate the code, the thing that carries your name is the reasoning underneath it.</p>
+    <p>The infrastructure described in this guide is deliberately portable. Markdown files. Git commits. Standard GCP services. No platform lock-in, no proprietary format. The dashboards and logs work identically whether you're using AI Studio, Claude Code, a local terminal, or any combination. That portability is intentional — your project knowledge should be sovereign, not trapped in a tool's export format.</p>
+
+    <div class="callout blue">
+      <span class="callout-label">Further reading</span>
+      <p>The VERA framework formalizes this verification approach with cryptographic session certificates and a formal maturity model for AI governance. If the verification layer resonates, <a href="vera.html" style="color:var(--blue);">read the framework</a> and <a href="https://danielflugger.com/the-proof-economy.html" style="color:var(--blue);">The Proof Economy essay</a> for the full context.</p>
+    </div>
+
+    <blockquote>
+      <p>"You do not build the proof layer to protect something you have stopped caring about. You build it, and in the building, you remember why you cared in the first place."</p>
+      <cite>— from The Proof Economy</cite>
+    </blockquote>
+  </section>
+
+  <footer>
+    <span>© 2026 Daniel Flügger</span>
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+      <a href="index.html">danielflugger.com</a>
+      <a href="vera.html">VERA Framework</a>
+      <a href="https://github.com/danielflugger" target="_blank">GitHub ↗</a>
+      <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" target="_blank">GDG Codelab ↗</a>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
