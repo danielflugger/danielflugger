@@ -425,14 +425,27 @@
   <ul class="nav-links">
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="experience.html">Experience</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
+    <li class="nav-dropdown">
+      <a href="experience.html">Experience</a>
+      <ul class="dropdown-menu">
+        <li><a href="portfolio.html">Portfolio</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="#">Learn</a>
+      <ul class="dropdown-menu">
+        <li><a href="enterprise-stack-guide.html">Enterprise Stack Guide</a></li>
+        <li><a href="ai-studio-guide.html">Google AI Studio Playbook</a></li>
+      </ul>
+    </li>
     <li class="nav-dropdown">
       <a href="research.html" class="active">Writing</a>
       <ul class="dropdown-menu">
-        <li><a href="authority.html">Wall of Phony Authority</a></li>
+        <li><a href="authority.html">Authority</a></li>
         <li><a href="rank-yourself-first.html">Rank Yourself First</a></li>
         <li><a href="the-proof-economy.html">The Proof Economy</a></li>
+        <li><a href="company-of-one.html">Company of One</a></li>
+        <li><a href="the-restack.html">The Restack</a></li>
       </ul>
     </li>
     <li><a href="vera.html">VERA</a></li>
@@ -477,11 +490,11 @@
 
   <p>I have sat across from clients who discovered the answer too late. A homeowner who committed over four hundred thousand dollars to a millwork contractor who could not execute the specification. The wood arrived, the installation began, and the gap between the contractor's claimed capability and the actual work revealed itself slowly, expensively, irreversibly. A couple who trusted a designer who was learning the category on their time and their money. Fabric at three hundred and fifty dollars per yard does not forgive a wrong cut, a miscalculated pattern repeat, an overlooked backing requirement. Property is expensive. Renovation at the level where people come to us typically represents five hundred thousand to over a million dollars in decisions that a family will live with for decades. You have one shot. There is no iterating your way out of a completed installation that missed the mark. There is no version control for a finished interior.</p>
 
-  <p>That is the world where I learned what verification actually means. Not as a philosophy. As a survival requirement. I spent years running a luxury interior architecture and design-build practice in Manhattan — the kind of practice that works with over a hundred vendors per project, operates entirely through private referral, and whose clients sign nondisclosure agreements because the work is never published. Our number one commitment, structurally and unconditionally, is to the homeowner. That sounds obvious. I can tell you honestly that it is not how most of the industry actually operates, even at the level where resources are seemingly unlimited. The industry is extractive at every layer, and not in a way that helps anyone end up loving where they live. We built a database of over five thousand verified furniture and design brands because the infrastructure did not exist and we needed it. The verification work was painstaking, manual, and expensive. That is precisely why the problem persists.</p>
+  <p>That is the world where I learned what verification actually means. Not as a philosophy. As a survival requirement. I spent years running an interior architecture and design-build practice in Manhattan — the kind of practice that works with over a hundred vendors per project, operates entirely through private referral, and whose clients sign nondisclosure agreements because the work is never published. Our number one commitment, structurally and unconditionally, is to the homeowner. That sounds obvious. I can tell you honestly that it is not how most of the industry actually operates, even at the level where resources are seemingly unlimited. The industry is extractive at every layer, and not in a way that helps anyone end up loving where they live. We built a database of over five thousand verified furniture and design brands because the infrastructure did not exist and we needed it. The verification work was painstaking, manual, and expensive. That is precisely why the problem persists.</p>
 
-  <p>Two years ago I made a deliberate decision. I had been coding for a long time — technical roles earlier in my career hired me specifically because I could hold both the technical and the domain side when most people could only hold one — but I decided to compound that into something new. I wanted to build the infrastructure that would make verification scalable. That meant a genuine transformation: upskilling into production AI systems, breaking architectures to understand where the edges actually are, shipping real platforms for real clients in geospatial intelligence, insurance underwriting, and supply chain procurement. The design-build practice is now largely in other hands. I am a Google Cloud Certified Partner Engineer in the Google Startups Accelerator. Four production platforms in two years. The transformation was herculean. I have more work to do. I am not pretending otherwise.</p>
+  <p>Two years ago I made a deliberate decision. I had been coding for a long time — technical roles earlier in my career hired me specifically because I could hold both the technical and the domain side when most people could only hold one — but I decided to compound that into something new. I wanted to build the infrastructure that would make verification scalable. That meant a genuine transformation: upskilling into production AI systems, breaking architectures to understand where the edges actually are, shipping real platforms for real clients in geospatial intelligence, insurance underwriting, and supply chain procurement. The design-build practice continues alongside this work. I am a Google Cloud Certified Partner Engineer in the Google Startups Accelerator. Four production platforms in two years. The transformation was herculean. I have more work to do. I am not pretending otherwise.</p>
 
-  <p>What I am building now — VERA, a framework for structured verification and traceable reasoning — I built first because I needed it myself. To synthesize an overwhelming volume of information faster. To rank what I actually know against what I have merely read. To maintain a sovereign record of my own reasoning that travels with me regardless of what role I hold or what company I work for. I am building it for myself, and I am building production AI systems for others, and I am actively seeking the right full-time engineering role where deep domain expertise in verification problems is genuinely useful rather than a curiosity. These are not contradictions. They are the same project at different scales.</p>
+  <p>What I am building now — VERA, a framework for structured verification and traceable reasoning — I built first because I needed it myself. To synthesize an overwhelming volume of information faster. To rank what I actually know against what I have merely read. To maintain a sovereign record of my own reasoning that travels with me regardless of what role I hold or what company I work for. I am building it for myself, and I am building production AI systems for others. These are not contradictions. They are the same project at different scales.</p>
 
   <p>The software developer wondering whether the specific way they architect systems still matters when AI can generate functional code in seconds. The consultant whose frameworks took years to refine, watching clients ask if a model can provide the same insight for a fraction of the cost. The small business owner who built something real, wondering how to protect it as the tools that used to require a team of ten now run on a single laptop. All of them are asking the same thing my clients were asking when they came to us after the expensive mistake: how do you know who to trust when you cannot verify what you are buying?</p>
 
@@ -501,7 +514,7 @@
 
   <p>A senior engineer makes fifty small architectural decisions in a week that collectively prevent six months of technical debt from accumulating. A consultant frames a problem in the first meeting in a way that changes the direction of a product and generates tens of millions in revenue. A small business owner's decade of customer relationships becomes the foundation of a product line that a larger competitor could not have built because they never had the same proximity to real customers. In each case, the contribution is real, significant, and completely invisible to anyone who was not in the room.</p>
 
-  <p>I watched this problem operate at very close range for years running an interior architecture and design-build practice in Manhattan. It is one of the most opaque professional markets that exists, and the fakery runs through every layer. Firms present portfolios they no longer have the talent to execute. Bids are won at one level of quality and delivered at another. In millwork and cabinetry, the difference between what was specified and what was installed is often invisible until a decade of use reveals it. In staging, the smoke and mirrors are not a side effect of the product — they are the product, and the same dynamic plays out at scale in mass market furniture retail, where the entire supply chain is optimized for everything except helping someone love where they live. Our practice was built entirely around the homeowner. That sounds like it should be the baseline. In this industry it is the exception.</p>
+  <p>This is one of the most opaque professional markets that exists, and the fakery runs through every layer. Firms present portfolios they no longer have the talent to execute. Bids are won at one level of quality and delivered at another. In millwork and cabinetry, the difference between what was specified and what was installed is often invisible until a decade of use reveals it. In staging, the smoke and mirrors are not a side effect of the product — they are the product, and the same dynamic plays out at scale in mass market furniture retail, where the entire supply chain is optimized for everything except helping someone love where they live. Our practice was built entirely around the homeowner. That sounds like it should be the baseline. In this industry it is the exception.</p>
 
   <p>I built a verification platform not because I saw a market opportunity from the outside but because I was drowning in the problem from the inside. Every vendor relationship, every material specification, every fabrication claim had to be validated from scratch because nothing in the existing market structure provided reliable signal about what was actually true. Over years, our team validated over five thousand furniture and design brands across auctions, trade events, maker workshops, and retail stores. We built that database because we needed it. The painstaking nature of the work is precisely why the problem persists: most buyers accept opacity because the alternative is too expensive.</p>
 
@@ -670,14 +683,14 @@
 
   <p>That is the Proof Economy in practice. Not a guarantee of success. A discipline. A commitment to knowing the difference between what you have proven and what you have assumed.</p>
 
+  <p>Everything in this framework has been built from the ground up — across multiple businesses, over decades, through the kind of expensive mistakes that cannot be learned any other way. The company of one architecture described here — the private ranking system, the verified knowledge graph, the foundation that compounds rather than decays — is what I would build if I were starting from zero today. The tools are available to anyone. The sequence is learnable. It does not matter where you are in your journey. The only requirement is the willingness to build the foundation before building the features, and to own what you build before asking anyone else to trust it.</p>
+
   <p>Own what you build. Prove that it is yours. Make it good enough that the proof is worth having. Build the infrastructure that lets the right people find it.</p>
 
   <p style="font-family: var(--font-sans); font-size: 13px; color: var(--color-ink-faint); margin-top: 2rem; letter-spacing: 0.5px;">— Daniel Flügger &nbsp;·&nbsp; New York &nbsp;·&nbsp; 2026</p>
 
   <div class="cta-block">
-    <p><em>If you read this far and something in it resonated — not because you agree with every argument but because you recognized the problem from the inside — there is one way to work with me directly.</em></p>
-
-    <p><em>I run a single private engagement: two calls, no team, no course, no community. We build your sovereignty stack together — your private ranking system, your knowledge graph, your signed session infrastructure, the minimal public layer that lets the right people find you. You leave with something that belongs to you and compounds from day one. The investment is $2,500.</em></p>
+    <p><em>If you are building your own company of one — whether you are starting from scratch or rebuilding on a stronger foundation — and you want the private infrastructure to do it right, this is where that work starts.</em></p>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:2rem 0;">
   <div>
@@ -728,10 +741,6 @@
         <span style="color:#fca5a5;font-weight:700;flex-shrink:0;">✗</span>
         Want results in days rather than weeks
       </li>
-      <li style="display:flex;gap:0.6rem;align-items:baseline;font-size:0.95rem;color:rgba(255,255,255,0.6);">
-        <span style="color:#fca5a5;font-weight:700;flex-shrink:0;">✗</span>
-        Are primarily trying to get a job rather than build something sovereign
-      </li>
     </ul>
   </div>
 </div>
@@ -759,7 +768,7 @@
   <div class="lexicon-entry"><strong>Clean Signal</strong> — <span>The condition that obtains when proof infrastructure is functioning: verified quality and recognized value are more strongly correlated than perceived quality and recognized value, and the right people find each other more reliably as a result.</span></div>
   <div class="lexicon-entry"><strong>Quiet Cloners</strong> — <span>Those who consume an argument, extract the thesis, and move on without engaging. A self-selecting population. The act of reading end to end and choosing to reach out is itself a form of verification. The self-selection is the first filter.</span></div>
 
-  <p class="author-bio">Daniel Flügger is a Google Cloud Certified Partner Engineer and applied AI engineer currently in the Google Startups Accelerator. He has built production AI systems for insurance underwriting, property intelligence, and supply chain procurement. This essay is his 2026 thesis on value and identity in the intelligence age.</p>
+  <p class="author-bio">Daniel Flügger is a Google Cloud Build Partner and applied AI engineer. He runs an interior architecture and design-build practice in Manhattan and builds production AI systems for clients in property intelligence, insurance underwriting, and supply chain procurement.</p>
 
   <p><a href="#top" class="back-top">Back to top ↑</a></p>
 

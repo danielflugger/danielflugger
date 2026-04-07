@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise Stack Guide — Claude + GCP · danielflugger.com</title>
+  <meta name="description" content="A practitioner's guide to building production AI systems on Claude and GCP: Claude Code in CI/CD, cost engineering, multi-agent architecture, and security without JSON keys.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #111827;
+      --accent: #131823;
+      --muted: #6b7280;
+      --rule: #e5e7eb;
+      --paper: #ffffff;
+      --cream: #f8f7f4;
+      --blue: #2563eb;
+      --green: #059669;
+      --amber: #d97706;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.7;
+    }
+
+    /* LAYOUT */
+    .container { max-width: 740px; margin: 0 auto; padding: 0 2rem; }
+
+    /* HERO */
+    .hero {
+      padding: 104px 2rem 56px;
+      max-width: 740px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--rule);
+    }
+    .eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+      display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+    }
+    .tag {
+      display: inline-block; background: var(--cream);
+      padding: 0.2rem 0.6rem; font-size: 0.62rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: 'DM Mono', monospace; color: var(--muted);
+    }
+    .tag.blue { background: #eff6ff; color: var(--blue); }
+    .tag.green { background: #ecfdf5; color: var(--green); }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      line-height: 1.15; font-weight: 400;
+      color: var(--accent); margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 600px; font-weight: 300; margin-bottom: 1.5rem;
+    }
+    .meta-row {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* TOC */
+    .toc {
+      background: var(--cream);
+      padding: 1.75rem 2rem;
+      margin: 2rem 0 3rem;
+    }
+    .toc-label {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; counter-reset: toc; }
+    .toc li { counter-increment: toc; display: flex; gap: 0.75rem; align-items: baseline; }
+    .toc li::before {
+      content: "0" counter(toc);
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      color: var(--muted); flex-shrink: 0; min-width: 1.8rem;
+    }
+    .toc li:nth-child(n+10)::before { content: counter(toc); }
+    .toc a {
+      font-size: 0.9rem; color: var(--ink); text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+    .toc a:hover { border-bottom-color: var(--ink); }
+
+    /* ARTICLE SECTIONS */
+    .section { padding: 3.5rem 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 72px; }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-num {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.75rem; display: block;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem; font-weight: 400;
+      color: var(--accent); margin-bottom: 1.25rem; line-height: 1.2;
+    }
+    h2 em { font-style: italic; }
+
+    h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 500;
+      color: var(--accent); margin: 2rem 0 0.75rem;
+    }
+
+    p { margin-bottom: 1.1rem; font-size: 0.975rem; color: #374151; font-weight: 300; }
+    p strong { font-weight: 500; color: var(--ink); }
+
+    /* CALLOUTS */
+    .callout {
+      border-left: 2px solid var(--rule);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      background: var(--cream);
+    }
+    .callout.blue { border-left-color: var(--blue); background: #eff6ff; }
+    .callout.green { border-left-color: var(--green); background: #ecfdf5; }
+    .callout.amber { border-left-color: var(--amber); background: #fffbeb; }
+    .callout-label {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.5rem; display: block;
+    }
+    .callout.blue .callout-label { color: var(--blue); }
+    .callout.green .callout-label { color: var(--green); }
+    .callout.amber .callout-label { color: var(--amber); }
+    .callout p { margin: 0; font-size: 0.9rem; }
+
+    /* CODE BLOCKS */
+    .code-block {
+      background: var(--accent);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    .code-block pre {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem; line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      white-space: pre-wrap;
+    }
+    .code-block .comment { color: rgba(255,255,255,0.4); }
+    .code-block .key { color: #93c5fd; }
+    .code-block .val { color: #86efac; }
+    .code-block .str { color: #fde68a; }
+    .code-label {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; display: block;
+    }
+
+    /* STEP LIST */
+    .step-list { display: flex; flex-direction: column; gap: 0; margin: 1.5rem 0; }
+    .step {
+      display: flex; gap: 1.25rem; padding: 1.25rem;
+      background: var(--cream); border-bottom: 1px solid var(--rule);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      color: var(--muted); flex-shrink: 0; padding-top: 0.15rem; min-width: 1.5rem;
+    }
+    .step-content strong { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.3rem; color: var(--accent); }
+    .step-content p { margin: 0; font-size: 0.85rem; color: var(--muted); font-weight: 300; }
+
+    /* DECISION TABLE */
+    .decision-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.85rem; }
+    .decision-table th {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--accent); color: rgba(255,255,255,0.6);
+      padding: 0.65rem 0.85rem; text-align: left; font-weight: 400;
+    }
+    .decision-table td { padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--rule); color: #374151; vertical-align: top; }
+    .decision-table tr:nth-child(even) td { background: var(--cream); }
+    .decision-table td:first-child { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
+    .checklist li {
+      display: flex; gap: 0.75rem; font-size: 0.9rem; color: #374151; font-weight: 300; align-items: flex-start;
+    }
+    .checklist li::before {
+      content: "→"; font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; color: var(--muted); flex-shrink: 0; padding-top: 0.2rem;
+    }
+
+    /* QUOTE */
+    blockquote {
+      border-left: 2px solid var(--rule); padding-left: 1.5rem;
+      margin: 2rem 0;
+    }
+    blockquote p {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.1rem; color: var(--ink); margin: 0;
+    }
+    blockquote cite {
+      display: block; margin-top: 0.6rem;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-style: normal;
+    }
+
+    /* FOOTER */
+    .guide-footer {
+      border-top: 1px solid var(--rule);
+      padding: 2.5rem 2rem;
+      max-width: 740px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .guide-footer span { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+    .guide-footer a { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; text-transform: uppercase; }
+    .guide-footer a:hover { color: var(--ink); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 90px 1.25rem 40px; }
+      .container { padding: 0 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Daniel <span>Flügger</span></a>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li class="nav-dropdown">
+      <a href="experience.html">Experience</a>
+      <ul class="dropdown-menu">
+        <li><a href="portfolio.html">Portfolio</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="#" class="active">Learn</a>
+      <ul class="dropdown-menu">
+        <li><a href="enterprise-stack-guide.html">Enterprise Stack Guide</a></li>
+        <li><a href="ai-studio-guide.html">Google AI Studio Playbook</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="research.html">Writing</a>
+      <ul class="dropdown-menu">
+        <li><a href="authority.html">Authority</a></li>
+        <li><a href="rank-yourself-first.html">Rank Yourself First</a></li>
+        <li><a href="the-proof-economy.html">The Proof Economy</a></li>
+        <li><a href="company-of-one.html">Company of One</a></li>
+        <li><a href="the-restack.html">The Restack</a></li>
+      </ul>
+    </li>
+    <li><a href="vera.html">VERA</a></li>
+    <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<script>
+  (function() {
+    var btn = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('nav');
+    if (btn && nav) {
+      btn.addEventListener('click', function() { nav.classList.toggle('nav-open'); });
+      document.querySelectorAll('.nav-links a').forEach(function(a) {
+        a.addEventListener('click', function() { nav.classList.remove('nav-open'); });
+      });
+    }
+  })();
+</script>
+
+<header class="hero">
+  <div class="eyebrow">
+    <span>Enterprise Reference</span>
+    <span class="tag blue">Claude + Anthropic SDK</span>
+    <span class="tag green">GCP · Cloud Run · IAM</span>
+  </div>
+  <h1>The Enterprise Stack:<br><em>Claude, GCP, and the Sovereign Builder</em></h1>
+  <p class="hero-sub">A practitioner's reference for building production AI systems on Claude and GCP — from Claude Code in CI/CD pipelines to cost engineering, multi-agent architecture, and security without JSON keys.</p>
+  <div class="meta-row">
+    <span>Daniel Flügger</span>
+    <span>2026</span>
+    <span>Google Cloud Partner</span>
+    <span>Companion to <a href="the-restack.html" style="color:var(--muted);text-underline-offset:3px;text-decoration:underline;">The Restack ↗</a></span>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="toc">
+    <p class="toc-label">Contents</p>
+    <ol>
+      <li><a href="#philosophy">The Sovereign Stack Philosophy</a></li>
+      <li><a href="#anthropic-sdk">Anthropic SDK — Python Client Setup</a></li>
+      <li><a href="#claude-code">Claude Code — CI/CD and Headless Mode</a></li>
+      <li><a href="#multi-agent">Multi-Agent Architecture</a></li>
+      <li><a href="#rag">RAG Architecture on GCP</a></li>
+      <li><a href="#observability">Monitoring and Observability</a></li>
+      <li><a href="#cost">Cost Engineering</a></li>
+      <li><a href="#testing">Testing Strategies</a></li>
+      <li><a href="#versioning">Version Control and Documentation</a></li>
+      <li><a href="#deployment">Deployment on Cloud Run</a></li>
+      <li><a href="#resilience">Resilience Patterns</a></li>
+      <li><a href="#security">Security and IAM</a></li>
+    </ol>
+  </div>
+
+  <!-- 01 -->
+  <section class="section" id="philosophy">
+    <span class="section-num">01 — Foundation</span>
+    <h2>The Sovereign Stack Philosophy</h2>
+    <p>The enterprise AI stack described here is not about vendor maximalism. It is about structural independence: a small, principled set of tools that compound over time, produce verifiable outputs, and do not require continuous reinvestment to maintain their position. Claude as the reasoning layer. GCP as the infrastructure layer. Markdown-based documentation as the knowledge layer. Git as the audit trail.</p>
+    <p>The distinguishing characteristic of this stack is that the knowledge it produces is portable. Your DASHBOARD.md, your EVOLUTION.md, your system instructions — these are plain text files that work in AI Studio, in Claude Code, in a local terminal, or in any future tool that can read a file. Platform lock-in is an architectural decision. This stack makes the opposite decision deliberately.</p>
+    <p>The guide that follows assumes you have shipped at least one real system, understand GCP IAM at the role level, and are comfortable with Python and the command line. It is a reference for practitioners, not a tutorial for beginners.</p>
+
+    <table class="decision-table">
+      <thead><tr><th>Layer</th><th>Tool</th><th>Why This Choice</th></tr></thead>
+      <tbody>
+        <tr><td>Reasoning</td><td>Claude (Anthropic)</td><td>Best-in-class on complex reasoning, instruction following, and code generation; verifiable safety constraints</td></tr>
+        <tr><td>Infrastructure</td><td>GCP — Cloud Run, Cloud SQL, BigQuery</td><td>Serverless-first, per-request billing, native IAM integration, strong compliance story</td></tr>
+        <tr><td>CI/CD Agent</td><td>Claude Code (headless)</td><td>Full file system access, structured JSON output, composable with standard shell tooling</td></tr>
+        <tr><td>Knowledge</td><td>Markdown + Git</td><td>Human-readable, diffs cleanly, works in every tool, survives every platform change</td></tr>
+        <tr><td>Secrets</td><td>GCP Secret Manager + WIF</td><td>No JSON keys, short-lived tokens, auditable access, zero long-lived credentials</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 02 -->
+  <section class="section" id="anthropic-sdk">
+    <span class="section-num">02 — Client</span>
+    <h2>Anthropic SDK — Python Client Setup</h2>
+    <p>The Anthropic Python SDK is the production interface to Claude. The patterns here are not tutorial content — they are the conventions that prevent the most common production failures: hardcoded model names, missing retry logic, and unstructured API responses that break downstream parsing.</p>
+
+    <h3>Centralized client configuration</h3>
+    <div class="code-block">
+      <span class="code-label">anthropic_client.py — one place for all SDK config</span>
+      <pre><span class="key">import</span> anthropic
+<span class="key">import</span> os
+<span class="key">import</span> logging
+
+log = logging.getLogger(__name__)
+
+<span class="comment"># Never hardcode model names — pin here and import everywhere</span>
+MODEL_SONNET = <span class="str">"claude-sonnet-4-6"</span>
+MODEL_HAIKU  = <span class="str">"claude-haiku-4-5-20251001"</span>
+
+<span class="key">def</span> get_client() -> anthropic.Anthropic:
+    <span class="str">"""Return a configured Anthropic client. Reads ANTHROPIC_API_KEY from env."""</span>
+    api_key = os.environ.get(<span class="str">"ANTHROPIC_API_KEY"</span>)
+    <span class="key">if not</span> api_key:
+        <span class="key">raise</span> EnvironmentError(<span class="str">"ANTHROPIC_API_KEY not set"</span>)
+    <span class="key">return</span> anthropic.Anthropic(api_key=api_key)
+
+<span class="key">def</span> complete(system: str, user: str, model: str = MODEL_SONNET, max_tokens: int = <span class="val">2048</span>) -> str:
+    <span class="str">"""Single-turn completion with structured logging."""</span>
+    client = get_client()
+    log.info(<span class="str">"claude_request"</span>, extra={<span class="str">"model"</span>: model, <span class="str">"system_len"</span>: len(system)})
+    response = client.messages.create(
+        model=model,
+        max_tokens=max_tokens,
+        system=system,
+        messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: user}],
+    )
+    log.info(<span class="str">"claude_response"</span>, extra={<span class="str">"input_tokens"</span>: response.usage.input_tokens,
+                                             <span class="str">"output_tokens"</span>: response.usage.output_tokens})
+    <span class="key">return</span> response.content[<span class="val">0</span>].text</pre>
+    </div>
+
+    <h3>Prompt caching — 90% cost reduction on repeated context</h3>
+    <p>Claude supports prompt caching for repeated large context (system instructions, DASHBOARD.md, schema docs). Cached content is charged at approximately 10% of the normal input price after cache creation. Minimum 1,024 tokens to be eligible. The TTL is 5 minutes by default — for stable system prompts, cache consistently.</p>
+    <div class="code-block">
+      <span class="code-label">Prompt caching — cache_control on large system context</span>
+      <pre>response = client.messages.create(
+    model=MODEL_SONNET,
+    max_tokens=<span class="val">2048</span>,
+    system=[
+        {
+            <span class="str">"type"</span>: <span class="str">"text"</span>,
+            <span class="str">"text"</span>: large_system_prompt,    <span class="comment"># DASHBOARD.md + schema docs</span>
+            <span class="str">"cache_control"</span>: {<span class="str">"type"</span>: <span class="str">"ephemeral"</span>}  <span class="comment"># marks this block for caching</span>
+        }
+    ],
+    messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: user_prompt}],
+)
+<span class="comment"># response.usage.cache_creation_input_tokens — tokens written to cache
+# response.usage.cache_read_input_tokens — tokens read from cache (charged at ~10%)</span></pre>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="section" id="claude-code">
+    <span class="section-num">03 — Automation</span>
+    <h2>Claude Code — CI/CD and Headless Mode</h2>
+    <p>Claude Code is the command-line interface for Claude. In interactive mode, it is a powerful coding assistant. In headless mode, it is a scriptable AI agent that can be embedded in CI/CD pipelines, pre-commit hooks, and automated review workflows. The distinction matters: most documentation covers the interactive case. This section covers the headless case.</p>
+
+    <h3>Git worktrees for parallel sessions</h3>
+    <p>Claude Code sessions have context limits. For large codebases, git worktrees let you run Claude Code on an isolated copy of the repo — changes are made in the worktree and merged back when complete. This prevents the common failure mode of a long session corrupting the working tree.</p>
+    <div class="code-block">
+      <span class="code-label">Git worktree pattern — isolated Claude Code session</span>
+      <pre><span class="comment"># Create an isolated worktree for a Claude Code session</span>
+git worktree add /tmp/claude-session-01 -b claude/feature-branch
+
+<span class="comment"># Run Claude Code against the worktree</span>
+cd /tmp/claude-session-01
+claude "implement the payment webhook handler"
+
+<span class="comment"># Review changes, then merge back</span>
+git diff main
+git checkout main && git merge claude/feature-branch
+
+<span class="comment"># Clean up</span>
+git worktree remove /tmp/claude-session-01</pre>
+    </div>
+
+    <h3>Headless mode flags you need to know</h3>
+    <div class="code-block">
+      <span class="code-label">Headless mode — CI/CD usage</span>
+      <pre><span class="comment"># Required for non-interactive CI/CD — skips permission prompts</span>
+claude --dangerously-skip-permissions --headless --print <span class="str">"run tests"</span>
+
+<span class="comment"># Structured JSON output — for parsing in scripts</span>
+claude --output-format stream-json <span class="str">"analyze this diff"</span>
+
+<span class="comment"># Combine for CI pipeline use</span>
+claude --dangerously-skip-permissions \
+       --headless \
+       --output-format stream-json \
+       --model claude-haiku-4-5-20251001 \
+       <span class="str">"classify the severity of issues in this diff"</span> | jq <span class="str">'.content[0].text'</span></pre>
+    </div>
+
+    <div class="callout amber">
+      <span class="callout-label">Security warning</span>
+      <p><strong>--dangerously-skip-permissions</strong> gives Claude Code full file system access without prompting. Only use in sandboxed CI environments. Never on a machine with production credentials.</p>
+    </div>
+
+    <h3>Pre-commit hook integration</h3>
+    <div class="code-block">
+      <span class="code-label">.git/hooks/pre-commit — automated diff review</span>
+      <pre>#!/bin/bash
+<span class="comment"># Lightweight pre-commit review — runs on staged changes only</span>
+DIFF=$(git diff --cached)
+<span class="key">if</span> [ -z <span class="str">"$DIFF"</span> ]; then exit 0; fi
+
+RESULT=$(echo <span class="str">"$DIFF"</span> | claude \
+  --headless \
+  --output-format stream-json \
+  --model claude-haiku-4-5-20251001 \
+  <span class="str">"Review this diff. Flag: hardcoded secrets, SQL injection risks, missing error handling. Output JSON: {issues: [], severity: 'low|medium|high'}"</span> \
+  | jq -r <span class="str">'.content[0].text'</span>)
+
+SEVERITY=$(echo <span class="str">"$RESULT"</span> | jq -r <span class="str">'.severity'</span>)
+<span class="key">if</span> [ <span class="str">"$SEVERITY"</span> = <span class="str">"high"</span> ]; then
+  echo <span class="str">"Claude Code: high severity issues found. Review before committing."</span>
+  echo <span class="str">"$RESULT"</span> | jq <span class="str">'.issues'</span>
+  exit 1
+fi</pre>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="section" id="multi-agent">
+    <span class="section-num">04 — Architecture</span>
+    <h2>Multi-Agent Architecture</h2>
+    <p>Multi-agent systems become necessary when a task exceeds a single context window, when parallelization is needed for throughput, or when you need different models optimized for different sub-tasks. The patterns here cover the three most common production configurations.</p>
+
+    <h3>Orchestrator + specialist pattern</h3>
+    <p>One Claude Sonnet instance acts as orchestrator — it receives the user request, breaks it into sub-tasks, dispatches to specialist agents (Haiku for classification, Sonnet for generation, Opus for complex reasoning), and assembles the final response. The orchestrator never does the work itself; it routes and assembles.</p>
+
+    <div class="code-block">
+      <span class="code-label">Orchestrator pattern — model routing by task</span>
+      <pre><span class="key">from</span> anthropic_client <span class="key">import</span> get_client, MODEL_SONNET, MODEL_HAIKU
+
+<span class="key">def</span> orchestrate(user_request: str) -> str:
+    client = get_client()
+
+    <span class="comment"># Step 1: classify with Haiku (fast, cheap)</span>
+    task_type = classify_request(client, user_request)
+
+    <span class="comment"># Step 2: dispatch to appropriate model</span>
+    <span class="key">if</span> task_type == <span class="str">"classification"</span>:
+        <span class="key">return</span> haiku_complete(client, user_request)
+    <span class="key">elif</span> task_type == <span class="str">"generation"</span>:
+        <span class="key">return</span> sonnet_complete(client, user_request)
+    <span class="key">else</span>:
+        <span class="key">return</span> sonnet_complete(client, user_request, complex_mode=True)</pre>
+    </div>
+
+    <h3>Context handoff between agents</h3>
+    <p>When one agent hands off to another, the receiving agent needs sufficient context to continue without hallucinating the history. Pass a structured summary, not the raw conversation. The raw conversation is too long and contains noise. A structured handoff is faster, cheaper, and more reliable.</p>
+  </section>
+
+  <!-- 05 -->
+  <section class="section" id="rag">
+    <span class="section-num">05 — Retrieval</span>
+    <h2>RAG Architecture on GCP</h2>
+    <p>Retrieval-Augmented Generation is the production pattern for grounding Claude responses in your domain-specific data. The GCP implementation uses Cloud SQL with pgvector (or AlloyDB for higher throughput), Cloud Storage for document ingestion, and Cloud Run for the retrieval service.</p>
+
+    <h3>The embedding pipeline</h3>
+    <div class="step-list">
+      <div class="step"><span class="step-num">01</span><div class="step-content"><strong>Ingest</strong><p>Documents land in a Cloud Storage bucket. A Cloud Run job triggers on upload, chunks the document, and generates embeddings via the Vertex AI Embeddings API.</p></div></div>
+      <div class="step"><span class="step-num">02</span><div class="step-content"><strong>Store</strong><p>Embeddings are written to Cloud SQL with pgvector. Each row: document ID, chunk text, embedding vector, metadata (source, date, version).</p></div></div>
+      <div class="step"><span class="step-num">03</span><div class="step-content"><strong>Retrieve</strong><p>On query, generate a query embedding, run a cosine similarity search against pgvector, return top-k chunks.</p></div></div>
+      <div class="step"><span class="step-num">04</span><div class="step-content"><strong>Generate</strong><p>Pass retrieved chunks as context in Claude's system prompt. Log the retrieved chunk IDs with every response for auditability.</p></div></div>
+    </div>
+
+    <div class="callout blue">
+      <span class="callout-label">Retrieval quality</span>
+      <p>The most common RAG failure is poor chunking strategy, not poor retrieval. Chunk by semantic unit (paragraph or section), not by token count. A 512-token chunk that cuts across a sentence boundary is worse than a 650-token chunk that preserves it.</p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="section" id="observability">
+    <span class="section-num">06 — Observability</span>
+    <h2>Monitoring and Observability</h2>
+    <p>AI systems require observability at two layers: the infrastructure layer (latency, error rates, memory, CPU) and the model layer (token usage, cache hit rates, cost per request, output quality signals). Most teams instrument the first and skip the second. The second is where the expensive surprises come from.</p>
+
+    <h3>Structured logging for every LLM call</h3>
+    <div class="code-block">
+      <span class="code-label">Structured logging — minimum fields per request</span>
+      <pre><span class="key">import</span> structlog
+log = structlog.get_logger()
+
+<span class="key">def</span> log_llm_call(response, model: str, task_type: str):
+    log.info(<span class="str">"llm_call"</span>,
+        model=model,
+        task_type=task_type,
+        input_tokens=response.usage.input_tokens,
+        output_tokens=response.usage.output_tokens,
+        cache_read_tokens=getattr(response.usage, <span class="str">"cache_read_input_tokens"</span>, <span class="val">0</span>),
+        cost_usd=estimate_cost(response.usage, model),
+        stop_reason=response.stop_reason,
+    )</pre>
+    </div>
+
+    <h3>GCP Cloud Monitoring dashboard fields</h3>
+    <ul class="checklist">
+      <li>p50 / p95 / p99 latency per model tier</li>
+      <li>Token usage by model (input / output / cache read)</li>
+      <li>Cost per request (daily rollup by task type)</li>
+      <li>Cache hit rate (cache_read_tokens / total input_tokens)</li>
+      <li>Error rate by error type (RateLimitError, APIError, timeout)</li>
+    </ul>
+  </section>
+
+  <!-- 07 -->
+  <section class="section" id="cost">
+    <span class="section-num">07 — Cost Engineering</span>
+    <h2>Cost Engineering</h2>
+    <p>At scale, AI inference cost is a primary engineering constraint. The patterns in this section are not optimizations to apply later — they are architectural decisions that compound. A system designed without cost awareness from day one will require a rewrite at scale.</p>
+
+    <h3>Model routing by task complexity</h3>
+    <p>Use the cheapest model that can reliably complete the task. For most classification, extraction, and structured output tasks, Haiku is sufficient and costs roughly 20x less than Sonnet. Reserve Sonnet for generation, reasoning, and complex instruction-following. Reserve Opus for multi-constraint architectural decisions where quality matters more than cost.</p>
+
+    <table class="decision-table">
+      <thead><tr><th>Task</th><th>Model</th><th>Reasoning</th></tr></thead>
+      <tbody>
+        <tr><td>Classification / extraction</td><td>Haiku</td><td>Deterministic, short output, no reasoning needed</td></tr>
+        <tr><td>Structured JSON generation</td><td>Haiku / Sonnet</td><td>Haiku if schema is simple; Sonnet if schema is complex</td></tr>
+        <tr><td>Code generation</td><td>Sonnet</td><td>Requires instruction following and context awareness</td></tr>
+        <tr><td>Architecture review</td><td>Sonnet + extended thinking</td><td>Multi-constraint reasoning benefits from thinking budget</td></tr>
+        <tr><td>Complex legal / compliance review</td><td>Opus</td><td>Highest accuracy on nuanced tradeoffs</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Count tokens before expensive calls</h3>
+    <div class="code-block">
+      <span class="code-label">Token counting — prevent surprise bills</span>
+      <pre><span class="comment"># Count tokens before sending — one line, prevents surprise bills</span>
+token_count = client.messages.count_tokens(
+    model=<span class="str">"claude-sonnet-4-6"</span>,
+    system=system_prompt,
+    messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: user_prompt}]
+)
+print(f<span class="str">"This request will use ~{token_count.input_tokens} input tokens"</span>)
+<span class="comment"># At Sonnet pricing: input_tokens * $0.000003 = estimated cost
+# Set a threshold: if token_count.input_tokens > 50000: use_cache_or_truncate()</span></pre>
+    </div>
+    <p>Use token counting in development to audit expensive prompts before they hit production. Set hard thresholds in code that route to a smaller model or apply truncation before dispatching oversized requests.</p>
+
+    <h3>Extended thinking for complex architectural reasoning</h3>
+    <p>When Sonnet's first answer is insufficient for complex tradeoffs — multi-constraint architecture decisions, nuanced compliance questions, deeply nested conditional logic — extended thinking lets the model reason through the problem before responding. The reasoning chain is visible in the response. It costs more tokens but is dramatically better on problems that require holding multiple constraints simultaneously.</p>
+    <div class="code-block">
+      <span class="code-label">Extended thinking — beta parameter syntax</span>
+      <pre>response = client.messages.create(
+    model=<span class="str">"claude-sonnet-4-6"</span>,
+    max_tokens=<span class="val">16000</span>,
+    thinking={
+        <span class="str">"type"</span>: <span class="str">"enabled"</span>,
+        <span class="str">"budget_tokens"</span>: <span class="val">10000</span>  <span class="comment"># how much to spend on reasoning</span>
+    },
+    messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: architecture_question}],
+    betas=[<span class="str">"interleaved-thinking-2025-05-14"</span>]
+)
+<span class="comment"># response.content will include thinking blocks + response blocks</span>
+thinking_block = [b <span class="key">for</span> b <span class="key">in</span> response.content <span class="key">if</span> b.type == <span class="str">"thinking"</span>][<span class="val">0</span>]</pre>
+    </div>
+    <p>Use extended thinking for architecture decisions, not for routine generation. The cost difference is significant — budget only what the problem complexity justifies.</p>
+
+    <h3>Rate limit handling — exponential backoff with jitter</h3>
+    <p>Rate limit errors break every production system eventually. Nobody adds handling until it does. The pattern below should be in every project that calls the Anthropic API at scale. Jitter prevents the thundering herd problem when multiple workers hit limits simultaneously.</p>
+    <div class="code-block">
+      <span class="code-label">Exponential backoff with jitter</span>
+      <pre><span class="key">import</span> time, random, anthropic
+<span class="key">from</span> anthropic <span class="key">import</span> RateLimitError
+
+<span class="key">def</span> call_with_backoff(client, max_retries=<span class="val">5</span>, **kwargs):
+    <span class="str">"""Exponential backoff with jitter for rate limit handling."""</span>
+    <span class="key">for</span> attempt <span class="key">in</span> range(max_retries):
+        <span class="key">try</span>:
+            <span class="key">return</span> client.messages.create(**kwargs)
+        <span class="key">except</span> RateLimitError:
+            <span class="key">if</span> attempt == max_retries - <span class="val">1</span>:
+                <span class="key">raise</span>
+            wait = (<span class="val">2</span> ** attempt) + random.uniform(<span class="val">0</span>, <span class="val">1</span>)  <span class="comment"># jitter</span>
+            print(f<span class="str">"Rate limited. Waiting {wait:.1f}s (attempt {attempt+1}/{max_retries})"</span>)
+            time.sleep(wait)</pre>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="section" id="testing">
+    <span class="section-num">08 — Quality</span>
+    <h2>Testing Strategies</h2>
+    <p>AI systems require two complementary testing approaches: conventional unit and integration tests for the infrastructure layer, and evaluation-based testing for the model layer. The second is harder, less familiar, and more important as the system matures.</p>
+
+    <h3>What to unit test</h3>
+    <ul class="checklist">
+      <li>Input/output parsing functions (schema validation, type coercion)</li>
+      <li>Prompt construction (template rendering, context injection)</li>
+      <li>Cost estimation (token count → cost calculation)</li>
+      <li>Retry logic (mock RateLimitError, verify backoff timing)</li>
+      <li>Routing decisions (task classification → model selection)</li>
+    </ul>
+
+    <h3>What requires evaluation</h3>
+    <p>Model output quality cannot be unit tested — it requires an evaluation set (a curated collection of inputs with expected output characteristics) and a grader (often another model or a deterministic scoring function). Build your eval set from real user requests as early as possible. Synthetic evals will not catch the failure modes that matter in production.</p>
+
+    <div class="callout green">
+      <span class="callout-label">Eval minimum viable set</span>
+      <p>Start with 50 real examples, human-graded on a 1–5 scale for correctness and quality. Run evals before every significant prompt change. A prompt that improves one dimension while degrading another will not be visible without a baseline.</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="section" id="versioning">
+    <span class="section-num">09 — Documentation</span>
+    <h2>Version Control and Documentation</h2>
+    <p>The documentation layer of this stack is not optional. It is the mechanism by which the AI system's behavior becomes auditable, recoverable, and transferable. The two core documents are DASHBOARD.md (the current state reference) and EVOLUTION.md (the decision log).</p>
+
+    <h3>DASHBOARD.md structure</h3>
+    <ul class="checklist">
+      <li><strong>§ Stack</strong> — every GCP service in use, with the current version or config note</li>
+      <li><strong>§ Models</strong> — which Claude model is used for which task, and why</li>
+      <li><strong>§ Service Accounts</strong> — one row per SA, with role list and WIF annotation if applicable</li>
+      <li><strong>§ Do Not Use</strong> — explicitly prohibited dependencies and why</li>
+      <li><strong>§ Open Questions</strong> — unresolved architectural decisions</li>
+    </ul>
+
+    <h3>EVOLUTION.md structure</h3>
+    <ul class="checklist">
+      <li><strong>## [date] Decision title [arch-NNN]</strong> — what was decided and why</li>
+      <li><strong>## What Was Tried and Abandoned</strong> — failed approaches with failure mode notes</li>
+      <li><strong>## Pivots</strong> — scope or architecture changes with the trigger</li>
+    </ul>
+  </section>
+
+  <!-- 10 -->
+  <section class="section" id="deployment">
+    <span class="section-num">10 — Deployment</span>
+    <h2>Deployment on Cloud Run</h2>
+    <p>Cloud Run is the deployment target for this stack because it matches the billing model of AI inference: you pay per request, not per hour. A system that is idle for 22 hours and busy for 2 costs proportionally — unlike a VM or a Kubernetes node.</p>
+
+    <h3>Production deployment flags</h3>
+    <div class="code-block">
+      <span class="code-label">Cloud Run deploy — production configuration</span>
+      <pre>gcloud run deploy [SERVICE_NAME] \
+  --image gcr.io/[PROJECT_ID]/[IMAGE] \
+  --region us-central1 \
+  --platform managed \
+  --service-account [SA_NAME]@[PROJECT_ID].iam.gserviceaccount.com \
+  --memory 512Mi \
+  --cpu 1 \
+  --min-instances 0 \
+  --max-instances 20 \
+  --concurrency 80 \
+  --no-allow-unauthenticated \
+  --set-env-vars <span class="str">"PROJECT_ID=[PROJECT_ID],REGION=us-central1"</span> \
+  --set-secrets <span class="str">"ANTHROPIC_API_KEY=anthropic-api-key:latest"</span></pre>
+    </div>
+
+    <div class="callout amber">
+      <span class="callout-label">Cold start</span>
+      <p>min-instances=0 means cold starts on first request after inactivity (2–8 seconds). For latency-sensitive workloads, set min-instances=1. Document the cost implication in EVOLUTION.md.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="section" id="resilience">
+    <span class="section-num">11 — Resilience</span>
+    <h2>Resilience Patterns</h2>
+    <p>The Anthropic API is reliable but not infallible. At scale, you will encounter rate limits, transient errors, and model-specific failures. The patterns here are not optional enhancements — they are production requirements for any system handling real traffic.</p>
+
+    <h3>Circuit breaker</h3>
+    <p>A circuit breaker prevents cascade failures: when error rates exceed a threshold, it stops sending requests to the model and returns a fallback response. This protects both your system and the API from thundering herd conditions when you're at or near your rate limit.</p>
+
+    <h3>Graceful degradation</h3>
+    <p>Design every Claude-powered feature with a fallback for when the model is unavailable. Cached responses for common queries. Rule-based fallbacks for classification tasks. Clear user-facing error messages that do not expose internal failure details.</p>
+
+    <div class="callout blue">
+      <span class="callout-label">Fallback hierarchy</span>
+      <p>Primary model → cached response → cheaper model → rule-based fallback → informative error. Design the fallback hierarchy before you need it, not during an incident.</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="section" id="security">
+    <span class="section-num">12 — Security</span>
+    <h2>Security and IAM</h2>
+    <p>Security in a Claude + GCP stack has two layers: protecting your API credentials from exposure, and correctly scoping the GCP permissions that your AI-powered services use. Both are simpler to get right initially than to fix after an incident.</p>
+
+    <h3>IAM rules for AI services</h3>
+    <ul class="checklist">
+      <li>One service account per Cloud Run service — never share SAs across services</li>
+      <li>Minimum viable role set — add roles only when a specific feature requires them</li>
+      <li>Document every role in DASHBOARD.md § Service Accounts with the reason</li>
+      <li>Audit SA permissions quarterly — remove unused roles immediately</li>
+      <li>Never assign roles/owner or roles/editor to a service account</li>
+      <li>Use Secret Manager for all credentials — never set secrets as plain env vars</li>
+    </ul>
+
+    <h3>Workload Identity Federation — no JSON keys in production</h3>
+    <p>Service account JSON keys are a security antipattern: they are long-lived, can be leaked in source control or logs, and cannot be scoped to a specific workload. Workload Identity Federation (WIF) lets GitHub Actions — or any OIDC provider — authenticate as a GCP service account without a key file. Short-lived tokens, auditable access, zero long-lived credentials.</p>
+    <div class="code-block">
+      <span class="code-label">WIF setup — gcloud CLI</span>
+      <pre><span class="comment"># Create the workload identity pool</span>
+gcloud iam workload-identity-pools create <span class="str">"github-pool"</span> \
+  --project=<span class="str">"${PROJECT_ID}"</span> \
+  --location=<span class="str">"global"</span>
+
+<span class="comment"># Create the OIDC provider</span>
+gcloud iam workload-identity-pools providers create-oidc <span class="str">"github-provider"</span> \
+  --project=<span class="str">"${PROJECT_ID}"</span> \
+  --location=<span class="str">"global"</span> \
+  --workload-identity-pool=<span class="str">"github-pool"</span> \
+  --attribute-mapping=<span class="str">"google.subject=assertion.sub,attribute.repository=assertion.repository"</span> \
+  --issuer-uri=<span class="str">"https://token.actions.githubusercontent.com"</span>
+
+<span class="comment"># In GitHub Actions — no secrets needed</span>
+- uses: google-github-actions/auth@v2
+  with:
+    workload_identity_provider: <span class="str">'projects/PROJECT_NUM/locations/global/workloadIdentityPools/github-pool/providers/github-provider'</span>
+    service_account: <span class="str">'deploy-bot@PROJECT_ID.iam.gserviceaccount.com'</span></pre>
+    </div>
+    <p>Add a "uses WIF, no key file" annotation to the relevant service account entry in DASHBOARD.md § Service Accounts. Future maintainers should never need to guess how authentication works.</p>
+
+    <h3>Anthropic API key management</h3>
+    <ul class="checklist">
+      <li>Store ANTHROPIC_API_KEY in GCP Secret Manager — not in environment variables or source code</li>
+      <li>Rotate keys quarterly — set a calendar reminder on creation</li>
+      <li>Use separate keys for development and production environments</li>
+      <li>Set spending limits in the Anthropic console to cap unexpected cost spikes</li>
+      <li>Monitor usage anomalies — a sudden 10x spike in tokens is a security signal, not just a cost signal</li>
+    </ul>
+
+    <blockquote>
+      <p>"The goal is not to be unhackable. The goal is to ensure that any breach is limited in scope, auditable in retrospect, and recoverable without catastrophic data loss."</p>
+      <cite>— Principle of least privilege applied to AI systems</cite>
+    </blockquote>
+  </section>
+
+  <div class="guide-footer">
+    <span>© 2026 Daniel Flügger</span>
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+      <a href="index.html">danielflugger.com</a>
+      <a href="ai-studio-guide.html">AI Studio Playbook</a>
+      <a href="vera.html">VERA Framework</a>
+      <a href="the-restack.html">The Restack</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

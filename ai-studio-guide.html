@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -31,21 +33,6 @@
       background: var(--paper);
       line-height: 1.7;
     }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem;
-      background: rgba(255,255,255,0.96);
-      border-bottom: 1px solid var(--rule);
-      z-index: 100;
-      backdrop-filter: blur(8px);
-    }
-    .nav-logo { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
-    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
-    .nav-links a:hover { color: var(--ink); }
 
     /* LAYOUT */
     .container { max-width: 740px; margin: 0 auto; padding: 0 2rem; }
@@ -307,21 +294,57 @@
 
     @media (max-width: 600px) {
       .dash-grid { grid-template-columns: 1fr; }
-      nav .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">Daniel Flügger</a>
-  <div class="nav-links">
-    <a href="research.html">Research</a>
-    <a href="vera.html">VERA</a>
-    <a href="the-proof-economy.html">The Proof Economy</a>
-    <a href="contact.html">Contact</a>
-  </div>
+  <a href="index.html" class="nav-brand">Daniel <span>Flügger</span></a>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li class="nav-dropdown">
+      <a href="experience.html">Experience</a>
+      <ul class="dropdown-menu">
+        <li><a href="portfolio.html">Portfolio</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="#" class="active">Learn</a>
+      <ul class="dropdown-menu">
+        <li><a href="enterprise-stack-guide.html">Enterprise Stack Guide</a></li>
+        <li><a href="ai-studio-guide.html">Google AI Studio Playbook</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="research.html">Writing</a>
+      <ul class="dropdown-menu">
+        <li><a href="authority.html">Authority</a></li>
+        <li><a href="rank-yourself-first.html">Rank Yourself First</a></li>
+        <li><a href="the-proof-economy.html">The Proof Economy</a></li>
+        <li><a href="company-of-one.html">Company of One</a></li>
+        <li><a href="the-restack.html">The Restack</a></li>
+      </ul>
+    </li>
+    <li><a href="vera.html">VERA</a></li>
+    <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
+  </ul>
 </nav>
+
+<script>
+  (function() {
+    var btn = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('nav');
+    if (btn && nav) {
+      btn.addEventListener('click', function() { nav.classList.toggle('nav-open'); });
+      document.querySelectorAll('.nav-links a').forEach(function(a) {
+        a.addEventListener('click', function() { nav.classList.remove('nav-open'); });
+      });
+    }
+  })();
+</script>
 
 <header class="hero">
   <div class="eyebrow">
@@ -330,7 +353,7 @@
     <span class="tag green">Google Developers Group</span>
   </div>
   <h1>Google AI Studio:<br><em>The Enterprise Developer's Playbook</em></h1>
-  <p class="hero-sub">Beyond vibe coding — how to build production-grade systems block by block, track every decision, and turn AI Studio into a disciplined engineering environment.</p>
+  <p class="hero-sub">Beyond rapid prototyping — how to build production-grade systems block by block, track every decision, and turn AI Studio into a disciplined engineering environment.</p>
   <div class="meta-row">
     <span>Daniel Flügger</span>
     <span>March 2026</span>
@@ -532,7 +555,7 @@ Start with view 1 only. Do not build views 2 and 3 yet."</pre>
     <span class="section-num">01 — Context</span>
     <h2>Why AI Studio in 2026</h2>
     <p>The introductory codelab covers the mechanics. This guide starts where it ends. If you've watched the pre-recorded session, you know how to get an app running. The question this guide answers is different: <strong>how do you use AI Studio as a disciplined engineering environment</strong> when you don't know what the project is going to become?</p>
-    <p>Google AI Studio's differentiating advantages over competing platforms aren't obvious from the homepage. Privacy is one — your apps are private by default, unlike most free-tier vibe coding tools. Native Gemini access is another — no API key required for the free tier models, and the Gemini Developer API is notably faster and more code-precise than earlier versions. Meaning the generated code tends to be leaner and closer to what you actually need.</p>
+    <p>Google AI Studio's differentiating advantages over competing platforms aren't obvious from the homepage. Privacy is one — your apps are private by default, unlike most free-tier rapid prototyping tools. Native Gemini access is another — no API key required for the free tier models, and the Gemini Developer API is notably faster and more code-precise than earlier versions. Meaning the generated code tends to be leaner and closer to what you actually need.</p>
     <p>But the real advantage for serious builders is the combination of AI Studio's rapid iteration loop with a disciplined project infrastructure you build around it. Most guides teach you how to use the tool. This one teaches you how to engineer with it.</p>
 
     <div class="callout blue">
@@ -957,6 +980,45 @@ from config import GEMINI_MODEL, SYSTEM_INSTRUCTION  # centralized config</span>
     </div>
 
     <p>Note the pattern: centralized config, docstring on every function, logging of all LLM calls, no hardcoded model names. These are not stylistic preferences — they are the difference between a prototype that works once and a system that is maintainable.</p>
+
+    <h3>Context Caching in Gemini — 90% Cost Reduction</h3>
+    <p>Gemini has context caching equivalent to Anthropic's prompt caching. Cache large, repeated context (DASHBOARD.md, CLAUDE.md, schema docs) that you send with every request. The minimum eligible size is 32,768 tokens — higher than Anthropic's 1,024 token threshold. Cached content is charged at approximately 25% of the normal input price after the cache is created. Cache TTL is configurable; the default is one hour.</p>
+    <div class="code-block">
+      <span class="code-label">Context Caching — google.generativeai CachedContent API</span>
+      <pre><span class="key">import</span> google.generativeai <span class="key">as</span> genai
+<span class="key">from</span> datetime <span class="key">import</span> timedelta
+
+<span class="comment"># Create a cache from a large, repeated document (must be ≥32,768 tokens)</span>
+cache = genai.caching.CachedContent.create(
+    model=<span class="str">"models/gemini-1.5-pro"</span>,
+    contents=[your_large_document],  <span class="comment"># DASHBOARD.md, schema docs, etc.</span>
+    ttl=timedelta(hours=<span class="val">1</span>),         <span class="comment"># default; set longer for stable docs</span>
+)
+
+<span class="comment"># Use the cache in subsequent requests — input tokens charged at ~25%</span>
+model = genai.GenerativeModel.from_cached_content(cached_content=cache)
+response = model.generate_content(<span class="str">"Summarize the authentication flow."</span>)
+print(response.text)</pre>
+    </div>
+
+    <h3>Grounding with Google Search</h3>
+    <p>Grounding enables real-time web data in Gemini responses — valuable for competitive analysis, current pricing, and recent API changes that postdate the model's training cutoff. It requires one parameter addition. Grounded responses include source citations automatically.</p>
+    <div class="code-block">
+      <span class="code-label">Grounding — one parameter addition</span>
+      <pre><span class="key">import</span> google.generativeai <span class="key">as</span> genai
+
+model = genai.GenerativeModel(<span class="str">"gemini-1.5-pro"</span>)
+
+<span class="comment"># Add google_search_retrieval to tools — that's the entire change</span>
+response = model.generate_content(
+    <span class="str">"What is the current pricing for Cloud Run in us-central1?"</span>,
+    tools=[{<span class="str">"google_search_retrieval"</span>: {}}]
+)
+
+<span class="comment"># grounding_metadata contains the source citations</span>
+print(response.text)
+print(response.candidates[<span class="val">0</span>].grounding_metadata)</pre>
+    </div>
   </section>
 
   <!-- 09 -->
@@ -1051,6 +1113,9 @@ about the existing codebase. Flag anything that is a
         <tr><td>Brainstorming / architecture</td><td>0.8 – 1.0</td><td>Exploring solution space, not committing</td></tr>
       </tbody>
     </table>
+
+    <h3>7. Temperature and cost</h3>
+    <p>Temperature is a cost lever, not just a quality lever. Lower temperature means fewer output tokens on average — the model converges faster to a response and stops generating. At 0.1 on a classification task, outputs are shorter and more direct. At 0.9 on the same task, outputs are longer and more exploratory. The difference in token count — and therefore cost — compounds at scale. For high-volume, deterministic tasks (classification, extraction, structured output), setting temperature to 0.1 is one of the simplest cost optimizations available.</p>
   </section>
 
   <!-- 11 -->

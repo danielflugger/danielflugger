@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Restack — Daniel Flügger</title>
+<meta name="description" content="The businesses you have never heard of are winning. What the quiet, profitable, private company understands about AI that the transformation-obsessed enterprise does not.">
+<meta property="og:title" content="The Restack — Daniel Flügger">
+<meta property="og:description" content="The businesses you have never heard of are winning. What the quiet, profitable, private company understands about AI that the transformation-obsessed enterprise does not.">
+<meta property="og:url" content="https://danielflugger.com/the-restack.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --color-ink: #1a1a1a;
+    --color-ink-light: #4a4a4a;
+    --color-ink-faint: #888;
+    --color-paper: #F5F3EE;
+    --color-rule: #d4d0c8;
+    --color-accent: #c84b1f;
+    --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+    --max-width: 680px;
+    --max-width-wide: 780px;
+    --dark: #111827;
+    --accent: #c84b1f;
+    --muted: #888;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 19px;
+    line-height: 1.58;
+    font-weight: 400;
+    font-optical-sizing: auto;
+    padding-top: 72px;
+  }
+  nav { font-family: 'DM Sans', sans-serif; }
+  .site-header {
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+    padding: 80px 24px 0;
+    text-align: center;
+  }
+  .site-header .overline {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+    margin-bottom: 28px;
+  }
+  .site-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5.5vw, 52px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin-bottom: 20px;
+  }
+  .site-header .subtitle {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 2.5vw, 21px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--color-ink-light);
+    margin: 0 auto 28px;
+  }
+  .site-header .byline {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--color-ink-faint);
+  }
+  .header-rule {
+    max-width: var(--max-width-wide);
+    margin: 40px auto 0;
+    border: none;
+    border-top: 1px solid var(--color-rule);
+  }
+  .toc-wrapper {
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+    padding: 20px 24px 40px;
+  }
+  .toc {
+    background: #111827 !important;
+    border: none !important;
+    border-radius: 4px;
+    padding: 40px 44px;
+  }
+  .toc-label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #c84b1f !important;
+    margin-bottom: 24px;
+  }
+  .toc-list { list-style: none; }
+  .toc-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .toc-list li:last-child { border-bottom: none; }
+  .toc-list a {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: rgba(255,255,255,0.85) !important;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .toc-list a:hover { color: #c84b1f !important; }
+  .toc-num {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #c84b1f !important;
+    margin-right: 12px;
+  }
+  .toc-desc {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-style: italic;
+    color: rgba(255,255,255,0.75) !important;
+    line-height: 1.4;
+    display: block;
+    padding-left: 28px;
+  }
+  .article {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+  .chapter-marker {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 20px;
+    padding-top: 8px;
+  }
+  .article p { margin-bottom: 1.5em; color: var(--color-ink); }
+  .article h2 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4.5vw, 36px);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    margin-bottom: 28px;
+  }
+  .article h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--color-ink-light);
+    margin-top: -18px;
+    margin-bottom: 28px;
+  }
+  .chapter-sep {
+    border: none;
+    text-align: center;
+    margin: 56px 0;
+    line-height: 1;
+  }
+  .chapter-sep::after {
+    content: '◆';
+    font-size: 10px;
+    color: var(--color-rule);
+    letter-spacing: 16px;
+  }
+  .pull-quote {
+    border-left: 3px solid var(--color-ink);
+    margin: 2.5rem 0;
+    padding: .5rem 0 .5rem 1.75rem;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-ink-light);
+    line-height: 1.6;
+  }
+  .cta-block {
+    margin: 3.5rem 0 1rem;
+    padding: 2.5rem;
+    background: #111827;
+    border-radius: 4px;
+  }
+  .cta-block p {
+    font-family: var(--font-body);
+    color: rgba(255,255,255,0.65);
+    font-size: .95rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.7;
+  }
+  .cta-block p:first-child {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.05rem;
+    font-style: italic;
+  }
+  .cta-links {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .cta-links a {
+    font-family: var(--font-sans);
+    font-size: .78rem;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    letter-spacing: .05em;
+  }
+  .cta-links a:hover { color: rgba(255,255,255,0.75); }
+  .author-bio {
+    margin-top: 60px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-rule);
+    font-size: 16px;
+    font-style: italic;
+    color: var(--color-ink-faint);
+    line-height: 1.7;
+  }
+  .back-top {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-rule);
+    transition: color 0.2s;
+  }
+  .back-top:hover { color: var(--color-accent); }
+  @media (max-width: 600px) {
+    body { font-size: 17px; line-height: 1.68; }
+    .toc { padding: 24px 20px; }
+    .site-header { padding: 80px 20px 0; }
+    .article { padding: 0 20px 80px; }
+  }
+  .nav-dropdown { position: relative; }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.08);
+    min-width: 220px;
+    list-style: none;
+    padding: 0.5rem 0;
+    z-index: 200;
+  }
+  .dropdown-menu li a {
+    display: block;
+    padding: 0.6rem 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .dropdown-menu li a:hover { color: #c84b1f; }
+  .nav-dropdown:hover .dropdown-menu { display: block; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Daniel <span>Flügger</span></a>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li class="nav-dropdown">
+      <a href="experience.html">Experience</a>
+      <ul class="dropdown-menu">
+        <li><a href="portfolio.html">Portfolio</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="#">Learn</a>
+      <ul class="dropdown-menu">
+        <li><a href="enterprise-stack-guide.html">Enterprise Stack Guide</a></li>
+        <li><a href="ai-studio-guide.html">Google AI Studio Playbook</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="research.html" class="active">Writing</a>
+      <ul class="dropdown-menu">
+        <li><a href="authority.html">Authority</a></li>
+        <li><a href="rank-yourself-first.html">Rank Yourself First</a></li>
+        <li><a href="the-proof-economy.html">The Proof Economy</a></li>
+        <li><a href="company-of-one.html">Company of One</a></li>
+        <li><a href="the-restack.html">The Restack</a></li>
+      </ul>
+    </li>
+    <li><a href="vera.html">VERA</a></li>
+    <li><a href="contact.html" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<header class="site-header" id="top">
+  <p class="overline">Enterprise Reference &nbsp;·&nbsp; 2026</p>
+  <h1>The Restack</h1>
+  <p class="subtitle">The businesses you have never heard of are winning. What the quiet, profitable, private company understands about this moment that the transformation-obsessed enterprise does not.</p>
+  <p class="byline">Daniel Flügger &nbsp;·&nbsp; 2026</p>
+</header>
+<hr class="header-rule">
+
+<div class="toc-wrapper">
+  <div class="toc">
+    <p class="toc-label">Contents</p>
+    <ul class="toc-list">
+      <li><a href="#inversion"><span class="toc-num">—</span> The Inversion</a><span class="toc-desc">The companies you have never heard of have already figured this out.</span></li>
+      <li><a href="#cost"><span class="toc-num">01</span> What the Cuts Actually Cost</a><span class="toc-desc">The real economy is hard. The institutional knowledge that left will not come back.</span></li>
+      <li><a href="#identity"><span class="toc-num">02</span> The Identity Problem</a><span class="toc-desc">People in organizations do not know how to be useful anymore. This is real.</span></li>
+      <li><a href="#advocate"><span class="toc-num">03</span> The Trusted Advocate</a><span class="toc-desc">Not a swarm of engineers. Two or three people whose judgment you would stake the business on.</span></li>
+      <li><a href="#network"><span class="toc-num">04</span> Build for the Network</a><span class="toc-desc">Where agents are already operating and what the smallest companies understand about it.</span></li>
+      <li><a href="#standard"><span class="toc-num">—</span> The Standard</a><span class="toc-desc">The smallest highest-margin company in a vertical can now be its market leader. This is not hypothetical.</span></li>
+    </ul>
+  </div>
+</div>
+
+<article class="article">
+
+  <div class="chapter-marker" id="inversion">Opening</div>
+  <h2>The Inversion</h2>
+  <h3>The companies you have never heard of have already figured this out.</h3>
+
+  <p>Some of the wealthiest, most durable businesses in any market have no public presence worth mentioning. No thought leadership. No conference presence. No transformation narrative. They have a specific domain they understand more deeply than anyone, a small number of client relationships built over years or decades, and a margin structure that would embarrass most publicly traded competitors. They did not need AI to validate their model. They were already operating in what this site calls the Proof Economy: verified depth over marketing surface, relationships over reach, trust built slowly over transactions optimized for volume.</p>
+
+  <p>What is happening now is that these businesses are structurally positioned to extend that advantage in ways that the large, silo-ridden, politically complex enterprise is not. The agent infrastructure being built across Google, Anthropic, and the rest of the major platforms is not winner-take-all in the traditional sense. A single practitioner or a team of five with deep domain knowledge, the right data infrastructure, and the willingness to build for the protocol layer can become the effective market leader in a specific vertical. Not the biggest. The most capable, the most trusted, and the hardest to replicate. That is a different kind of winning, and it has always been available to the people willing to pursue depth over scale. The current tools just closed the gap between that approach and the one that required a hundred people to execute.</p>
+
+  <p>This essay is not the 2023 version of the AI adoption argument. That argument has been made and most organizations have already responded to it, for better or worse. This is about what comes next: who is actually positioned to take the most significant advantage of the infrastructure now available, and why the answer is not who most people assume.</p>
+
+  <hr class="chapter-sep">
+
+  <div class="chapter-marker" id="cost">Chapter 01</div>
+  <h2>What the Cuts Actually Cost</h2>
+  <h3>The real economy is hard. The institutional knowledge that left will not come back.</h3>
+
+  <p>The layoffs of the past two years are real and the economic pressure behind them is real. This is not a story about organizations that made bad decisions in a vacuum. The compression of technology cycles, the repricing of growth assumptions, the genuine uncertainty about which roles AI infrastructure actually replaces versus which ones it amplifies — these are hard problems and the people who lost jobs as organizations tried to navigate them are not collateral damage in an abstraction. They are people with specific expertise, specific relationships, and specific institutional knowledge that walked out with them and will not return regardless of what the organization subsequently pays a consultant to rebuild.</p>
+
+  <p>The cost of that knowledge loss does not show up immediately. It shows up when a complex client situation arises and the person who handled the last three similar ones is no longer there. It shows up when an agent workflow produces an output that is technically correct and contextually wrong and nobody in the remaining organization has the background to catch it before it reaches a client. It shows up eighteen months later as a slow erosion of the specific capability that differentiated the organization from its competitors, invisible on the P&L until the clients start going elsewhere.</p>
+
+  <p>The organizations that cut the deepest and fastest are now discovering something the quiet profitable private businesses understood before any of this started: your human capital is not a cost center that scales down cleanly. It is the source of the institutional intelligence that makes everything else work. You can automate the execution. You cannot automate the judgment about what to execute and why. When the people who held that judgment are gone, the automation runs correctly against the wrong objectives, and the gap between correct and right gets expensive.</p>
+
+  <hr class="chapter-sep">
+
+  <div class="chapter-marker" id="identity">Chapter 02</div>
+  <h2>The Identity Problem</h2>
+  <h3>People in organizations do not know how to be useful anymore. This is real.</h3>
+
+  <p>There is an experience running through knowledge-worker organizations right now that does not have a clean organizational response and is rarely discussed honestly. The person who spent fifteen years becoming the expert at a specific analytical task, watching a model perform an equivalent in thirty seconds, is experiencing a genuine crisis of professional identity. Not laziness or resistance to change. The actual question: if the thing I was good at can be done this quickly by a tool anyone can access, what is my value to this organization? What is my value at all?</p>
+
+  <p>This question is being asked in silence because there is no obvious place to ask it. The official organizational response — upskill, adapt, embrace the tools — is accurate as far as it goes but does not address the actual experience of the person asking. The analyst who automated sixty percent of their data preparation work has free capacity and no clear mandate for what to fill it with. The account manager whose client research now takes twenty minutes instead of two days has a gap in their schedule and a gap in their sense of professional purpose that the freed time does not automatically resolve.</p>
+
+  <p>The organizations that navigate this well are the ones that treat the identity question as a real question. What does this person actually know that the model does not? What is the specific judgment, the specific relationship, the specific institutional context that only they carry? In most cases the answer is substantial and the person cannot fully articulate it because it has never been asked of them in quite this way. The answer to that question is also the most valuable thing the organization has, and the process of surfacing it is the beginning of the actual restack: not a tool rollout but a reckoning with what the organization actually knows and who actually knows it.</p>
+
+  <hr class="chapter-sep">
+
+  <div class="chapter-marker" id="advocate">Chapter 03</div>
+  <h2>The Trusted Advocate</h2>
+  <h3>Not a swarm of engineers. Two or three people whose judgment you would stake the business on.</h3>
+
+  <p>The prevailing assumption about what an organization needs to build seriously with AI is that it needs a substantial technical team: engineers, cloud architects, AI product managers, developer relations specialists. For large organizations undertaking complex infrastructure work from scratch, that may be true. For most organizations trying to figure out where AI actually fits in their specific business, it is a significant overinvestment in the wrong direction.</p>
+
+  <p>What actually works is two or three people who have demonstrated over time that they can dig deep on a hard problem, be transparent about what they know and do not know, and be trusted to tell the truth when the truth is inconvenient. Not AI specialists in the narrow sense. The people who have always done the work seriously, who have built a track record of judgment rather than performance, and who are trusted not because of their credentials but because of the evidence of how they have operated over time. Give those people the tools, the mandate, and the protection to figure out where AI genuinely improves the specific work the organization does. The output will be more useful and more durable than anything produced by a team assembled to demonstrate AI capability.</p>
+
+  <p>This is the enterprise version of the same argument made in the Proof Economy and Company of One. Verification over marketing. Demonstrated track record over performed expertise. The organization that built its reputation on real results rather than on the appearance of capability is the one whose AI implementation will actually compound. The demo is not the product. The relationship between the people doing the work and the organization trusting them to do it honestly is the product. Trust built over time, at the base layer, is the only thing that does not get disrupted when the tools change. And the tools are changing faster than most organizations have adjusted to.</p>
+
+  <blockquote class="pull-quote">The most valuable thing in any information business is not the data. It is the judgment about what the data means and what to do about it. That judgment lives in specific people. It does not transfer automatically to the tools those people use.</blockquote>
+
+  <hr class="chapter-sep">
+
+  <div class="chapter-marker" id="network">Chapter 04</div>
+  <h2>Build for the Network</h2>
+  <h3>Where agents are already operating and what the smallest companies understand about it.</h3>
+
+  <p>Agents are not approaching the enterprise. They are already inside it. They are handling customer service queues, reviewing documents, generating first drafts, monitoring data pipelines, and executing workflows that would have required dedicated staff two years ago. The adoption argument is largely over. The current question is accountability: when the agent produces an output that is correct by the metrics it was given and wrong in ways that matter, who catches it, and what happens when nobody did?</p>
+
+  <p>The quiet profitable private business answers this question structurally in a way that the large enterprise cannot easily replicate. With fewer layers, fewer silos, and tighter feedback loops between the people making decisions and the consequences of those decisions, the small deep-domain operator has a natural accountability architecture that the distributed enterprise has to engineer expensively. They also have something more valuable: the client relationships that produce direct, honest feedback rather than the filtered version that travels up through organizational layers until it arrives at the people who could act on it stripped of the context that would have made it legible.</p>
+
+  <p>The emerging protocol layer — Google's Agent-to-Agent framework, the Agent Development Kit, the Model Context Protocol — is establishing the infrastructure for AI agents to communicate directly, pass tasks between systems, and compose capabilities across organizational boundaries. The organizations that will extract the most from this are not the largest ones with the most agents running. They are the ones with the clearest domain expertise, the most structured data about their specific work, and the tightest feedback loops between output and outcome. In specific verticals, a company of ten with deep knowledge and the right infrastructure will outperform a company of five hundred that is still trying to coordinate across silos. This is not optimism. It is a structural argument about where the leverage actually lives when the execution layer becomes cheap.</p>
+
+  <p>The full technical workflow for building on this infrastructure, including the sequencing of AI Studio, Vertex AI, and Claude Code for enterprise teams, is in the <a href="ai-studio-guide.html">AI Studio Enterprise Playbook</a>. The individual version of the same argument — what this looks like for a single practitioner building a verifiable domain presence — is in <a href="company-of-one.html">Company of One</a>.</p>
+
+  <hr class="chapter-sep">
+
+  <div class="chapter-marker" id="standard">Close</div>
+  <h2>The Standard</h2>
+  <h3>The smallest highest-margin company in a vertical can now be its market leader. This is not hypothetical.</h3>
+
+  <p>The version of market leadership that AI infrastructure makes newly available is not the unicorn in the traditional sense. It does not require scale, outside capital, or a transformation narrative. It requires depth, verified trust, and the discipline to build infrastructure that compounds rather than one that requires continuous reinvestment to maintain its position. In specific verticals, that profile belongs to companies that are already operating quietly and profitably, that have never been featured in a publication about AI transformation, and that are now in a position to extend their advantage faster than any large competitor can respond.</p>
+
+  <p>The large enterprise is not without options. The organizations that survive this period well are the ones that look honestly at what they actually know, who actually knows it, and what it would take to amplify that knowledge rather than replace it. That requires a different kind of leadership than the transformation narrative demands: less interested in announcing change and more interested in the patient, unglamorous work of understanding what the organization's actual competitive advantage is and making sure the tools serve it rather than substitute for it.</p>
+
+  <p>The people who lost jobs in this economy deserve a clearer accounting than they usually receive. The cost-reduction logic that produced most of the recent cuts was not wrong about the tools. It was wrong about what the tools replace. They replace execution at scale. They do not replace the judgment, the relationships, and the specific domain knowledge that made the execution worth having in the first place. The organizations that understood this distinction kept the people who carried that knowledge and built the tools around them. The ones that did not are now quietly trying to recover it. Some will. Some will not. The distance between those two outcomes is the real measure of what this period cost.</p>
+
+  <div class="cta-block">
+    <p>The individual version of this argument — building the company of one that operates with the same structural advantages as the quiet profitable private business — is in Company of One. The complete intellectual foundation is in The Proof Economy.</p>
+    <div class="cta-links">
+      <a href="company-of-one.html">Company of One →</a>
+      <a href="the-proof-economy.html">The Proof Economy →</a>
+      <a href="ai-studio-guide.html">The AI Studio Playbook →</a>
+      <a href="contact.html">Work with me directly →</a>
+    </div>
+  </div>
+
+  <p class="author-bio">Daniel Flügger &nbsp;·&nbsp; New York &nbsp;·&nbsp; 2026</p>
+
+  <a href="#top" class="back-top">↑ Back to top</a>
+
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col footer-col--brand">
+      <div class="footer-name">Daniel Flügger</div>
+      <div class="footer-tagline">Applied AI Engineer · New York</div>
+      <div class="footer-copy">© 2026 Daniel Flügger</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-heading">Explore</div>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="research.html">Research</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-heading">Connect</div>
+      <ul class="footer-links">
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="https://linkedin.com/in/danielflugger" target="_blank">LinkedIn</a></li>
+        <li><a href="vera.html">VERA</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var btn = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('nav');
+    if (btn && nav) {
+      btn.addEventListener('click', function() { nav.classList.toggle('nav-open'); });
+      document.querySelectorAll('.nav-links a').forEach(function(a) {
+        a.addEventListener('click', function() { nav.classList.remove('nav-open'); });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
