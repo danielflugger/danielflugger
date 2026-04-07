@@ -7,7 +7,7 @@
   <meta name="description" content="An enterprise-grade guide to Google AI Studio: project dashboards, decision logging, system instructions, Gemini API integration, and building block-by-block from zero.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -40,15 +40,15 @@
     /* HERO */
     .hero {
       padding: 104px 2rem 56px;
-      max-width: 740px;
+      max-width: 780px;
       margin: 0 auto;
-      border-bottom: 1px solid var(--rule);
+      text-align: center;
     }
     .eyebrow {
-      font-family: 'DM Mono', monospace; font-size: 0.68rem;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 1rem;
-      display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: #888; margin-bottom: 28px;
     }
     .tag {
       display: inline-block; background: var(--cream);
@@ -59,46 +59,68 @@
     .tag.blue { background: #eff6ff; color: var(--blue); }
     .tag.green { background: #ecfdf5; color: var(--green); }
     .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4.5vw, 3rem);
-      line-height: 1.15; font-weight: 400;
-      color: var(--accent); margin-bottom: 1.25rem;
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: clamp(36px, 5.5vw, 52px);
+      line-height: 1.08; font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #1a1a1a; margin-bottom: 20px;
     }
     .hero h1 em { font-style: italic; }
     .hero-sub {
-      font-size: 1.05rem; color: var(--muted);
-      max-width: 600px; font-weight: 300; margin-bottom: 1.5rem;
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: clamp(16px, 2.5vw, 21px); font-weight: 400;
+      font-style: italic; line-height: 1.45;
+      color: #4a4a4a; margin: 0 auto 28px;
     }
     .meta-row {
-      display: flex; gap: 1.5rem; flex-wrap: wrap;
-      font-family: 'DM Mono', monospace; font-size: 0.65rem;
-      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 13px; font-weight: 400;
+      letter-spacing: 0.5px; color: #888;
+    }
+    .header-rule {
+      max-width: 780px; margin: 40px auto 0;
+      border: none; border-top: 1px solid #d4d0c8;
     }
 
     /* TOC */
+    .toc-wrapper {
+      max-width: 780px; margin: 0 auto;
+      padding: 20px 24px 40px;
+    }
     .toc {
-      background: var(--cream);
-      padding: 1.75rem 2rem;
-      margin: 2rem 0 3rem;
+      background: #111827;
+      border-radius: 4px;
+      padding: 40px 44px;
     }
     .toc-label {
-      font-family: 'DM Mono', monospace; font-size: 0.62rem;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 1rem;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: #c84b1f; margin-bottom: 24px;
     }
-    .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; counter-reset: toc; }
-    .toc li { counter-increment: toc; display: flex; gap: 0.75rem; align-items: baseline; }
-    .toc li::before {
-      content: "0" counter(toc);
-      font-family: 'DM Mono', monospace; font-size: 0.6rem;
-      color: var(--muted); flex-shrink: 0; min-width: 1.8rem;
+    .toc-list { list-style: none; }
+    .toc-list li { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .toc-list li:last-child { border-bottom: none; }
+    .toc-list a {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      display: block; margin-bottom: 4px;
     }
-    .toc li:nth-child(n+10)::before { content: counter(toc); }
-    .toc a {
-      font-size: 0.9rem; color: var(--ink); text-decoration: none;
-      border-bottom: 1px solid transparent;
+    .toc-list a:hover { color: #c84b1f; }
+    .toc-num {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: #c84b1f; margin-right: 12px;
     }
-    .toc a:hover { border-bottom-color: var(--ink); }
+    .toc-desc {
+      font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+      font-size: 13px; font-style: italic;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.4; display: block; padding-left: 28px;
+    }
 
     /* ARTICLE SECTIONS */
     .section { padding: 3.5rem 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 72px; }
@@ -347,40 +369,34 @@
 </script>
 
 <header class="hero">
-  <div class="eyebrow">
-    <span>Advanced Guide</span>
-    <span class="tag blue">Google AI Studio</span>
-    <span class="tag green">Google Developers Group</span>
-  </div>
+  <p class="eyebrow">Advanced Guide &nbsp;·&nbsp; April 2026</p>
   <h1>Google AI Studio:<br><em>The Enterprise Developer's Playbook</em></h1>
   <p class="hero-sub">Beyond rapid prototyping — how to build production-grade systems block by block, track every decision, and turn AI Studio into a disciplined engineering environment.</p>
-  <div class="meta-row">
-    <span>Daniel Flügger</span>
-    <span>March 2026</span>
-    <span>Google Cloud Partner</span>
-    <span>Companion to <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" style="color:var(--muted);text-underline-offset:3px;text-decoration:underline;" target="_blank">GDG Codelab ↗</a></span>
-  </div>
+  <p class="meta-row">Daniel Flügger &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Google Cloud Partner &nbsp;·&nbsp; Companion to <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" style="color:#888;text-underline-offset:3px;text-decoration:underline;" target="_blank">GDG Codelab ↗</a></p>
 </header>
+<hr class="header-rule">
 
 <div class="container">
 
+  <div class="toc-wrapper">
   <div class="toc">
     <p class="toc-label">Contents</p>
-    <ol>
-      <li><a href="#scratch">End-to-End: Starting From Zero</a></li>
-      <li><a href="#why">Why AI Studio in 2026</a></li>
-      <li><a href="#dashboards">The Project Dashboard Pattern</a></li>
-      <li><a href="#style-dashboard">Style Guide Dashboard</a></li>
-      <li><a href="#gcp-dashboard">GCP Stack Reference Card</a></li>
-      <li><a href="#project-md">The Project Evolution MD</a></li>
-      <li><a href="#system-instructions">System Instructions as Onboarding Packages</a></li>
-      <li><a href="#block-by-block">Build Block by Block</a></li>
-      <li><a href="#gemini-api">Working with the Gemini Developer API</a></li>
-      <li><a href="#version-control">Version Control Strategy</a></li>
-      <li><a href="#prompting">Advanced Prompting Patterns</a></li>
-      <li><a href="#deploy">From Prototype to Production on Cloud Run</a></li>
-      <li><a href="#verification">The Verification Layer</a></li>
-    </ol>
+    <ul class="toc-list">
+      <li><a href="#scratch"><span class="toc-num">00</span> End-to-End: Starting From Zero</a><span class="toc-desc">Complete walkthrough from blank project to deployed Cloud Run service.</span></li>
+      <li><a href="#why"><span class="toc-num">01</span> Why AI Studio in 2026</a><span class="toc-desc">Privacy defaults, native Gemini access, and when to use it over alternatives.</span></li>
+      <li><a href="#dashboards"><span class="toc-num">02</span> The Project Dashboard Pattern</a><span class="toc-desc">The one technique that prevents model hallucination across long sessions.</span></li>
+      <li><a href="#style-dashboard"><span class="toc-num">03</span> Style Guide Dashboard</a><span class="toc-desc">Design tokens, component patterns, and colors the model can actually use.</span></li>
+      <li><a href="#gcp-dashboard"><span class="toc-num">04</span> GCP Stack Reference Card</a><span class="toc-desc">Every service, IAM role, and architecture decision in one document.</span></li>
+      <li><a href="#project-md"><span class="toc-num">05</span> The Project Evolution MD</a><span class="toc-desc">Decision logging, abandoned approaches, and the commit message format.</span></li>
+      <li><a href="#system-instructions"><span class="toc-num">06</span> System Instructions as Onboarding Packages</a><span class="toc-desc">Turn your DASHBOARD.md into a reusable engineering environment.</span></li>
+      <li><a href="#block-by-block"><span class="toc-num">07</span> Build Block by Block</a><span class="toc-desc">The stub pattern, checkpoint discipline, and why monoliths fail in AI Studio.</span></li>
+      <li><a href="#gemini-api"><span class="toc-num">08</span> Working with the Gemini Developer API</a><span class="toc-desc">Export workflow, context caching, and grounding with Google Search.</span></li>
+      <li><a href="#version-control"><span class="toc-num">09</span> Version Control Strategy</a><span class="toc-desc">Checkpoints vs. GitHub commits — when to use each and naming conventions.</span></li>
+      <li><a href="#prompting"><span class="toc-num">10</span> Advanced Prompting Patterns</a><span class="toc-desc">Seven patterns ordered by impact — constraint-first, verification, temperature.</span></li>
+      <li><a href="#deploy"><span class="toc-num">11</span> From Prototype to Production on Cloud Run</a><span class="toc-desc">Production flags, cold start, and why the preview environment lies to you.</span></li>
+      <li><a href="#verification"><span class="toc-num">12</span> The Verification Layer</a><span class="toc-desc">The EVOLUTION.md as provenance record. Portable, sovereign, auditable.</span></li>
+    </ul>
+  </div>
   </div>
 
   <!-- 00 -->

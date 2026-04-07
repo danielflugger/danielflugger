@@ -7,7 +7,7 @@
   <meta name="description" content="A practitioner's guide to building production AI systems on Claude and GCP: Claude Code in CI/CD, cost engineering, multi-agent architecture, and security without JSON keys.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -40,15 +40,15 @@
     /* HERO */
     .hero {
       padding: 104px 2rem 56px;
-      max-width: 740px;
+      max-width: 780px;
       margin: 0 auto;
-      border-bottom: 1px solid var(--rule);
+      text-align: center;
     }
     .eyebrow {
-      font-family: 'DM Mono', monospace; font-size: 0.68rem;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 1rem;
-      display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: #888; margin-bottom: 28px;
     }
     .tag {
       display: inline-block; background: var(--cream);
@@ -59,46 +59,68 @@
     .tag.blue { background: #eff6ff; color: var(--blue); }
     .tag.green { background: #ecfdf5; color: var(--green); }
     .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4.5vw, 3rem);
-      line-height: 1.15; font-weight: 400;
-      color: var(--accent); margin-bottom: 1.25rem;
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: clamp(36px, 5.5vw, 52px);
+      line-height: 1.08; font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #1a1a1a; margin-bottom: 20px;
     }
     .hero h1 em { font-style: italic; }
     .hero-sub {
-      font-size: 1.05rem; color: var(--muted);
-      max-width: 600px; font-weight: 300; margin-bottom: 1.5rem;
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: clamp(16px, 2.5vw, 21px); font-weight: 400;
+      font-style: italic; line-height: 1.45;
+      color: #4a4a4a; margin: 0 auto 28px;
     }
     .meta-row {
-      display: flex; gap: 1.5rem; flex-wrap: wrap;
-      font-family: 'DM Mono', monospace; font-size: 0.65rem;
-      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 13px; font-weight: 400;
+      letter-spacing: 0.5px; color: #888;
+    }
+    .header-rule {
+      max-width: 780px; margin: 40px auto 0;
+      border: none; border-top: 1px solid #d4d0c8;
     }
 
     /* TOC */
+    .toc-wrapper {
+      max-width: 780px; margin: 0 auto;
+      padding: 20px 24px 40px;
+    }
     .toc {
-      background: var(--cream);
-      padding: 1.75rem 2rem;
-      margin: 2rem 0 3rem;
+      background: #111827;
+      border-radius: 4px;
+      padding: 40px 44px;
     }
     .toc-label {
-      font-family: 'DM Mono', monospace; font-size: 0.62rem;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 1rem;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: #c84b1f; margin-bottom: 24px;
     }
-    .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; counter-reset: toc; }
-    .toc li { counter-increment: toc; display: flex; gap: 0.75rem; align-items: baseline; }
-    .toc li::before {
-      content: "0" counter(toc);
-      font-family: 'DM Mono', monospace; font-size: 0.6rem;
-      color: var(--muted); flex-shrink: 0; min-width: 1.8rem;
+    .toc-list { list-style: none; }
+    .toc-list li { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .toc-list li:last-child { border-bottom: none; }
+    .toc-list a {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      display: block; margin-bottom: 4px;
     }
-    .toc li:nth-child(n+10)::before { content: counter(toc); }
-    .toc a {
-      font-size: 0.9rem; color: var(--ink); text-decoration: none;
-      border-bottom: 1px solid transparent;
+    .toc-list a:hover { color: #c84b1f; }
+    .toc-num {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: #c84b1f; margin-right: 12px;
     }
-    .toc a:hover { border-bottom-color: var(--ink); }
+    .toc-desc {
+      font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+      font-size: 13px; font-style: italic;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.4; display: block; padding-left: 28px;
+    }
 
     /* ARTICLE SECTIONS */
     .section { padding: 3.5rem 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 72px; }
@@ -287,39 +309,33 @@
 </script>
 
 <header class="hero">
-  <div class="eyebrow">
-    <span>Enterprise Reference</span>
-    <span class="tag blue">Claude + Anthropic SDK</span>
-    <span class="tag green">GCP · Cloud Run · IAM</span>
-  </div>
+  <p class="eyebrow">Enterprise Reference &nbsp;·&nbsp; 2026</p>
   <h1>The Enterprise Stack:<br><em>Claude, GCP, and the Sovereign Builder</em></h1>
   <p class="hero-sub">A practitioner's reference for building production AI systems on Claude and GCP — from Claude Code in CI/CD pipelines to cost engineering, multi-agent architecture, and security without JSON keys.</p>
-  <div class="meta-row">
-    <span>Daniel Flügger</span>
-    <span>2026</span>
-    <span>Google Cloud Partner</span>
-    <span>Companion to <a href="the-restack.html" style="color:var(--muted);text-underline-offset:3px;text-decoration:underline;">The Restack ↗</a></span>
-  </div>
+  <p class="meta-row">Daniel Flügger &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Google Cloud Partner</p>
 </header>
+<hr class="header-rule">
 
 <div class="container">
 
+  <div class="toc-wrapper">
   <div class="toc">
     <p class="toc-label">Contents</p>
-    <ol>
-      <li><a href="#philosophy">The Sovereign Stack Philosophy</a></li>
-      <li><a href="#anthropic-sdk">Anthropic SDK — Python Client Setup</a></li>
-      <li><a href="#claude-code">Claude Code — CI/CD and Headless Mode</a></li>
-      <li><a href="#multi-agent">Multi-Agent Architecture</a></li>
-      <li><a href="#rag">RAG Architecture on GCP</a></li>
-      <li><a href="#observability">Monitoring and Observability</a></li>
-      <li><a href="#cost">Cost Engineering</a></li>
-      <li><a href="#testing">Testing Strategies</a></li>
-      <li><a href="#versioning">Version Control and Documentation</a></li>
-      <li><a href="#deployment">Deployment on Cloud Run</a></li>
-      <li><a href="#resilience">Resilience Patterns</a></li>
-      <li><a href="#security">Security and IAM</a></li>
-    </ol>
+    <ul class="toc-list">
+      <li><a href="#philosophy"><span class="toc-num">01</span> The Sovereign Stack Philosophy</a><span class="toc-desc">Small, principled tools that compound. Platform-independent by design.</span></li>
+      <li><a href="#anthropic-sdk"><span class="toc-num">02</span> Anthropic SDK — Python Client Setup</a><span class="toc-desc">Centralized config, prompt caching, structured logging for every call.</span></li>
+      <li><a href="#claude-code"><span class="toc-num">03</span> Claude Code — CI/CD and Headless Mode</a><span class="toc-desc">Git worktrees, non-interactive pipelines, pre-commit review hooks.</span></li>
+      <li><a href="#multi-agent"><span class="toc-num">04</span> Multi-Agent Architecture</a><span class="toc-desc">Orchestrator + specialist pattern, context handoff between agents.</span></li>
+      <li><a href="#rag"><span class="toc-num">05</span> RAG Architecture on GCP</a><span class="toc-desc">pgvector, embedding pipeline, chunking strategy, retrieval quality.</span></li>
+      <li><a href="#observability"><span class="toc-num">06</span> Monitoring and Observability</a><span class="toc-desc">Structured logging, token usage, cost per request, cache hit rates.</span></li>
+      <li><a href="#cost"><span class="toc-num">07</span> Cost Engineering</a><span class="toc-desc">Model routing, token counting, extended thinking, rate limit handling.</span></li>
+      <li><a href="#testing"><span class="toc-num">08</span> Testing Strategies</a><span class="toc-desc">Unit testing infrastructure, evaluation sets, minimum viable eval.</span></li>
+      <li><a href="#versioning"><span class="toc-num">09</span> Version Control and Documentation</a><span class="toc-desc">DASHBOARD.md and EVOLUTION.md — the knowledge layer.</span></li>
+      <li><a href="#deployment"><span class="toc-num">10</span> Deployment on Cloud Run</a><span class="toc-desc">Production flags, cold start, per-request billing model.</span></li>
+      <li><a href="#resilience"><span class="toc-num">11</span> Resilience Patterns</a><span class="toc-desc">Circuit breaker, graceful degradation, fallback hierarchy.</span></li>
+      <li><a href="#security"><span class="toc-num">12</span> Security and IAM</a><span class="toc-desc">Workload Identity Federation, no JSON keys, minimum viable SA roles.</span></li>
+    </ul>
+  </div>
   </div>
 
   <!-- 01 -->

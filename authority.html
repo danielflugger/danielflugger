@@ -8,6 +8,10 @@
   <meta property="og:title" content="Wall of Phony Authority — Daniel Flügger">
   <meta property="og:description" content="Why borrowed expertise proves nothing — and how to build a coherent system for evaluating what's worth keeping.">
   <meta property="og:url" content="https://danielflugger.com/authority.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -75,68 +79,87 @@
 
     /* ── HERO TEXT ── */
     .essay-header {
-      max-width: var(--essay);
-      margin: 0 auto 4rem;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
       text-align: center;
     }
     .essay-label {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.7rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1.2rem;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: #888;
+      margin-bottom: 28px;
     }
     .essay-title {
-      font-family: 'Georgia', serif;
-      font-size: 3rem; font-weight: 700;
-      line-height: 1.15; color: var(--dark);
-      margin-bottom: 1rem;
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: clamp(36px, 5.5vw, 52px); font-weight: 700;
+      line-height: 1.08; letter-spacing: -0.02em;
+      color: #1a1a1a;
+      margin-bottom: 20px;
     }
     .essay-sub {
-      font-family: 'Georgia', serif;
-      font-size: 1.15rem; font-style: italic;
-      color: var(--muted); line-height: 1.6;
-      margin-bottom: 1.5rem;
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: clamp(16px, 2.5vw, 21px); font-weight: 400;
+      font-style: italic; line-height: 1.45;
+      color: #4a4a4a;
+      margin: 0 auto 28px;
     }
     .essay-byline {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.75rem; letter-spacing: 0.1em;
-      color: var(--muted);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 13px; font-weight: 400;
+      letter-spacing: 0.5px; color: #888;
+    }
+    .header-rule {
+      max-width: 780px;
+      margin: 40px auto 0;
+      border: none;
+      border-top: 1px solid #d4d0c8;
     }
 
     /* ── TOC ── */
+    .toc-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 20px 24px 40px;
+    }
     .toc-block {
-      max-width: var(--essay);
-      margin: 0 auto 4rem;
-      background: var(--dark);
-      padding: 2rem 2.5rem;
+      background: #111827;
+      border-radius: 4px;
+      padding: 40px 44px;
     }
     .toc-block h3 {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 1.2rem;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: #c84b1f; margin-bottom: 24px;
     }
     .toc-block ol { list-style: none; }
     .toc-block li {
-      display: flex; align-items: baseline; gap: 1rem;
-      padding: 0.65rem 0;
+      padding: 14px 0;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     .toc-block li:last-child { border-bottom: none; }
     .toc-num {
-      font-family: 'Arial', sans-serif; font-size: 0.65rem;
-      font-weight: 700; color: rgba(255,255,255,0.3);
-      letter-spacing: 0.08em; min-width: 1.8rem;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: #c84b1f; margin-right: 12px;
     }
     .toc-link {
-      font-family: 'Arial', sans-serif; font-size: 0.82rem;
-      color: rgba(255,255,255,0.8); text-decoration: none; line-height: 1.4;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      display: block; margin-bottom: 4px;
     }
-    .toc-link:hover { color: #fff; }
+    .toc-link:hover { color: #c84b1f; }
     .toc-sub {
-      font-family: 'Georgia', serif; font-size: 0.78rem;
-      font-style: italic; color: rgba(255,255,255,0.35);
-      display: block; margin-top: 0.15rem;
+      font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+      font-size: 13px; font-style: italic;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.4; display: block;
+      padding-left: 28px;
     }
 
     /* ── ESSAY BODY ── */
@@ -392,8 +415,10 @@
     <p class="essay-sub">How to immediately discard, defer, or use what you hear — and why borrowed expertise tells you nothing about the person sharing it</p>
     <div class="essay-byline">Daniel Flügger &nbsp;·&nbsp; 2026</div>
   </div>
+  <hr class="header-rule">
 
   <!-- TOC -->
+  <div class="toc-wrapper">
   <div class="toc-block">
     <h3>Contents</h3>
     <ol>
@@ -426,6 +451,7 @@
         <div><a class="toc-link" href="#close">Build the Filter</a><span class="toc-sub">What comes next.</span></div>
       </li>
     </ol>
+  </div>
   </div>
 
   <!-- ESSAY -->
