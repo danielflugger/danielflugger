@@ -320,6 +320,11 @@
 
 <div class="container">
 
+  <div class="callout blue" style="margin: 1.5rem 0;">
+    <span class="callout-label">Start Here</span>
+    <p>New to this stack? Start with the <a href="ai-studio-guide.html" style="color:var(--blue);">Google AI Studio Playbook ←</a> for prototyping methodology, project dashboards, and the block-by-block build sequence. This guide picks up where that one ends.</p>
+  </div>
+
   <div class="toc-wrapper">
   <div class="toc">
     <p class="toc-label">Contents</p>
@@ -327,15 +332,18 @@
       <li><a href="#philosophy"><span class="toc-num">01</span> The Sovereign Stack Philosophy</a><span class="toc-desc">Small, principled tools that compound. Platform-independent by design.</span></li>
       <li><a href="#anthropic-sdk"><span class="toc-num">02</span> Anthropic SDK — Python Client Setup</a><span class="toc-desc">Centralized config, prompt caching, structured logging for every call.</span></li>
       <li><a href="#claude-code"><span class="toc-num">03</span> Claude Code — CI/CD and Headless Mode</a><span class="toc-desc">Git worktrees, non-interactive pipelines, pre-commit review hooks.</span></li>
+      <li><a href="#agentic-handshake"><span class="toc-num">03b</span> Agentic Handshakes — How agents authenticate without secrets</a><span class="toc-desc">Three-level auth hierarchy, scoped SA impersonation, auth-aware prompt patterns.</span></li>
       <li><a href="#multi-agent"><span class="toc-num">04</span> Multi-Agent Architecture</a><span class="toc-desc">Orchestrator + specialist pattern, context handoff between agents.</span></li>
       <li><a href="#rag"><span class="toc-num">05</span> RAG Architecture on GCP</a><span class="toc-desc">pgvector, embedding pipeline, chunking strategy, retrieval quality.</span></li>
       <li><a href="#observability"><span class="toc-num">06</span> Monitoring and Observability</a><span class="toc-desc">Structured logging, token usage, cost per request, cache hit rates.</span></li>
       <li><a href="#cost"><span class="toc-num">07</span> Cost Engineering</a><span class="toc-desc">Model routing, token counting, extended thinking, rate limit handling.</span></li>
       <li><a href="#testing"><span class="toc-num">08</span> Testing Strategies</a><span class="toc-desc">Unit testing infrastructure, evaluation sets, minimum viable eval.</span></li>
       <li><a href="#versioning"><span class="toc-num">09</span> Version Control and Documentation</a><span class="toc-desc">DASHBOARD.md and EVOLUTION.md — the knowledge layer.</span></li>
+      <li><a href="#postgis"><span class="toc-num">09b</span> PostGIS + LLMs — Spatial Schema First</a><span class="toc-desc">Schema-first spatial design, GIST indexes, idempotent DDL, ST_DWithin over ST_Distance.</span></li>
       <li><a href="#deployment"><span class="toc-num">10</span> Deployment on Cloud Run</a><span class="toc-desc">Production flags, cold start, per-request billing model.</span></li>
       <li><a href="#resilience"><span class="toc-num">11</span> Resilience Patterns</a><span class="toc-desc">Circuit breaker, graceful degradation, fallback hierarchy.</span></li>
       <li><a href="#security"><span class="toc-num">12</span> Security and IAM</a><span class="toc-desc">Workload Identity Federation, no JSON keys, minimum viable SA roles.</span></li>
+      <li><a href="#vera"><span class="toc-num">13</span> VERA — Verification and the Sovereign Knowledge Layer</a><span class="toc-desc">EVOLUTION.md as an architecture decision record. Linking every decision to provenance.</span></li>
     </ul>
   </div>
   </div>
@@ -356,6 +364,7 @@
         <tr><td>CI/CD Agent</td><td>Claude Code (headless)</td><td>Full file system access, structured JSON output, composable with standard shell tooling</td></tr>
         <tr><td>Knowledge</td><td>Markdown + Git</td><td>Human-readable, diffs cleanly, works in every tool, survives every platform change</td></tr>
         <tr><td>Secrets</td><td>GCP Secret Manager + WIF</td><td>No JSON keys, short-lived tokens, auditable access, zero long-lived credentials</td></tr>
+        <tr><td>Identity</td><td>Firebase Auth + GCP IAM</td><td>JWTs issued by Firebase, verified server-side via Google public keys; maps to GCP IAM conditions for resource-level access control</td></tr>
       </tbody>
     </table>
   </section>
@@ -419,6 +428,77 @@ MODEL_HAIKU  = <span class="str">"claude-haiku-4-5-20251001"</span>
 )
 <span class="comment"># response.usage.cache_creation_input_tokens — tokens written to cache
 # response.usage.cache_read_input_tokens — tokens read from cache (charged at ~10%)</span></pre>
+    </div>
+
+    <h3>Streaming responses in production</h3>
+    <p>Streaming is the correct pattern for any response the user waits for — it reduces perceived latency dramatically. It is also the pattern most likely to fail silently in production: a stream that drops mid-response, a client that disconnects, or a timeout that triggers before the stream completes. These failure modes require different handling than a standard API error.</p>
+
+    <div class="code-block">
+      <span class="code-label">Streaming with error handling and partial recovery</span>
+      <pre>import anthropic
+from typing import Generator
+
+def stream_completion(
+    client: anthropic.Anthropic,
+    system: str,
+    user: str,
+    model: str = "claude-sonnet-4-6",
+) -> Generator[str, None, None]:
+    """
+    Stream a completion. Yields text chunks as they arrive.
+    Handles mid-stream failures gracefully — logs partial output,
+    raises a typed exception the caller can handle.
+    """
+    partial_output = []
+    try:
+        with client.messages.stream(
+            model=model,
+            max_tokens=2048,
+            system=system,
+            messages=[{"role": "user", "content": user}],
+        ) as stream:
+            for text in stream.text_stream:
+                partial_output.append(text)
+                yield text
+    except anthropic.APIStatusError as e:
+        # Log partial output before raising — partial responses have value
+        log.warning(
+            "stream_interrupted",
+            extra={
+                "partial_chars": sum(len(t) for t in partial_output),
+                "error": str(e)
+            }
+        )
+        raise StreamInterruptedError(
+            f"Stream failed after {len(partial_output)} chunks: {e}",
+            partial="".join(partial_output)
+        ) from e
+
+class StreamInterruptedError(Exception):
+    """Stream failed mid-response. partial attribute contains what arrived."""
+    def __init__(self, message: str, partial: str = ""):
+        super().__init__(message)
+        self.partial = partial
+
+# FastAPI SSE endpoint pattern
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+
+app = FastAPI()
+
+@app.get("/stream/{query}")
+async def stream_response(query: str):
+    """Server-Sent Events endpoint for streaming Claude responses."""
+    def event_generator():
+        for chunk in stream_completion(client, SYSTEM_PROMPT, query):
+            yield f"data: {chunk}\n\n"
+        yield "data: [DONE]\n\n"
+    return StreamingResponse(event_generator(), media_type="text/event-stream")</pre>
+    </div>
+
+    <div class="callout amber">
+      <span class="callout-label">Do not stream in AI Studio preview</span>
+      <p>AI Studio's Build tab preview breaks with streaming responses — the iframe cannot handle SSE. Prototype all streaming features with non-streaming calls in AI Studio, switch to streaming only when deploying to Cloud Run. Log this in EVOLUTION.md § What Was Tried and Abandoned.</p>
     </div>
   </section>
 
@@ -490,6 +570,59 @@ SEVERITY=$(echo <span class="str">"$RESULT"</span> | jq -r <span class="str">'.s
   echo <span class="str">"$RESULT"</span> | jq <span class="str">'.issues'</span>
   exit 1
 fi</pre>
+    </div>
+  </section>
+
+  <!-- 03b -->
+  <section class="section" id="agentic-handshake">
+    <span class="section-num">03b — Auth Pattern</span>
+    <h2>Agentic Handshakes — <em>How Agents Auth into Your Project</em></h2>
+    <p>When Claude Code or a Gemini agent needs to operate on your GCP project, the authentication pattern matters as much as the code it generates. An agent with the wrong credentials — too broad, too narrow, or using long-lived JSON keys — is either a security liability or a source of permission failures that are slow to diagnose. The pattern below gives agents exactly what they need, nothing more, and uses short-lived tokens rather than keys.</p>
+
+    <h3>The three-level auth hierarchy</h3>
+    <table class="decision-table">
+      <thead><tr><th>Agent Type</th><th>Auth Method</th><th>GCP Permissions</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>Interactive Claude Code (dev)</td><td>gcloud ADC impersonating claude-code-agent SA</td><td>BigQuery read, Storage read</td><td>Local development, read-only GCP access</td></tr>
+        <tr><td>Headless Claude Code (CI/CD)</td><td>Workload Identity Federation via GitHub OIDC</td><td>Storage write, Artifact Registry write</td><td>Automated builds, deployments</td></tr>
+        <tr><td>Production Cloud Run service</td><td>Attached service account (api-runner SA)</td><td>Cloud SQL, Secret Manager, Vertex AI</td><td>Runtime API calls, database access</td></tr>
+      </tbody>
+    </table>
+
+    <div class="code-block">
+      <span class="code-label">Dev setup — impersonate scoped SA for Claude Code</span>
+      <pre># Give Claude Code the exact permissions it has in production — no more
+gcloud auth application-default login \
+  --impersonate-service-account=claude-code-agent@PROJECT_ID.iam.gserviceaccount.com
+
+# Verify what Claude Code can and cannot do
+gcloud projects get-iam-policy PROJECT_ID \
+  --flatten="bindings[].members" \
+  --filter="bindings.members:claude-code-agent" \
+  --format="table(bindings.role)"
+
+# Add to CLAUDE.md so every session knows its permission boundary:
+# "Auth: impersonating claude-code-agent SA — BigQuery read, Storage read only
+#  Cannot: write to production DB, deploy services, access secrets"</pre>
+    </div>
+
+    <div class="code-block">
+      <span class="code-label">Specific prompt pattern for Claude Code — auth-aware tasks</span>
+      <pre>"Before making any GCP API call, check DASHBOARD.md § Service Accounts
+to confirm the active SA has the required role listed.
+
+If the task requires a permission not in the SA's role list:
+- Do NOT attempt the call
+- Add a TODO comment: # NEEDS_PERMISSION: roles/[required-role]
+- Continue with the parts of the task that are within scope
+- Report the permission gap at the end of the session
+
+Never attempt to grant permissions or modify IAM from within a session."</pre>
+    </div>
+
+    <div class="callout amber">
+      <span class="callout-label">EVOLUTION.md requirement</span>
+      <p>Every time a new IAM role is granted to any service account, add a dated entry to EVOLUTION.md § Architecture Decisions with: what role was granted, to which SA, why it was needed, and what the minimum viable alternative was. IAM drift — roles accumulating without documentation — is the most common security debt in long-running GCP projects.</p>
     </div>
   </section>
 
@@ -633,6 +766,75 @@ thinking_block = [b <span class="key">for</span> b <span class="key">in</span> r
     </div>
     <p>Use extended thinking for architecture decisions, not for routine generation. The cost difference is significant — budget only what the problem complexity justifies.</p>
 
+    <h3>Cost attribution — tag every request</h3>
+    <p>Token cost without attribution is useless for optimization. Knowing your monthly Claude bill is $800 tells you nothing about which feature to optimize. Knowing that your document classification feature costs $340/month and your summary generation costs $460/month tells you exactly where to focus. One metadata field on every API call makes this possible.</p>
+
+    <div class="code-block">
+      <span class="code-label">Cost attribution — metadata tagging pattern</span>
+      <pre>import anthropic
+import logging
+from dataclasses import dataclass
+
+log = logging.getLogger(__name__)
+
+@dataclass
+class RequestContext:
+    """Tag every LLM call with context for cost attribution."""
+    feature: str       # "document_classification", "summary_generation", etc.
+    user_id: str       # for per-user cost tracking
+    request_type: str  # "classify", "generate", "extract", "reason"
+    environment: str   # "prod", "staging", "dev"
+
+def tracked_complete(
+    client: anthropic.Anthropic,
+    system: str,
+    user: str,
+    model: str,
+    ctx: RequestContext,
+) -> str:
+    """Complete with full cost attribution logging."""
+    response = client.messages.create(
+        model=model,
+        max_tokens=2048,
+        system=system,
+        messages=[{"role": "user", "content": user}],
+    )
+
+    # Log structured cost data — queryable in Cloud Logging
+    cost_usd = (
+        response.usage.input_tokens * 0.000003 +   # Sonnet input price
+        response.usage.output_tokens * 0.000015    # Sonnet output price
+    )
+    log.info("llm_cost", extra={
+        "feature": ctx.feature,
+        "user_id": ctx.user_id,
+        "request_type": ctx.request_type,
+        "environment": ctx.environment,
+        "model": model,
+        "input_tokens": response.usage.input_tokens,
+        "output_tokens": response.usage.output_tokens,
+        "cache_read_tokens": getattr(response.usage, "cache_read_input_tokens", 0),
+        "estimated_cost_usd": round(cost_usd, 6),
+    })
+    return response.content[0].text
+
+# Usage — cost is visible and attributable at the call site
+result = tracked_complete(
+    client, system, user, MODEL_SONNET,
+    ctx=RequestContext(
+        feature="document_classification",
+        user_id=user_id,
+        request_type="classify",
+        environment="prod"
+    )
+)</pre>
+    </div>
+
+    <div class="callout green">
+      <span class="callout-label">BigQuery cost dashboard</span>
+      <p>Structured logs flow to Cloud Logging automatically on Cloud Run. Export to BigQuery with a log sink and you have a queryable cost dashboard: <code style="font-family:'DM Mono',monospace;font-size:0.8em;">SELECT feature, SUM(estimated_cost_usd) as total_cost FROM llm_cost_logs GROUP BY feature ORDER BY total_cost DESC</code>. One Cloud Logging export, zero additional instrumentation.</p>
+    </div>
+
     <h3>Rate limit handling — exponential backoff with jitter</h3>
     <p>Rate limit errors break every production system eventually. Nobody adds handling until it does. The pattern below should be in every project that calls the Anthropic API at scale. Jitter prevents the thundering herd problem when multiple workers hit limits simultaneously.</p>
     <div class="code-block">
@@ -699,6 +901,58 @@ thinking_block = [b <span class="key">for</span> b <span class="key">in</span> r
       <li><strong>## What Was Tried and Abandoned</strong> — failed approaches with failure mode notes</li>
       <li><strong>## Pivots</strong> — scope or architecture changes with the trigger</li>
     </ul>
+  </section>
+
+  <!-- 09b -->
+  <section class="section" id="postgis">
+    <span class="section-num">09b — Spatial</span>
+    <h2>PostGIS + LLMs — <em>Spatial Schema First</em></h2>
+
+    <h3>Schema-First is non-negotiable for spatial data</h3>
+    <p>Spatial columns are not like other columns. A geometry column without an explicit SRID, without a GIST index, or with the wrong coordinate system produces results that are wrong in ways that are hard to detect — proximity queries that return nothing, distance calculations that are off by orders of magnitude, or joins that silently exclude valid records. These errors cannot be fixed by application code. They require schema changes, data migration, and re-indexing. Schema-first design prevents all of this. Define the spatial schema completely — SRID, geometry type, index — before any application layer reads from it.</p>
+
+    <div class="code-block">
+      <span class="code-label">Idempotent PostGIS schema — safe to run multiple times</span>
+      <pre>-- Run at deploy time, every time. Idempotent by design.
+-- Log the PostGIS version in DASHBOARD.md after first run.
+
+-- Enable extension (idempotent)
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+-- Verify version — log this in DASHBOARD.md § Active Services
+SELECT PostGIS_Version();
+
+-- Create spatial table with explicit SRID (idempotent via IF NOT EXISTS)
+CREATE TABLE IF NOT EXISTS properties (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name        TEXT NOT NULL,
+    address     TEXT,
+    property_type TEXT,
+    geom        geometry(Point, 4326),  -- WGS84, always explicit
+    created_at  TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- GIST index — create before loading data, not after
+CREATE INDEX IF NOT EXISTS idx_properties_geom
+    ON properties USING GIST(geom);
+
+-- Verify the index exists
+SELECT indexname, indexdef
+FROM pg_indexes
+WHERE tablename = 'properties' AND indexname = 'idx_properties_geom';</pre>
+    </div>
+
+    <div class="callout blue">
+      <span class="callout-label">EVOLUTION.md entry template for spatial schema</span>
+      <p><code style="font-family:'DM Mono',monospace;font-size:0.78rem;line-height:1.7;display:block;white-space:pre-wrap;">[DATE] Schema: properties table with PostGIS geometry
+Decision: geometry(Point, 4326) with GIST index
+SRID: 4326 (WGS84) — matches GPS coordinates and all public municipal datasets
+Index: GIST created before data load — enables ST_DWithin index use
+Alternatives: geography type (rejected: less flexible for joins),
+              no SRID specified (rejected: produces wrong distance results silently)
+Idempotency: all DDL uses IF NOT EXISTS — safe to run in CI/CD migrations
+Revisit: if switching to 3D geometry or non-point types</code></p>
+    </div>
   </section>
 
   <!-- 10 -->
@@ -805,12 +1059,64 @@ gcloud iam workload-identity-pools providers create-oidc <span class="str">"gith
     </blockquote>
   </section>
 
+  <!-- 13 -->
+  <section class="section" id="vera">
+    <span class="section-num">13 — Verification</span>
+    <h2>VERA — <em>Verification and the Sovereign Knowledge Layer</em></h2>
+    <p>The stack described in this guide is designed to be auditable. Every tool choice, every IAM decision, every architectural tradeoff should have a paper trail in EVOLUTION.md. This is not administrative overhead — it is the mechanism by which AI-generated systems become defensible, transferable, and recoverable. The VERA framework formalizes this approach into a maturity model for organizations building on AI infrastructure.</p>
+    <p>The verification layer starts with a discipline, not a certification. The discipline is: document every architectural decision at the moment it is made, while the reasoning is fresh and the alternatives are still visible.</p>
+
+    <h3>Linking every architectural decision to EVOLUTION.md</h3>
+    <p>The VERA framework is not a retrospective exercise. Every architectural decision in this guide — Firebase Auth over custom auth, Cloud Run over Cloud Functions, ST_DWithin over ST_Distance, WIF over JSON keys — should have a dated EVOLUTION.md entry at the moment it is made. Not after the project ships. Not in a documentation sprint. At the moment the decision is made, while the reasoning is fresh and the alternatives are still visible.</p>
+
+    <div class="code-block">
+      <span class="code-label">EVOLUTION.md — required entry format for every architectural decision</span>
+      <pre>## 02. Architecture Decisions
+
+# Format: [DATE] DECISION | alternatives considered + rejected | cost/risk | revisit trigger
+
+[2026-04-07] Auth: Firebase Auth + Cloud Run verification
+Decision: Firebase Auth JWTs verified server-side via google-auth library
+Alternatives:
+  - Custom JWT (rejected: key rotation complexity, no OAuth provider integration)
+  - Supabase Auth (rejected: adds platform dependency outside GCP ecosystem)
+  - No auth on public endpoints (rejected: gated content requires identity)
+Cost: Zero additional GCP cost — verification uses Google's public keys
+IAM impact: Cloud Run services remain --no-allow-unauthenticated for protected routes
+Revisit when: Firebase Auth pricing changes or enterprise SSO requirement emerges
+
+[2026-04-07] Spatial: ST_DWithin over ST_Distance for proximity queries
+Decision: All proximity queries use ST_DWithin(geom::geography, point, radius)
+Alternatives:
+  - ST_Distance in WHERE clause (rejected: does not use GIST index, full table scan)
+  - Application-side bounding box filter (rejected: imprecise, more code)
+Performance: &lt;50ms on 100k rows with GIST index vs &gt;2000ms without
+Idempotency: no migration needed, query-level decision
+Revisit: Never. This is a PostGIS fundamental.
+
+[2026-04-07] Deployment: Cloud Run over Cloud Functions
+Decision: All backend services on Cloud Run (containerized FastAPI)
+Alternatives:
+  - Cloud Functions (rejected: 9MB unzipped limit breaks most Python deps,
+    no persistent connections, cold start per-invocation model)
+  - GKE (rejected: operational overhead, cost at this scale)
+  - App Engine (rejected: deprecated patterns, less flexible runtime)
+Cost: Per-request billing, min-instances=0 for dev, min-instances=1 for prod
+Revisit when: request volume exceeds ~10M/month (GKE cost crossover)</pre>
+    </div>
+
+    <div class="callout blue">
+      <span class="callout-label">VERA certification path</span>
+      <p>The EVOLUTION.md pattern described here is the foundation of the VERA maturity model. An organization with consistently documented architecture decisions, verified outputs, and sovereign knowledge infrastructure is at VERA maturity level 3. The formal framework, including the Ed25519 session certificate methodology and multi-party attestation tier, is at <a href="https://veraframework.com" style="color:var(--blue);" target="_blank">veraframework.com</a> and <a href="vera.html" style="color:var(--blue);">danielflugger.com/vera.html</a>.</p>
+    </div>
+  </section>
+
   <div class="guide-footer">
     <span>© 2026 Daniel Flügger</span>
     <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+      <a href="ai-studio-guide.html">← Google AI Studio Playbook</a>
+      <a href="vera.html">VERA Framework →</a>
       <a href="index.html">danielflugger.com</a>
-      <a href="ai-studio-guide.html">AI Studio Playbook</a>
-      <a href="vera.html">VERA Framework</a>
       <a href="the-restack.html">The Restack</a>
     </div>
   </div>

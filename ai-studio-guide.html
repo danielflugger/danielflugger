@@ -373,200 +373,39 @@
 <header class="hero">
   <p class="eyebrow">Advanced Guide &nbsp;·&nbsp; April 2026</p>
   <h1>Google AI Studio:<br><em>The Enterprise Developer's Playbook</em></h1>
-  <p class="hero-sub">Beyond rapid prototyping — how to build production-grade systems block by block, track every decision, and turn AI Studio into a disciplined engineering environment.</p>
-  <p class="meta-row">Daniel Flügger &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Google Cloud Partner &nbsp;·&nbsp; Companion to <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" style="color:#888;text-underline-offset:3px;text-decoration:underline;" target="_blank">GDG Codelab ↗</a></p>
+  <p class="hero-sub">A disciplined methodology for building production-grade systems block by block, track every decision, and turn AI Studio into a disciplined engineering environment.</p>
+  <p class="meta-row">Daniel Flügger &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Google Cloud Partner &nbsp;·&nbsp; Companion to <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" style="color:#888;text-underline-offset:3px;text-decoration:underline;" target="_blank">GDG Codelab ↗</a> &nbsp;·&nbsp; <a href="enterprise-stack-guide.html" style="color:#888;text-underline-offset:3px;text-decoration:underline;">Enterprise Stack Guide →</a></p>
 </header>
 <hr class="header-rule">
 
 <div class="container">
 
+  <div class="callout blue" style="margin: 1.5rem 0;">
+    <span class="callout-label">Start Here</span>
+    <p>This guide covers prototyping, project methodology, and AI Studio workflows. For production architecture, Claude Code in CI/CD, multi-agent patterns, and GCP security — continue to the <a href="enterprise-stack-guide.html" style="color:var(--blue);">Enterprise Stack Guide →</a></p>
+  </div>
+
   <div class="toc-wrapper">
   <div class="toc">
     <p class="toc-label">Contents</p>
     <ul class="toc-list">
-      <li><a href="#scratch"><span class="toc-num">00</span> End-to-End: Starting From Zero</a><span class="toc-desc">Complete walkthrough from blank project to deployed Cloud Run service.</span></li>
       <li><a href="#why"><span class="toc-num">01</span> Why AI Studio in 2026</a><span class="toc-desc">Privacy defaults, native Gemini access, and when to use it over alternatives.</span></li>
-      <li><a href="#dashboards"><span class="toc-num">02</span> The Project Dashboard Pattern</a><span class="toc-desc">The one technique that prevents model hallucination across long sessions.</span></li>
-      <li><a href="#style-dashboard"><span class="toc-num">03</span> Style Guide Dashboard</a><span class="toc-desc">Design tokens, component patterns, and colors the model can actually use.</span></li>
-      <li><a href="#gcp-dashboard"><span class="toc-num">04</span> GCP Stack Reference Card</a><span class="toc-desc">Every service, IAM role, and architecture decision in one document.</span></li>
-      <li><a href="#project-md"><span class="toc-num">05</span> The Project Evolution MD</a><span class="toc-desc">Decision logging, abandoned approaches, and the commit message format.</span></li>
-      <li><a href="#system-instructions"><span class="toc-num">06</span> System Instructions as Onboarding Packages</a><span class="toc-desc">Turn your DASHBOARD.md into a reusable engineering environment.</span></li>
-      <li><a href="#block-by-block"><span class="toc-num">07</span> Build Block by Block</a><span class="toc-desc">The stub pattern, checkpoint discipline, and why monoliths fail in AI Studio.</span></li>
-      <li><a href="#gemini-api"><span class="toc-num">08</span> Working with the Gemini Developer API</a><span class="toc-desc">Export workflow, context caching, and grounding with Google Search.</span></li>
-      <li><a href="#version-control"><span class="toc-num">09</span> Version Control Strategy</a><span class="toc-desc">Checkpoints vs. GitHub commits — when to use each and naming conventions.</span></li>
-      <li><a href="#prompting"><span class="toc-num">10</span> Advanced Prompting Patterns</a><span class="toc-desc">Seven patterns ordered by impact — constraint-first, verification, temperature.</span></li>
-      <li><a href="#deploy"><span class="toc-num">11</span> From Prototype to Production on Cloud Run</a><span class="toc-desc">Production flags, cold start, and why the preview environment lies to you.</span></li>
-      <li><a href="#verification"><span class="toc-num">12</span> The Verification Layer</a><span class="toc-desc">The EVOLUTION.md as provenance record. Portable, sovereign, auditable.</span></li>
+      <li><a href="#identity-layer"><span class="toc-num">02</span> The Identity Layer — Firebase Auth + GCP IAM</a><span class="toc-desc">JWTs, server-side verification, and mapping Firebase UIDs to IAM conditions.</span></li>
+      <li><a href="#dashboards"><span class="toc-num">03</span> The Project Dashboard Pattern</a><span class="toc-desc">The one technique that prevents model hallucination across long sessions.</span></li>
+      <li><a href="#style-dashboard"><span class="toc-num">04</span> Style Guide Dashboard</a><span class="toc-desc">Design tokens, component patterns, and colors the model can actually use.</span></li>
+      <li><a href="#gcp-dashboard"><span class="toc-num">05</span> GCP Stack Reference Card</a><span class="toc-desc">Every service, IAM role, and architecture decision in one document.</span></li>
+      <li><a href="#project-md"><span class="toc-num">06</span> The Project Evolution MD</a><span class="toc-desc">Decision logging, abandoned approaches, and the commit message format.</span></li>
+      <li><a href="#system-instructions"><span class="toc-num">07</span> System Instructions as Onboarding Packages</a><span class="toc-desc">Turn your DASHBOARD.md into a reusable engineering environment.</span></li>
+      <li><a href="#block-by-block"><span class="toc-num">08</span> Build Block by Block</a><span class="toc-desc">The stub pattern, checkpoint discipline, and the plumbing→soil→house build sequence.</span></li>
+      <li><a href="#gemini-api"><span class="toc-num">09</span> Working with the Gemini Developer API</a><span class="toc-desc">Export workflow, context caching, and grounding with Google Search.</span></li>
+      <li><a href="#version-control"><span class="toc-num">10</span> Version Control Strategy</a><span class="toc-desc">Checkpoints vs. GitHub commits — when to use each and naming conventions.</span></li>
+      <li><a href="#prompting"><span class="toc-num">11</span> Advanced Prompting Patterns</a><span class="toc-desc">Seven patterns ordered by impact — constraint-first, verification, temperature.</span></li>
+      <li><a href="#deploy"><span class="toc-num">12</span> From Prototype to Production on Cloud Run</a><span class="toc-desc">Production flags, cold start, and why the preview environment lies to you.</span></li>
+      <li><a href="#verification"><span class="toc-num">13</span> The Verification Layer</a><span class="toc-desc">The EVOLUTION.md as provenance record. Portable, sovereign, auditable.</span></li>
+      <li><a href="#scratch"><span class="toc-num">00</span> End-to-End: Starting From Zero</a><span class="toc-desc">Complete walkthrough from blank project to deployed Cloud Run service. The capstone.</span></li>
     </ul>
   </div>
   </div>
-
-  <!-- 00 -->
-  <section class="section" id="scratch">
-    <span class="section-num">00 — Walkthrough</span>
-    <h2>End-to-End: <em>Starting From Zero</em></h2>
-    <p>This section is the practical walkthrough this guide builds toward. Everything in sections 01–12 is reference material. This section is the sequence. Follow it start to finish for any new project — including converting an existing static site into a real application with auth, a CMS layer, and gated content.</p>
-    <p>The example project used here is realistic and complete: converting a static HTML site on Firebase into a structured application with a markdown-driven public layer, a gated notes/intelligence section on Cloud Run, and Lemon Squeezy payment integration. This is not hypothetical — it is the exact architecture described in the product plan and the exact project you will execute on danielflugger.com.</p>
-
-    <div class="callout blue">
-      <span class="callout-label">Before you open AI Studio</span>
-      <p>Complete the <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" target="_blank" style="color:var(--blue);">introductory GDG codelab</a> first. You need to know how to create a project, use the Build tab, and do a one-click Cloud Run deploy. This walkthrough picks up exactly where the codelab ends.</p>
-    </div>
-
-    <h3>Phase 0 — Before the first prompt (20 minutes)</h3>
-    <p>Open a text editor, not AI Studio. Create a folder for your project. Create three files: <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">DASHBOARD.md</code>, <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">EVOLUTION.md</code>, and <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">Design.md</code>. Use the minimal templates from Sections 03, 04, and 05. Fill in only what you know right now — leave everything else as <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">[DECIDE]</code>. Commit these three files to a new GitHub repo before writing a single line of code.</p>
-
-    <div class="step-list">
-      <div class="step"><span class="step-num">1</span><div class="step-content"><strong>Create the project repo</strong><p>New GitHub repo. Clone locally. Create DASHBOARD.md, EVOLUTION.md, Design.md from the templates in this guide. Commit: <code style="font-family:'DM Mono',monospace;font-size:0.8em;">chore: project scaffolding — dashboards and evolution log</code></p></div></div>
-      <div class="step"><span class="step-num">2</span><div class="step-content"><strong>Write the project brief in EVOLUTION.md</strong><p>One paragraph: what you are building, who it is for, what "done" means, what it explicitly does NOT do. This takes 10 minutes and saves 10 hours. Do not skip it. Log it as your first EVOLUTION.md entry.</p></div></div>
-      <div class="step"><span class="step-num">3</span><div class="step-content"><strong>Define the data shape on paper</strong><p>Before touching AI Studio, sketch your data model. For a site with gated content: User (id, lemon_squeezy_license, tier), Post (slug, title, body_md, tier, published_at), LogEntry (slug, title, body_md, published_at — public). Draw the table/model diagram on paper or in a note. You will give this to AI Studio as an image in step 5.</p></div></div>
-      <div class="step"><span class="step-num">4</span><div class="step-content"><strong>Fill in the GCP Stack section of DASHBOARD.md</strong><p>Go to your GCP Console. Copy your Project ID into DASHBOARD.md. Choose your region. List only the services you have already provisioned or will provision in the first block. Leave everything else blank with [ADD WHEN PROVISIONED]. Commit.</p></div></div>
-    </div>
-
-    <h3>Phase 1 — First AI Studio session: data model only</h3>
-    <p>Open AI Studio. Create a new project. Connect it to your GitHub repo. Paste your System Instructions from the template in Section 06. Upload your three dashboard files as context. Then — and only then — write your first prompt.</p>
-
-    <div class="code-block">
-      <span class="code-label">First prompt — data model only</span>
-      <pre><span class="comment"># Upload: DASHBOARD.md, EVOLUTION.md, your hand-drawn data model photo</span>
-
-"Read DASHBOARD.md and EVOLUTION.md first.
-
-Generate the Pydantic v2 data models for this project only — 
-no routing, no database connections, no UI. Three models:
-User, Post, LogEntry.
-
-Rules:
-- Strict Pydantic v2 validation
-- No optional fields unless explicitly noted
-- Add a docstring to every model explaining its purpose
-- Put all three models in models.py only
-- Do not create any other files"</pre>
-    </div>
-
-    <p>When the models are generated, review them carefully before accepting. Run the verification prompt from Section 10: ask the model to list every assumption it made. Adjust. When the models look correct, create a GitHub checkpoint, commit to GitHub: <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">feat(data): Pydantic v2 models — User, Post, LogEntry [arch-001]</code>. Log the decision in EVOLUTION.md.</p>
-
-    <h3>Phase 2 — First block: one service, one operation</h3>
-    <p>Pick the single most important data operation in your project and build only that. For a site with gated content, it is license validation — the function that checks whether a Lemon Squeezy license key is valid before serving gated content. Everything else waits.</p>
-
-    <div class="code-block">
-      <span class="code-label">Second prompt — single operation, one file</span>
-      <pre>"Add a license validation function in auth.py only.
-
-The function: validate_license(license_key: str) -> bool
-- Makes a POST request to the Lemon Squeezy license validation API
-- Returns True if the license is active and valid
-- Returns False for all other states
-- Logs the API call at INFO level with the response status (not the key itself)
-- Includes a dry_run parameter that returns True without calling the API
-- Raises LicenseValidationError (define it in auth.py) on network failure
-
-Do not create a route, a UI, or any other file.
-Add the Lemon Squeezy API endpoint to config.py — not hardcoded."</pre>
-    </div>
-
-    <div class="callout amber">
-      <span class="callout-label">For newcomers to AI Studio: the most important habit</span>
-      <p>After every prompt that generates code, run the verification prompt before accepting: <em>"List every file you modified, every new dependency added, and every assumption made."</em> Make this reflexive. It takes 10 seconds and catches the silent changes that become debugging sessions later.</p>
-    </div>
-
-    <h3>Phase 3 — Connect two blocks</h3>
-    <p>You now have models and a license validation function. The next block connects them: a FastAPI route that accepts a license key, validates it, and returns the appropriate content tier. One route, one file.</p>
-
-    <div class="code-block">
-      <span class="code-label">Third prompt — connect blocks, one route</span>
-      <pre>"Add one FastAPI route in routes/content.py only.
-
-Route: GET /content/{slug}
-- Accepts header: X-License-Key: str
-- Calls validate_license() from auth.py
-- If valid: queries the database for the Post with matching slug
-  (use a stub function get_post_by_slug(slug) in db.py — 
-  return a hardcoded Post object for now, real DB comes next block)
-- If invalid: return 403 with message 'Valid license required'
-- If post not found: return 404
-- Return Post as JSON using the Pydantic model from models.py
-
-Do not add the database connection yet — use the stub.
-Do not add authentication middleware — just the header check for now."</pre>
-    </div>
-
-    <p>The stub pattern is the key technique for newcomers. You build the route shape with fake data, verify the logic is correct, then replace the stub with real database calls in the next block. This keeps each block independently testable and prevents the common failure mode of building everything at once and not knowing where the error is.</p>
-
-    <h3>Phase 4 — Replace stubs with real services (one at a time)</h3>
-    <p>Only now do you add the Cloud SQL connection. One prompt, one file, replacing one stub.</p>
-
-    <div class="code-block">
-      <span class="code-label">Fourth prompt — real database, replace stub</span>
-      <pre>"Replace the get_post_by_slug stub in db.py with a real 
-Cloud SQL (PostgreSQL) query using asyncpg.
-
-Requirements from DASHBOARD.md:
-- Cloud SQL instance: [from your dashboard]
-- Use Cloud SQL Python Connector for authentication
-- Do not hardcode connection strings — read from environment variables
-- IAM permission needed: roles/cloudsql.client — confirm this is in DASHBOARD.md
-- Connection should use connection pooling (min 2, max 10)
-- Add a get_db_pool() function that initializes once at startup
-- The get_post_by_slug function: returns Post | None
-
-Update DASHBOARD.md § Active Services to add Cloud SQL.
-Do not touch any other file."</pre>
-    </div>
-
-    <h3>Phase 5 — Add the public log layer</h3>
-    <p>The public log (markdown files → static HTML → Firebase) is a separate layer from the gated content. It requires a GitHub Action, not Cloud Run. Prompt AI Studio to generate the GitHub Action workflow file.</p>
-
-    <div class="code-block">
-      <span class="code-label">Fifth prompt — GitHub Action for public log</span>
-      <pre>"Create .github/workflows/deploy-log.yml only.
-
-This workflow:
-- Triggers on push to main when any file in /log/*.md changes
-- Uses a Python script (scripts/build_log.py) to convert 
-  all /log/*.md files to /public/log/*.html
-- Each HTML file uses a minimal template that matches the 
-  style tokens in DASHBOARD.md § Colors and § Typography
-- Deploys the /public directory to Firebase Hosting
-- Requires secret: FIREBASE_SERVICE_ACCOUNT (already configured)
-
-Also create scripts/build_log.py with the conversion logic.
-Use python-markdown library. Keep the HTML template minimal — 
-nav, article, footer. No JavaScript required."</pre>
-    </div>
-
-    <h3>Phase 6 — Deploy to Cloud Run and test for real</h3>
-    <p>At this point you have: data models, license validation, a content route with real database, and a public log pipeline. Deploy the FastAPI app to Cloud Run using the production flags from Section 11 — not the one-click deploy. Test every endpoint against the real Cloud Run URL, not the AI Studio preview. The latency, error handling, and IAM behavior will be different. Fix what breaks. Log it in EVOLUTION.md.</p>
-
-    <h3>Phase 7 — Add the UI last</h3>
-    <p>Only when the logic layer is deployed and tested do you build the UI. In AI Studio's Build tab, your System Instructions already have the style guide. Your first UI prompt is simple:</p>
-
-    <div class="code-block">
-      <span class="code-label">UI prompt — after logic is working</span>
-      <pre>"Build a minimal HTML/CSS/JS frontend for the gated content layer.
-
-It needs three views only:
-1. /log — public list of log entries, links to individual entries
-2. /notes — license key input form + content view (calls GET /content/{slug})  
-3. /notes/{slug} — single gated post view
-
-Use only the design tokens in DASHBOARD.md § Colors and § Typography.
-No JavaScript frameworks — vanilla JS for the license key form only.
-No new colors, fonts, or spacing values.
-
-Start with view 1 only. Do not build views 2 and 3 yet."</pre>
-    </div>
-
-    <h3>Newcomer checklist — things that will trip you up</h3>
-    <div class="step-list">
-      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>AI Studio streaming breaks the preview iframe</strong><p>If you're building anything with streaming responses from Gemini, test it on Cloud Run — not the preview. Prototype with non-streaming, switch to streaming at deploy time. Log this in EVOLUTION.md § What Was Tried and Abandoned the first time it happens.</p></div></div>
-      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>The model will add dependencies without asking</strong><p>Your System Instructions say to ask first, but it will still sometimes add a new import silently. The verification prompt catches this. Run it after every significant code generation — not just when you're suspicious.</p></div></div>
-      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>GitHub sync is one-way — don't edit in GitHub</strong><p>If you make a quick fix directly in GitHub, it will not sync back to AI Studio. Make all code changes inside AI Studio, commit out to GitHub. If you need to restore from GitHub, export the code and start a new AI Studio project.</p></div></div>
-      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>Cold start on Cloud Run min-instances=0 is 2–8 seconds</strong><p>The AI Studio preview is warm and fast. Your Cloud Run deployment with min-instances=0 will have a cold start on the first request after inactivity. For interactive tools, set min-instances=1 and log the cost implication in EVOLUTION.md.</p></div></div>
-      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>The IAM permissions gap</strong><p>AI Studio prototype assumes ambient permissions. Cloud Run requires explicit IAM. List the exact roles your service account needs in DASHBOARD.md before deploying. The most common missing role: roles/cloudsql.client for Cloud SQL connections.</p></div></div>
-      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>Revert at two failed fix attempts — not three</strong><p>If the model cannot fix something in two rounds, it will not fix it in five. Revert to the last checkpoint. Document the failure in EVOLUTION.md § What Was Tried and Abandoned. Approach from a different angle. This is the discipline that separates fast builders from people who spend a day arguing with a broken codebase.</p></div></div>
-    </div>
-  </section>
 
   <!-- 01 -->
   <section class="section" id="why">
@@ -582,9 +421,62 @@ Start with view 1 only. Do not build views 2 and 3 yet."</pre>
     </div>
   </section>
 
-  <!-- 02 -->
+  <!-- 02 Identity -->
+  <section class="section" id="identity-layer">
+    <span class="section-num">02 — Identity</span>
+    <h2>The Identity Layer — <em>Firebase Auth + GCP IAM</em></h2>
+    <p>Before any block is built, the identity layer must be in place. Firebase Auth is the universal entry point for user-facing applications — it handles authentication (email, Google, GitHub OAuth) and issues JWTs that your backend validates. The integration with GCP IAM is what makes it production-grade: Firebase Auth tokens can be verified server-side using Google's public keys, and Cloud Run services can be configured to require valid tokens before accepting requests.</p>
+
+    <div class="code-block">
+      <span class="code-label">Firebase Auth → Cloud Run verification — Python</span>
+      <pre>from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
+import os
+
+FIREBASE_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
+
+def verify_firebase_token(id_token_str: str) -> dict:
+    """
+    Verify a Firebase Auth JWT token.
+    Returns the decoded token claims if valid.
+    Raises ValueError if invalid or expired.
+    """
+    try:
+        decoded = id_token.verify_firebase_token(
+            id_token_str,
+            google_requests.Request(),
+            audience=FIREBASE_PROJECT_ID
+        )
+        return decoded  # contains uid, email, and any custom claims
+    except Exception as e:
+        raise ValueError(f"Invalid Firebase token: {e}")
+
+# FastAPI middleware usage
+from fastapi import Request, HTTPException
+
+async def require_auth(request: Request) -> dict:
+    """Dependency — validates Firebase token on every protected route."""
+    auth_header = request.headers.get("Authorization", "")
+    if not auth_header.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Missing auth token")
+    token = auth_header.split("Bearer ")[1]
+    return verify_firebase_token(token)</pre>
+    </div>
+
+    <div class="callout amber">
+      <span class="callout-label">DASHBOARD.md addition</span>
+      <p>Add to your DASHBOARD.md § Identity: Firebase project ID, whether custom claims are in use, and which routes require auth vs are public. The identity layer is the first thing a new engineer needs to understand and the last thing to be documented in most projects.</p>
+    </div>
+
+    <div class="callout blue">
+      <span class="callout-label">IAM integration</span>
+      <p>Firebase Auth UIDs can be mapped to GCP IAM conditions using IAM Conditions. This lets you grant specific GCP resource access to specific authenticated users without a separate user management system. Document the mapping in DASHBOARD.md § Service Accounts.</p>
+    </div>
+  </section>
+
+  <!-- 02 Dashboard -->
   <section class="section" id="dashboards">
-    <span class="section-num">02 — Pattern</span>
+    <span class="section-num">03 — Pattern</span>
     <h2>The Project Dashboard Pattern</h2>
     <p>The single most useful thing you can do before writing your first prompt to the AI Studio coding agent is create two reference artifacts: a <strong>Style Guide Dashboard</strong> and a <strong>GCP Stack Reference Card</strong>. Both live as files in your project. Both get referenced in your System Instructions. Both make every subsequent prompt more precise.</p>
     <p>This pattern solves the most common AI Studio failure mode: the model generating inconsistent UI, wrong service names, incorrect IAM patterns, or drift from your design system across a long build session. When the model can read your reference card, it stops hallucinating your stack.</p>
@@ -603,7 +495,7 @@ Start with view 1 only. Do not build views 2 and 3 yet."</pre>
 
   <!-- 03 -->
   <section class="section" id="style-dashboard">
-    <span class="section-num">03 — Artifact</span>
+    <span class="section-num">04 — Artifact</span>
     <h2>Style Guide Dashboard</h2>
     <p>The style guide section of your dashboard is a minimal design token reference. Not a full design system — just the set of values the AI needs to generate consistent UI without asking you. Colors, typography, spacing scale, component patterns you've approved. Here's what a production-ready style dashboard looks like:</p>
 
@@ -696,7 +588,7 @@ Start with view 1 only. Do not build views 2 and 3 yet."</pre>
 
   <!-- 04 -->
   <section class="section" id="gcp-dashboard">
-    <span class="section-num">04 — Artifact</span>
+    <span class="section-num">05 — Artifact</span>
     <h2>GCP Stack Reference Card</h2>
     <p>The second section of your dashboard is a quick-reference card for your Google Cloud architecture. Its purpose is not documentation — it's to prevent the model from inventing service names, using deprecated APIs, or connecting services in ways that don't match your actual IAM setup.</p>
     <p>Keep it to the services actually in use. Do not list aspirational services. The model reads this as ground truth.</p>
@@ -781,7 +673,7 @@ Start with view 1 only. Do not build views 2 and 3 yet."</pre>
 
   <!-- 05 -->
   <section class="section" id="project-md">
-    <span class="section-num">05 — Artifact</span>
+    <span class="section-num">06 — Artifact</span>
     <h2>The Project Evolution MD</h2>
     <p>The project dashboard is your reference. The Project Evolution MD is your <em>log</em>. It answers the question that every developer eventually asks: <strong>why did I make that decision three weeks ago?</strong></p>
     <p>Most documentation captures what was built. The Project Evolution MD captures what was decided, what was tried and abandoned, what changed direction and why. It is a running record of the project's thinking, not just its state. This is the artifact that makes a project recoverable — by you, by a future collaborator, by an AI coding agent that needs to understand the context of the current codebase.</p>
@@ -859,7 +751,7 @@ Affects: Remove all UI components. Focus on OpenAPI spec and rate limiting.</spa
 
   <!-- 06 -->
   <section class="section" id="system-instructions">
-    <span class="section-num">06 — Configuration</span>
+    <span class="section-num">07 — Configuration</span>
     <h2>System Instructions as <em>Onboarding Packages</em></h2>
     <p>The System Instructions field in AI Studio is the most underused enterprise feature on the platform. Most developers leave it blank or write a single sentence. Treat it instead as the onboarding documentation you would write for a new junior engineer joining your project. They need to know how you work, what the stack is, how to communicate, and what they absolutely must not do.</p>
 
@@ -912,13 +804,24 @@ If you believe a different model is better, flag it with a comment — do not su
 
   <!-- 07 -->
   <section class="section" id="block-by-block">
-    <span class="section-num">07 — Methodology</span>
+    <span class="section-num">08 — Methodology</span>
     <h2>Build Block by Block</h2>
     <p>The most common mistake in AI Studio — even by experienced developers — is prompting for the complete application before the architecture is clear. The result is a monolith that works in the demo and breaks under the first real requirement. The block-by-block approach inverts this.</p>
 
     <blockquote>
       <p>"The discipline is not in the prompt. It is in what you refuse to prompt for until the previous block is solid."</p>
     </blockquote>
+
+    <h3>The construction sequence</h3>
+    <p>The sequence below maps directly to how physical construction works — and for the same reason. You cannot hang windows before the walls are framed. You cannot lay furniture before the floors are finished. In software, skipping the sequence produces the same result: expensive rework on a foundation that cannot support what you tried to build on it.</p>
+
+    <div class="step-list">
+      <div class="step"><span class="step-num">01</span><div class="step-content"><strong>Plumbing — IAM, APIs, service accounts</strong><p>Enable every GCP API you will use. Create service accounts with minimum viable roles. Set up Secret Manager. Verify credentials before touching any application code. Nothing built on top of this layer should need to change IAM permissions later — if it does, the plumbing was wrong.</p></div></div>
+      <div class="step"><span class="step-num">02</span><div class="step-content"><strong>Soil — Schema-first database design</strong><p>Define your database schema before any application code. Tables, columns, indexes, constraints, and for spatial projects: PostGIS extension and geometry columns with explicit SRID. Schema-first design prevents the most expensive form of technical debt: a data model that has to be migrated after application logic has been written against it. CREATE the tables. Verify them. Only then move to the next layer.</p></div></div>
+      <div class="step"><span class="step-num">03</span><div class="step-content"><strong>House — API surface and business logic</strong><p>Build the FastAPI routes and service functions against the schema you just created. Not the UI, not the AI layer — the typed API surface that everything else will call. Every route validated with Pydantic. Every database call going through db.py. The house is the structure. It must be solid before you add anything else.</p></div></div>
+      <div class="step"><span class="step-num">04</span><div class="step-content"><strong>Furniture — data, integrations, AI layer</strong><p>Migrate or seed real data. Add the LLM calls — always in the service layer, never in routes, never touching the database directly. Add any third-party integrations (payment, auth, external APIs). Each piece of furniture is independently removable without touching the structure.</p></div></div>
+      <div class="step"><span class="step-num">05</span><div class="step-content"><strong>Windows — frontend and UI</strong><p>The UI is the last thing you build. Always. A beautiful UI over broken logic is the most common and most expensive mistake in AI Studio prototyping. When the logic layer is deployed, tested against real Cloud Run infrastructure, and returning correct responses — then open AI Studio's Build tab and build the frontend.</p></div></div>
+    </div>
 
     <h3>The block sequence</h3>
     <div class="step-list">
@@ -940,7 +843,7 @@ If you believe a different model is better, flag it with a comment — do not su
 
   <!-- 08 -->
   <section class="section" id="gemini-api">
-    <span class="section-num">08 — API</span>
+    <span class="section-num">09 — API</span>
     <h2>Working with the Gemini Developer API</h2>
     <p>The Gemini Developer API (not the Vertex AI Gemini endpoint) is meaningfully different in practice: faster response times, more precise code generation with less boilerplate, and a cleaner Python client. For prototyping in AI Studio and for lightweight production workloads, it is often the better choice. For enterprise workloads requiring VPC, CMEK, or Vertex AI feature store integration, stay on the Vertex AI endpoint.</p>
 
@@ -1041,7 +944,7 @@ print(response.candidates[<span class="val">0</span>].grounding_metadata)</pre>
 
   <!-- 09 -->
   <section class="section" id="version-control">
-    <span class="section-num">09 — Workflow</span>
+    <span class="section-num">10 — Workflow</span>
     <h2>Version Control Strategy</h2>
     <p>AI Studio's built-in checkpoints and GitHub sync are complementary tools. Understanding when to use each determines whether your project history is a recoverable asset or a tangle of partial saves.</p>
 
@@ -1083,7 +986,7 @@ print(response.candidates[<span class="val">0</span>].grounding_metadata)</pre>
 
   <!-- 10 -->
   <section class="section" id="prompting">
-    <span class="section-num">10 — Technique</span>
+    <span class="section-num">11 — Technique</span>
     <h2>Advanced Prompting Patterns</h2>
     <p>The following patterns apply specifically to AI Studio's Build tab coding agent — not the chat interface. They are ordered by impact.</p>
 
@@ -1138,7 +1041,7 @@ about the existing codebase. Flag anything that is a
 
   <!-- 11 -->
   <section class="section" id="deploy">
-    <span class="section-num">11 — Deployment</span>
+    <span class="section-num">12 — Deployment</span>
     <h2>From AI Studio to Production on Cloud Run</h2>
     <p>AI Studio's one-click Cloud Run deploy is fast and useful for sharing prototypes. For anything approaching production, you need to understand what it's doing and where it makes decisions you need to override.</p>
 
@@ -1179,7 +1082,7 @@ about the existing codebase. Flag anything that is a
 
   <!-- 12 -->
   <section class="section" id="verification">
-    <span class="section-num">12 — Principle</span>
+    <span class="section-num">13 — Principle</span>
     <h2>The Verification Layer</h2>
     <p>Every tool in this guide — the dashboard, the evolution MD, the system instructions, the block-by-block methodology — serves a single underlying principle: <strong>your build process should be as verifiable as your output.</strong></p>
     <p>The EVOLUTION.md commit history is not just project management. It is a provenance record. Every decision logged, every abandoned approach documented, every pivot explained — this is the evidence layer that makes your work defensible, transferable, and recoverable. In a world where AI can generate the code, the thing that carries your name is the reasoning underneath it.</p>
@@ -1194,6 +1097,173 @@ about the existing codebase. Flag anything that is a
       <p>"You do not build the proof layer to protect something you have stopped caring about. You build it, and in the building, you remember why you cared in the first place."</p>
       <cite>— from The Proof Economy</cite>
     </blockquote>
+  </section>
+
+  <!-- 00 -->
+  <section class="section" id="scratch">
+    <span class="section-num">00 — Walkthrough</span>
+    <h2>End-to-End: <em>Starting From Zero</em></h2>
+    <p>This section is the practical walkthrough this guide builds toward. Everything in sections 01–12 is reference material. This section is the sequence. Follow it start to finish for any new project — including converting an existing static site into a real application with auth, a CMS layer, and gated content.</p>
+    <p>The example project used here is realistic and complete: converting a static HTML site on Firebase into a structured application with a markdown-driven public layer, a gated notes/intelligence section on Cloud Run, and Lemon Squeezy payment integration. This is a minimal instructions stack for a new project on a simple cms project with gated content.</p>
+
+    <div class="callout blue">
+      <span class="callout-label">Before you open AI Studio</span>
+      <p>Complete the <a href="https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio" target="_blank" style="color:var(--blue);">introductory GDG codelab</a> first. You need to know how to create a project, use the Build tab, and do a one-click Cloud Run deploy. This walkthrough picks up exactly where the codelab ends.</p>
+    </div>
+
+    <h3>Phase 0 — Before the first prompt (20 minutes)</h3>
+    <p>Open a text editor, not AI Studio. Create a folder for your project. Create three files: <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">DASHBOARD.md</code>, <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">EVOLUTION.md</code>, and <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">Design.md</code>. Use the minimal templates from Sections 03, 04, and 05. Fill in only what you know right now — leave everything else as <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">[DECIDE]</code>. Commit these three files to a new GitHub repo before writing a single line of code.</p>
+
+    <div class="step-list">
+      <div class="step"><span class="step-num">1</span><div class="step-content"><strong>Create the project repo</strong><p>New GitHub repo. Clone locally. Create DASHBOARD.md, EVOLUTION.md, Design.md from the templates in this guide. Commit: <code style="font-family:'DM Mono',monospace;font-size:0.8em;">chore: project scaffolding — dashboards and evolution log</code></p></div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-content"><strong>Write the project brief in EVOLUTION.md</strong><p>One paragraph: what you are building, who it is for, what "done" means, what it explicitly does NOT do. This takes 10 minutes and saves 10 hours. Do not skip it. Log it as your first EVOLUTION.md entry.</p></div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-content"><strong>Define the data shape on paper</strong><p>Before touching AI Studio, sketch your data model. For a site with gated content: User (id, lemon_squeezy_license, tier), Post (slug, title, body_md, tier, published_at), LogEntry (slug, title, body_md, published_at — public). Draw the table/model diagram on paper or in a note. You will give this to AI Studio as an image in step 5.</p></div></div>
+      <div class="step"><span class="step-num">4</span><div class="step-content"><strong>Fill in the GCP Stack section of DASHBOARD.md</strong><p>Go to your GCP Console. Copy your Project ID into DASHBOARD.md. Choose your region. List only the services you have already provisioned or will provision in the first block. Leave everything else blank with [ADD WHEN PROVISIONED]. Commit.</p></div></div>
+    </div>
+
+    <h3>Phase 1 — First AI Studio session: data model only</h3>
+    <p>Open AI Studio. Create a new project. Connect it to your GitHub repo. Paste your System Instructions from the template in Section 06. Upload your three dashboard files as context. Then — and only then — write your first prompt.</p>
+
+    <div class="code-block">
+      <span class="code-label">First prompt — data model only</span>
+      <pre><span class="comment"># Upload: DASHBOARD.md, EVOLUTION.md, your hand-drawn data model photo</span>
+
+"Read DASHBOARD.md and EVOLUTION.md first.
+
+Generate the Pydantic v2 data models for this project only —
+no routing, no database connections, no UI. Three models:
+User, Post, LogEntry.
+
+Rules:
+- Strict Pydantic v2 validation
+- No optional fields unless explicitly noted
+- Add a docstring to every model explaining its purpose
+- Put all three models in models.py only
+- Do not create any other files"</pre>
+    </div>
+
+    <p>When the models are generated, review them carefully before accepting. Run the verification prompt from Section 10: ask the model to list every assumption it made. Adjust. When the models look correct, create a GitHub checkpoint, commit to GitHub: <code style="font-family:'DM Mono',monospace;font-size:0.85em;background:var(--cream);padding:0.1rem 0.3rem;">feat(data): Pydantic v2 models — User, Post, LogEntry [arch-001]</code>. Log the decision in EVOLUTION.md.</p>
+
+    <h3>Phase 2 — First block: one service, one operation</h3>
+    <p>Pick the single most important data operation in your project and build only that. For a site with gated content, it is license validation — the function that checks whether a Lemon Squeezy license key is valid before serving gated content. Everything else waits.</p>
+
+    <div class="code-block">
+      <span class="code-label">Second prompt — single operation, one file</span>
+      <pre>"Add a license validation function in auth.py only.
+
+The function: validate_license(license_key: str) -> bool
+- Makes a POST request to the Lemon Squeezy license validation API
+- Returns True if the license is active and valid
+- Returns False for all other states
+- Logs the API call at INFO level with the response status (not the key itself)
+- Includes a dry_run parameter that returns True without calling the API
+- Raises LicenseValidationError (define it in auth.py) on network failure
+
+Do not create a route, a UI, or any other file.
+Add the Lemon Squeezy API endpoint to config.py — not hardcoded."</pre>
+    </div>
+
+    <div class="callout amber">
+      <span class="callout-label">For newcomers to AI Studio: the most important habit</span>
+      <p>After every prompt that generates code, run the verification prompt before accepting: <em>"List every file you modified, every new dependency added, and every assumption made."</em> Make this reflexive. It takes 10 seconds and catches the silent changes that become debugging sessions later.</p>
+    </div>
+
+    <h3>Phase 3 — Connect two blocks</h3>
+    <p>You now have models and a license validation function. The next block connects them: a FastAPI route that accepts a license key, validates it, and returns the appropriate content tier. One route, one file.</p>
+
+    <div class="code-block">
+      <span class="code-label">Third prompt — connect blocks, one route</span>
+      <pre>"Add one FastAPI route in routes/content.py only.
+
+Route: GET /content/{slug}
+- Accepts header: X-License-Key: str
+- Calls validate_license() from auth.py
+- If valid: queries the database for the Post with matching slug
+  (use a stub function get_post_by_slug(slug) in db.py —
+  return a hardcoded Post object for now, real DB comes next block)
+- If invalid: return 403 with message 'Valid license required'
+- If post not found: return 404
+- Return Post as JSON using the Pydantic model from models.py
+
+Do not add the database connection yet — use the stub.
+Do not add authentication middleware — just the header check for now."</pre>
+    </div>
+
+    <p>The stub pattern is the key technique for newcomers. You build the route shape with fake data, verify the logic is correct, then replace the stub with real database calls in the next block. This keeps each block independently testable and prevents the common failure mode of building everything at once and not knowing where the error is.</p>
+
+    <h3>Phase 4 — Replace stubs with real services (one at a time)</h3>
+    <p>Only now do you add the Cloud SQL connection. One prompt, one file, replacing one stub.</p>
+
+    <div class="code-block">
+      <span class="code-label">Fourth prompt — real database, replace stub</span>
+      <pre>"Replace the get_post_by_slug stub in db.py with a real
+Cloud SQL (PostgreSQL) query using asyncpg.
+
+Requirements from DASHBOARD.md:
+- Cloud SQL instance: [from your dashboard]
+- Use Cloud SQL Python Connector for authentication
+- Do not hardcode connection strings — read from environment variables
+- IAM permission needed: roles/cloudsql.client — confirm this is in DASHBOARD.md
+- Connection should use connection pooling (min 2, max 10)
+- Add a get_db_pool() function that initializes once at startup
+- The get_post_by_slug function: returns Post | None
+
+Update DASHBOARD.md § Active Services to add Cloud SQL.
+Do not touch any other file."</pre>
+    </div>
+
+    <h3>Phase 5 — Add the public log layer</h3>
+    <p>The public log (markdown files → static HTML → Firebase) is a separate layer from the gated content. It requires a GitHub Action, not Cloud Run. Prompt AI Studio to generate the GitHub Action workflow file.</p>
+
+    <div class="code-block">
+      <span class="code-label">Fifth prompt — GitHub Action for public log</span>
+      <pre>"Create .github/workflows/deploy-log.yml only.
+
+This workflow:
+- Triggers on push to main when any file in /log/*.md changes
+- Uses a Python script (scripts/build_log.py) to convert
+  all /log/*.md files to /public/log/*.html
+- Each HTML file uses a minimal template that matches the
+  style tokens in DASHBOARD.md § Colors and § Typography
+- Deploys the /public directory to Firebase Hosting
+- Requires secret: FIREBASE_SERVICE_ACCOUNT (already configured)
+
+Also create scripts/build_log.py with the conversion logic.
+Use python-markdown library. Keep the HTML template minimal —
+nav, article, footer. No JavaScript required."</pre>
+    </div>
+
+    <h3>Phase 6 — Deploy to Cloud Run and test for real</h3>
+    <p>At this point you have: data models, license validation, a content route with real database, and a public log pipeline. Deploy the FastAPI app to Cloud Run using the production flags from Section 11 — not the one-click deploy. Test every endpoint against the real Cloud Run URL, not the AI Studio preview. The latency, error handling, and IAM behavior will be different. Fix what breaks. Log it in EVOLUTION.md.</p>
+
+    <h3>Phase 7 — Add the UI last</h3>
+    <p>Only when the logic layer is deployed and tested do you build the UI. In AI Studio's Build tab, your System Instructions already have the style guide. Your first UI prompt is simple:</p>
+
+    <div class="code-block">
+      <span class="code-label">UI prompt — after logic is working</span>
+      <pre>"Build a minimal HTML/CSS/JS frontend for the gated content layer.
+
+It needs three views only:
+1. /log — public list of log entries, links to individual entries
+2. /notes — license key input form + content view (calls GET /content/{slug})
+3. /notes/{slug} — single gated post view
+
+Use only the design tokens in DASHBOARD.md § Colors and § Typography.
+No JavaScript frameworks — vanilla JS for the license key form only.
+No new colors, fonts, or spacing values.
+
+Start with view 1 only. Do not build views 2 and 3 yet."</pre>
+    </div>
+
+    <h3>Newcomer checklist — things that will trip you up</h3>
+    <div class="step-list">
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>AI Studio streaming breaks the preview iframe</strong><p>If you're building anything with streaming responses from Gemini, test it on Cloud Run — not the preview. Prototype with non-streaming, switch to streaming at deploy time. Log this in EVOLUTION.md § What Was Tried and Abandoned the first time it happens.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>The model will add dependencies without asking</strong><p>Your System Instructions say to ask first, but it will still sometimes add a new import silently. The verification prompt catches this. Run it after every significant code generation — not just when you're suspicious.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>GitHub sync is one-way — don't edit in GitHub</strong><p>If you make a quick fix directly in GitHub, it will not sync back to AI Studio. Make all code changes inside AI Studio, commit out to GitHub. If you need to restore from GitHub, export the code and start a new AI Studio project.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>Cold start on Cloud Run min-instances=0 is 2–8 seconds</strong><p>The AI Studio preview is warm and fast. Your Cloud Run deployment with min-instances=0 will have a cold start on the first request after inactivity. For interactive tools, set min-instances=1 and log the cost implication in EVOLUTION.md.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>The IAM permissions gap</strong><p>AI Studio prototype assumes ambient permissions. Cloud Run requires explicit IAM. List the exact roles your service account needs in DASHBOARD.md before deploying. The most common missing role: roles/cloudsql.client for Cloud SQL connections.</p></div></div>
+      <div class="step"><span class="step-num">⚠</span><div class="step-content"><strong>Revert at two failed fix attempts — not three</strong><p>If the model cannot fix something in two rounds, it will not fix it in five. Revert to the last checkpoint. Document the failure in EVOLUTION.md § What Was Tried and Abandoned. Approach from a different angle. This is the discipline that separates fast builders from people who spend a day arguing with a broken codebase.</p></div></div>
+    </div>
   </section>
 
   <footer>
